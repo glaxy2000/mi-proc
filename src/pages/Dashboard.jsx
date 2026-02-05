@@ -95,7 +95,7 @@ export default function Dashboard() {
           </div>
           <div className="flex gap-3 mt-4 md:mt-0">
             <Link to={createPageUrl('CreateRFQ')}>
-              <Button className="bg-indigo-600 hover:bg-indigo-700">
+              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
                 <Plus className="h-4 w-4 mr-2" />
                 New RFQ
               </Button>

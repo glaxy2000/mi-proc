@@ -55,6 +55,7 @@ import Negotiations from './pages/Negotiations';
 import Escrow from './pages/Escrow';
 import Suppliers from './pages/Suppliers';
 import RFQList from './pages/RFQList';
+import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
@@ -71,4 +72,5 @@ export const PAGES = {
 export const pagesConfig = {
     mainPage: "Home",
     Pages: PAGES,
+    Layout: __Layout,
 };

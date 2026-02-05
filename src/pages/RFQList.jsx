@@ -113,7 +113,7 @@ export default function RFQList() {
             <p className="text-slate-500 mt-1">Manage your procurement requests</p>
           </div>
           <Link to={createPageUrl('CreateRFQ')}>
-            <Button className="mt-4 md:mt-0 bg-indigo-600 hover:bg-indigo-700">
+            <Button className="mt-4 md:mt-0 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
               <Plus className="h-4 w-4 mr-2" />
               Create New RFQ
             </Button>

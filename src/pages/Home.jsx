@@ -94,7 +94,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link to={createPageUrl('CreateRFQ')}>
-                  <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">
+                  <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 font-semibold">
                     Create RFQ
                   </Button>
                 </Link>
@@ -271,7 +271,7 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to={createPageUrl('CreateRFQ')}>
-              <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700">
+              <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
                 Create Your First RFQ
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
