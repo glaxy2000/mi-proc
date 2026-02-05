@@ -55,9 +55,11 @@ export default function Layout({ children, currentPageName }) {
       }`}>
         <div className="flex items-center justify-between h-16 px-6 border-b">
           <Link to={createPageUrl('Home')} className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">mi</span>
-            </div>
+            <img 
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/2e05b03c0_MI-logo-color.png" 
+              alt="MI Technologies" 
+              className="h-8"
+            />
             <div>
               <span className="font-bold text-slate-900">Mi-Proc</span>
               <Badge className="ml-2 bg-teal-100 text-teal-700 text-xs">Beta</Badge>
