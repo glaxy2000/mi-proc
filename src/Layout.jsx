@@ -119,7 +119,7 @@ export default function Layout({ children, currentPageName }) {
 
             <div className="flex items-center gap-4">
               <Link to={createPageUrl('CreateRFQ')}>
-                <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 hidden sm:flex">
+                <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white hidden sm:flex">
                   <FileText className="h-4 w-4 mr-2" />
                   Create RFQ
                 </Button>
