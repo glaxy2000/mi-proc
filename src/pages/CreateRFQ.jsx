@@ -1,0 +1,454 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '../utils';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Upload,
+  Plus,
+  Trash2,
+  Calendar,
+  Building2,
+  Package,
+  FileText,
+  CheckCircle2,
+  Shield,
+  Eye,
+  EyeOff
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+
+export default function CreateRFQ() {
+  const [step, setStep] = useState(1);
+  const [blindRFQ, setBlindRFQ] = useState(true);
+  const [items, setItems] = useState([
+    { id: 1, description: '', quantity: '', unit: 'units', specifications: '' }
+  ]);
+
+  const categories = [
+    'Construction Materials',
+    'Office Supplies',
+    'IT & Hardware',
+    'Medical Supplies',
+    'Raw Materials',
+    'Industrial Components',
+    'Packaging',
+    'Other'
+  ];
+
+  const addItem = () => {
+    setItems([...items, { id: items.length + 1, description: '', quantity: '', unit: 'units', specifications: '' }]);
+  };
+
+  const removeItem = (id) => {
+    if (items.length > 1) {
+      setItems(items.filter(item => item.id !== id));
+    }
+  };
+
+  const steps = [
+    { number: 1, title: 'Basic Info', icon: FileText },
+    { number: 2, title: 'Line Items', icon: Package },
+    { number: 3, title: 'Settings', icon: Shield },
+    { number: 4, title: 'Review', icon: CheckCircle2 }
+  ];
+
+  return (
+    <div className="min-h-screen bg-slate-50 p-6 lg:p-8">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <Link to={createPageUrl('Dashboard')} className="inline-flex items-center text-slate-600 hover:text-slate-900 mb-4">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Dashboard
+          </Link>
+          <h1 className="text-3xl font-bold text-slate-900">Create Blind RFQ</h1>
+          <p className="text-slate-500 mt-1">Post an anonymous request for quotation to verified suppliers</p>
+        </div>
+
+        {/* Progress Steps */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between">
+            {steps.map((s, index) => (
+              <React.Fragment key={s.number}>
+                <div className="flex items-center">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                    step >= s.number ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-500'
+                  }`}>
+                    <s.icon className="h-5 w-5" />
+                  </div>
+                  <span className={`ml-3 font-medium hidden sm:block ${
+                    step >= s.number ? 'text-indigo-600' : 'text-slate-500'
+                  }`}>
+                    {s.title}
+                  </span>
+                </div>
+                {index < steps.length - 1 && (
+                  <div className={`flex-1 h-1 mx-4 rounded ${
+                    step > s.number ? 'bg-indigo-600' : 'bg-slate-200'
+                  }`} />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        {/* Blind RFQ Badge */}
+        <div className="flex items-center gap-3 mb-6 p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+          <div className="p-2 bg-indigo-100 rounded-lg">
+            {blindRFQ ? <EyeOff className="h-5 w-5 text-indigo-600" /> : <Eye className="h-5 w-5 text-indigo-600" />}
+          </div>
+          <div className="flex-1">
+            <p className="font-medium text-indigo-900">
+              {blindRFQ ? 'Blind RFQ Mode Active' : 'Standard RFQ Mode'}
+            </p>
+            <p className="text-sm text-indigo-600">
+              {blindRFQ ? 'Your identity is hidden from suppliers until you choose to reveal it' : 'Suppliers can see your company information'}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Label htmlFor="blind-mode" className="text-sm text-indigo-700">Blind Mode</Label>
+            <Switch id="blind-mode" checked={blindRFQ} onCheckedChange={setBlindRFQ} />
+          </div>
+        </div>
+
+        <AnimatePresence mode="wait">
+          {/* Step 1: Basic Info */}
+          {step === 1 && (
+            <motion.div
+              key="step1"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <Card className="border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle>RFQ Details</CardTitle>
+                  <CardDescription>Provide basic information about your procurement request</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="title">RFQ Title *</Label>
+                    <Input id="title" placeholder="e.g., Construction Materials - Q1 2026 Project" />
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Category *</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories.map(cat => (
+                            <SelectItem key={cat} value={cat.toLowerCase().replace(/ /g, '_')}>
+                              {cat}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Budget Range</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select range" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="under_50k">Under SAR 50,000</SelectItem>
+                          <SelectItem value="50k_100k">SAR 50,000 - 100,000</SelectItem>
+                          <SelectItem value="100k_500k">SAR 100,000 - 500,000</SelectItem>
+                          <SelectItem value="over_500k">Over SAR 500,000</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="description">Description</Label>
+                    <Textarea 
+                      id="description" 
+                      placeholder="Provide detailed requirements, specifications, and any additional information..."
+                      rows={4}
+                    />
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Response Deadline *</Label>
+                      <div className="relative">
+                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                        <Input type="date" className="pl-10" />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Delivery Location</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select city" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="riyadh">Riyadh</SelectItem>
+                          <SelectItem value="jeddah">Jeddah</SelectItem>
+                          <SelectItem value="dammam">Dammam</SelectItem>
+                          <SelectItem value="mecca">Mecca</SelectItem>
+                          <SelectItem value="medina">Medina</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* Step 2: Line Items */}
+          {step === 2 && (
+            <motion.div
+              key="step2"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <Card className="border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle>Line Items</CardTitle>
+                  <CardDescription>Add items you need to procure</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {items.map((item, index) => (
+                    <div key={item.id} className="p-4 bg-slate-50 rounded-xl space-y-4">
+                      <div className="flex items-center justify-between">
+                        <Badge variant="outline">Item {index + 1}</Badge>
+                        {items.length > 1 && (
+                          <Button variant="ghost" size="sm" onClick={() => removeItem(item.id)}>
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        )}
+                      </div>
+                      <div className="grid md:grid-cols-3 gap-4">
+                        <div className="md:col-span-2 space-y-2">
+                          <Label>Item Description *</Label>
+                          <Input placeholder="e.g., Steel Rebar 12mm" />
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="space-y-2">
+                            <Label>Quantity *</Label>
+                            <Input type="number" placeholder="100" />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Unit</Label>
+                            <Select defaultValue="units">
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="units">Units</SelectItem>
+                                <SelectItem value="kg">KG</SelectItem>
+                                <SelectItem value="tons">Tons</SelectItem>
+                                <SelectItem value="meters">Meters</SelectItem>
+                                <SelectItem value="boxes">Boxes</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Specifications</Label>
+                        <Textarea placeholder="Size, grade, material specifications, certifications required..." rows={2} />
+                      </div>
+                    </div>
+                  ))}
+
+                  <Button variant="outline" onClick={addItem} className="w-full">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Another Item
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* Step 3: Settings */}
+          {step === 3 && (
+            <motion.div
+              key="step3"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <Card className="border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle>RFQ Settings</CardTitle>
+                  <CardDescription>Configure matching and notification preferences</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="p-4 bg-teal-50 rounded-xl border border-teal-100">
+                    <div className="flex items-start gap-4">
+                      <div className="p-2 bg-teal-100 rounded-lg">
+                        <Shield className="h-5 w-5 text-teal-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-teal-900">AI Smart Matching</h4>
+                        <p className="text-sm text-teal-700 mt-1">
+                          Our AI will automatically match your RFQ with verified suppliers based on capability, inventory, and ratings.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                      <div>
+                        <p className="font-medium text-slate-900">Require Escrow</p>
+                        <p className="text-sm text-slate-500">Funds held securely until delivery confirmation</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                      <div>
+                        <p className="font-medium text-slate-900">Allow Negotiations</p>
+                        <p className="text-sm text-slate-500">Enable virtual negotiation room for counter-offers</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                      <div>
+                        <p className="font-medium text-slate-900">Verified Suppliers Only</p>
+                        <p className="text-sm text-slate-500">Only receive quotes from KYC-verified suppliers</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                      <div>
+                        <p className="font-medium text-slate-900">Email Notifications</p>
+                        <p className="text-sm text-slate-500">Get notified when you receive new quotes</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Preferred Payment Terms</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select payment terms" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="full_escrow">100% Escrow</SelectItem>
+                        <SelectItem value="30_70">30% Advance / 70% Delivery</SelectItem>
+                        <SelectItem value="50_50">50% Advance / 50% Delivery</SelectItem>
+                        <SelectItem value="net_30">Net 30</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* Step 4: Review */}
+          {step === 4 && (
+            <motion.div
+              key="step4"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <Card className="border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle>Review & Submit</CardTitle>
+                  <CardDescription>Review your RFQ before broadcasting to suppliers</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="p-6 bg-indigo-50 rounded-xl border border-indigo-100 text-center">
+                    <CheckCircle2 className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-indigo-900 mb-2">Ready to Broadcast</h3>
+                    <p className="text-indigo-700">
+                      Your blind RFQ will be sent to verified suppliers matching your requirements.
+                      You'll receive anonymous quotes within your deadline.
+                    </p>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-slate-900">RFQ Summary</h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-slate-500">Category</span>
+                          <span className="font-medium">Construction Materials</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-500">Items</span>
+                          <span className="font-medium">{items.length} item(s)</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-500">Budget</span>
+                          <span className="font-medium">SAR 100,000 - 500,000</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-500">Deadline</span>
+                          <span className="font-medium">7 days</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-slate-900">Settings</h4>
+                      <div className="space-y-2">
+                        <Badge className="bg-indigo-100 text-indigo-700 mr-2">Blind RFQ</Badge>
+                        <Badge className="bg-teal-100 text-teal-700 mr-2">Escrow Required</Badge>
+                        <Badge className="bg-purple-100 text-purple-700 mr-2">Negotiations Enabled</Badge>
+                        <Badge className="bg-emerald-100 text-emerald-700">Verified Only</Badge>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between mt-8">
+          <Button
+            variant="outline"
+            onClick={() => setStep(Math.max(1, step - 1))}
+            disabled={step === 1}
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Previous
+          </Button>
+          
+          {step < 4 ? (
+            <Button
+              onClick={() => setStep(Math.min(4, step + 1))}
+              className="bg-indigo-600 hover:bg-indigo-700"
+            >
+              Continue
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+          ) : (
+            <Link to={createPageUrl('RFQList')}>
+              <Button className="bg-teal-500 hover:bg-teal-600">
+                <CheckCircle2 className="h-4 w-4 mr-2" />
+                Submit RFQ
+              </Button>
+            </Link>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
