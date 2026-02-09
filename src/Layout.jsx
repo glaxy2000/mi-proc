@@ -21,11 +21,59 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const [notificationsOpen, setNotificationsOpen] = React.useState(false);
   const location = useLocation();
+
+  const notifications = [
+    {
+      id: 1,
+      type: 'bid',
+      title: 'New Bid Received',
+      message: 'You received 3 new bids for "Office Supplies RFQ"',
+      time: '5 min ago',
+      unread: true
+    },
+    {
+      id: 2,
+      type: 'escrow',
+      title: 'Escrow Funded',
+      message: 'SAR 45,000 has been deposited in escrow for RFQ-2024-156',
+      time: '1 hour ago',
+      unread: true
+    },
+    {
+      id: 3,
+      type: 'document',
+      title: 'KYB Verification Complete',
+      message: 'Your business documents have been verified and approved',
+      time: '2 hours ago',
+      unread: false
+    },
+    {
+      id: 4,
+      type: 'negotiation',
+      title: 'Negotiation Update',
+      message: 'Supplier updated their quote in ongoing negotiation',
+      time: '3 hours ago',
+      unread: false
+    },
+    {
+      id: 5,
+      type: 'delivery',
+      title: 'Delivery Confirmed',
+      message: 'RFQ-2024-142 delivery has been confirmed by buyer',
+      time: '1 day ago',
+      unread: false
+    }
+  ];
+
+  const unreadCount = notifications.filter(n => n.unread).length;
 
   const navigation = [
     { name: 'Home', href: 'Home', icon: Home },
@@ -129,10 +177,60 @@ export default function Layout({ children, currentPageName }) {
                 </Button>
               </Link>
 
-              <button className="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg">
-                <Bell className="h-5 w-5" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
-              </button>
+              <Popover open={notificationsOpen} onOpenChange={setNotificationsOpen}>
+                <PopoverTrigger asChild>
+                  <button className="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg">
+                    <Bell className="h-5 w-5" />
+                    {unreadCount > 0 && (
+                      <span className="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs font-semibold rounded-full flex items-center justify-center">
+                        {unreadCount}
+                      </span>
+                    )}
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent align="end" className="w-96 p-0">
+                  <div className="border-b px-4 py-3 flex items-center justify-between">
+                    <h3 className="font-semibold text-slate-900">Notifications</h3>
+                    {unreadCount > 0 && (
+                      <Badge className="bg-red-100 text-red-700">{unreadCount} new</Badge>
+                    )}
+                  </div>
+                  <div className="max-h-96 overflow-y-auto">
+                    {notifications.map((notification, index) => (
+                      <div key={notification.id}>
+                        <div className={`px-4 py-3 hover:bg-slate-50 cursor-pointer transition-colors ${
+                          notification.unread ? 'bg-indigo-50/50' : ''
+                        }`}>
+                          <div className="flex items-start gap-3">
+                            <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
+                              notification.unread ? 'bg-indigo-600' : 'bg-transparent'
+                            }`} />
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-slate-900 text-sm mb-1">
+                                {notification.title}
+                              </p>
+                              <p className="text-sm text-slate-600 line-clamp-2">
+                                {notification.message}
+                              </p>
+                              <p className="text-xs text-slate-400 mt-1">
+                                {notification.time}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        {index < notifications.length - 1 && (
+                          <div className="border-t mx-4" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="border-t px-4 py-3">
+                    <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+                      View all notifications
+                    </button>
+                  </div>
+                </PopoverContent>
+              </Popover>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
