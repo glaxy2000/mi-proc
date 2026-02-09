@@ -179,7 +179,7 @@ export default function Home() {
                   I'm a Buyer
                 </Button>
               </Link>
-              <Link to={createPageUrl('Dashboard')}>
+              <Link to={createPageUrl('SupplierSignup')}>
                 <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
                   <Package className="mr-2 h-5 w-5" />
                   I'm a Supplier
@@ -502,7 +502,7 @@ export default function Home() {
                 Get Started as Buyer
               </Button>
             </Link>
-            <Link to={createPageUrl('Dashboard')}>
+            <Link to={createPageUrl('SupplierSignup')}>
               <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
                 <Package className="mr-2 h-5 w-5" />
                 Get Started as Supplier

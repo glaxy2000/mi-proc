@@ -57,6 +57,9 @@ import Suppliers from './pages/Suppliers';
 import Wallet from './pages/Wallet';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import SupplierSignup from './pages/SupplierSignup';
+import SupplierSignin from './pages/SupplierSignin';
+import SupplierOnboarding from './pages/SupplierOnboarding';
 import __Layout from './Layout.jsx';
 
 
@@ -71,6 +74,9 @@ export const PAGES = {
     "Wallet": Wallet,
     "About": About,
     "Contact": Contact,
+    "SupplierSignup": SupplierSignup,
+    "SupplierSignin": SupplierSignin,
+    "SupplierOnboarding": SupplierOnboarding,
 }
 
 export const pagesConfig = {
