@@ -13,7 +13,8 @@ import {
   AlertCircle,
   Building2,
   CreditCard,
-  Wallet
+  Wallet,
+  Send
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
