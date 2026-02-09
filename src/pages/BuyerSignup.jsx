@@ -137,30 +137,6 @@ export default function BuyerSignup() {
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
-                
-                <div className="bg-slate-50 rounded-lg p-4 space-y-2">
-                  <p className="text-sm font-medium text-slate-700 mb-2">Password must contain:</p>
-                  <div className="space-y-1">
-                    {[
-                      { key: 'minLength', label: 'At least 12 characters' },
-                      { key: 'hasUppercase', label: 'At least one uppercase letter' },
-                      { key: 'hasLowercase', label: 'At least one lowercase letter' },
-                      { key: 'hasNumber', label: 'At least one number' },
-                      { key: 'hasSpecial', label: 'At least one special character' }
-                    ].map(req => (
-                      <div key={req.key} className="flex items-center gap-2 text-sm">
-                        {passwordValidation[req.key] ? (
-                          <CheckCircle2 className="h-4 w-4 text-green-600" />
-                        ) : (
-                          <div className="h-4 w-4 rounded-full border-2 border-slate-300" />
-                        )}
-                        <span className={passwordValidation[req.key] ? 'text-green-600' : 'text-slate-600'}>
-                          {req.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
 
               <div className="space-y-2">
