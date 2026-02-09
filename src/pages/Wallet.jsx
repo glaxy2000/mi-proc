@@ -114,18 +114,24 @@ export default function WalletPage() {
                         <span className="text-sm font-semibold">Top Up</span>
                       </button>
                     </Link>
-                    <button className="flex flex-col items-center p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors">
-                      <ArrowUpRight className="h-6 w-6 mb-2" />
-                      <span className="text-sm">Pay</span>
-                    </button>
-                    <button className="flex flex-col items-center p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors">
-                      <ArrowDownLeft className="h-6 w-6 mb-2" />
-                      <span className="text-sm">Receive</span>
-                    </button>
-                    <button className="flex flex-col items-center p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors">
-                      <Building2 className="h-6 w-6 mb-2" />
-                      <span className="text-sm">Withdraw</span>
-                    </button>
+                    <Link to={createPageUrl('PayWallet')}>
+                      <button className="flex flex-col items-center p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors w-full">
+                        <ArrowUpRight className="h-6 w-6 mb-2" />
+                        <span className="text-sm">Pay</span>
+                      </button>
+                    </Link>
+                    <Link to={createPageUrl('ReceiveWallet')}>
+                      <button className="flex flex-col items-center p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors w-full">
+                        <ArrowDownLeft className="h-6 w-6 mb-2" />
+                        <span className="text-sm">Receive</span>
+                      </button>
+                    </Link>
+                    <Link to={createPageUrl('WithdrawWallet')}>
+                      <button className="flex flex-col items-center p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors w-full">
+                        <Building2 className="h-6 w-6 mb-2" />
+                        <span className="text-sm">Withdraw</span>
+                      </button>
+                    </Link>
                   </div>
                   <div className="mt-6 flex items-center justify-end gap-4">
                     <div className="flex items-center gap-2 text-sm text-indigo-200">
