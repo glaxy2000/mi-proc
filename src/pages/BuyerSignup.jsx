@@ -55,7 +55,7 @@ export default function BuyerSignup() {
     if (!formData.email) newErrors.email = 'Email is required';
     if (!passwordValidation.isValid) newErrors.password = 'Password does not meet requirements';
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-    if (!formData.organizationType) newErrors.organizationType = 'Organization type is required';
+    if (!formData.organizationType) newErrors.organizationType = 'Organisation type is required';
     if (!formData.agreeToTerms) newErrors.agreeToTerms = 'You must agree to Terms of Service';
     if (!formData.agreeToPrivacy) newErrors.agreeToPrivacy = 'You must agree to Privacy Policy';
 
@@ -190,13 +190,13 @@ export default function BuyerSignup() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="organizationType">Organization Type *</Label>
+                <Label htmlFor="organizationType">Organisation Type *</Label>
                 <Select
                   value={formData.organizationType}
                   onValueChange={(value) => setFormData({ ...formData, organizationType: value })}
                 >
                   <SelectTrigger className={errors.organizationType ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select organization type" />
+                    <SelectValue placeholder="Select organisation type" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="sole_proprietor">Sole Proprietor</SelectItem>

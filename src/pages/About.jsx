@@ -214,7 +214,7 @@ export default function About() {
               <CardContent className="space-y-4 text-slate-600">
                 <p className="leading-relaxed">
                   This document outlines the business requirements for the Mi-Proc platform, a revolutionary B2B supply 
-                  aggregator and digital wallet ecosystem developed by MI Technologies. The platform is designed to digitize 
+                  aggregator and digital wallet ecosystem developed by MI Technologies. The platform is designed to digitise 
                   and streamline procurement and payment processes for Small and Medium-sized Enterprises (SMEs) in the 
                   Kingdom of Saudi Arabia (KSA).
                 </p>

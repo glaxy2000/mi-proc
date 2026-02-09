@@ -74,7 +74,7 @@ export default function BuyerOnboarding() {
 
   const steps = [
     { number: 1, title: 'Email Verified', icon: CheckCircle2, completed: true },
-    { number: 2, title: 'Organization Info', icon: Building2, completed: currentStep > 2 },
+    { number: 2, title: 'Organisation Info', icon: Building2, completed: currentStep > 2 },
     { number: 3, title: 'Document Verification', icon: FileText, completed: currentStep > 3 },
     { number: 4, title: 'Preferences & Bank', icon: Settings, completed: currentStep > 4 }
   ];
@@ -173,13 +173,13 @@ export default function BuyerOnboarding() {
             >
               <Card className="border-0 shadow-xl">
                 <CardHeader className="bg-gradient-to-r from-teal-50 to-indigo-50 border-b">
-                  <CardTitle>Step 2: Organization Information</CardTitle>
-                  <p className="text-sm text-slate-600 mt-1">Provide details about your organization</p>
+                  <CardTitle>Step 2: Organisation Information</CardTitle>
+                  <p className="text-sm text-slate-600 mt-1">Provide details about your organisation</p>
                 </CardHeader>
                 <CardContent className="p-6 space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label>Organization Name (Arabic) *</Label>
+                      <Label>Organisation Name (Arabic) *</Label>
                       <Input
                         value={formData.orgNameArabic}
                         onChange={(e) => setFormData({ ...formData, orgNameArabic: e.target.value })}
@@ -187,11 +187,11 @@ export default function BuyerOnboarding() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label>Organization Name (English) *</Label>
+                      <Label>Organisation Name (English) *</Label>
                       <Input
                         value={formData.orgNameEnglish}
                         onChange={(e) => setFormData({ ...formData, orgNameEnglish: e.target.value })}
-                        placeholder="Organization Name"
+                        placeholder="Organisation Name"
                       />
                     </div>
                   </div>
@@ -238,7 +238,7 @@ export default function BuyerOnboarding() {
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <Label>Organization Type *</Label>
+                      <Label>Organisation Type *</Label>
                       <Select
                         value={formData.orgType}
                         onValueChange={(value) => setFormData({ ...formData, orgType: value })}
@@ -308,7 +308,7 @@ export default function BuyerOnboarding() {
                   </div>
 
                   <div className="border-t pt-6">
-                    <h3 className="font-semibold text-slate-900 mb-4">Organization Address</h3>
+                    <h3 className="font-semibold text-slate-900 mb-4">Organisation Address</h3>
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <Label>Street Address *</Label>
@@ -355,7 +355,7 @@ export default function BuyerOnboarding() {
                     <h3 className="font-semibold text-slate-900 mb-4">Contact Information</h3>
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label>Organization Phone Number *</Label>
+                        <Label>Organisation Phone Number *</Label>
                         <Input
                           type="tel"
                           value={formData.phoneNumber}
@@ -364,12 +364,12 @@ export default function BuyerOnboarding() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label>Organization Email *</Label>
+                        <Label>Organisation Email *</Label>
                         <Input
                           type="email"
                           value={formData.orgEmail}
                           onChange={(e) => setFormData({ ...formData, orgEmail: e.target.value })}
-                          placeholder="organization@company.com"
+                          placeholder="organisation@company.com"
                         />
                       </div>
                     </div>
@@ -398,7 +398,7 @@ export default function BuyerOnboarding() {
               <Card className="border-0 shadow-xl">
                 <CardHeader className="bg-gradient-to-r from-teal-50 to-indigo-50 border-b">
                   <CardTitle>Step 3: Document Verification (KYC)</CardTitle>
-                  <p className="text-sm text-slate-600 mt-1">Upload required organizational documents (Max 10MB each)</p>
+                  <p className="text-sm text-slate-600 mt-1">Upload required organisational documents (Max 10MB each)</p>
                 </CardHeader>
                 <CardContent className="p-6 space-y-6">
                   {[
@@ -699,7 +699,7 @@ export default function BuyerOnboarding() {
                     <div className="bg-slate-50 rounded-lg p-6 space-y-4">
                       <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <p className="text-sm text-slate-500">Organization Name</p>
+                          <p className="text-sm text-slate-500">Organisation Name</p>
                           <p className="font-medium text-slate-900">{formData.orgNameEnglish || 'Not provided'}</p>
                         </div>
                         <div>
@@ -707,7 +707,7 @@ export default function BuyerOnboarding() {
                           <p className="font-medium text-slate-900">{formData.crNumber || 'Not provided'}</p>
                         </div>
                         <div>
-                          <p className="text-sm text-slate-500">Organization Email</p>
+                          <p className="text-sm text-slate-500">Organisation Email</p>
                           <p className="font-medium text-slate-900">{formData.orgEmail || 'Not provided'}</p>
                         </div>
                         <div>
