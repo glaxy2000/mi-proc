@@ -179,9 +179,9 @@ export default function About() {
           >
             <div className="flex items-center gap-3 mb-4">
               <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/d65eff109_MI-logo-color.png" 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/e72275ce7_MI-logo-color.png" 
                 alt="MI Technologies" 
-                className="h-12 brightness-0 invert"
+                className="h-12"
               />
             </div>
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">
