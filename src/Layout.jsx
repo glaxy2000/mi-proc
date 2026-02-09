@@ -36,6 +36,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Escrow', href: 'Escrow', icon: Shield },
     { name: 'Mi-Wallet', href: 'Wallet', icon: Wallet },
     { name: 'About', href: 'About', icon: FileText },
+    { name: 'Contact', href: 'Contact', icon: MessageSquare },
   ];
 
   const isActive = (pageName) => currentPageName === pageName;

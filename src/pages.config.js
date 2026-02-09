@@ -56,6 +56,7 @@ import RFQList from './pages/RFQList';
 import Suppliers from './pages/Suppliers';
 import Wallet from './pages/Wallet';
 import About from './pages/About';
+import Contact from './pages/Contact';
 import __Layout from './Layout.jsx';
 
 
@@ -69,6 +70,7 @@ export const PAGES = {
     "Suppliers": Suppliers,
     "Wallet": Wallet,
     "About": About,
+    "Contact": Contact,
 }
 
 export const pagesConfig = {

@@ -135,7 +135,7 @@ export default function Home() {
               <button onClick={() => scrollToSection('features')} className="text-slate-600 hover:text-slate-900">Features</button>
               <button onClick={() => scrollToSection('security')} className="text-slate-600 hover:text-slate-900">Security & Compliance</button>
               <Link to={createPageUrl('About')} className="text-slate-600 hover:text-slate-900">About</Link>
-              <button onClick={() => scrollToSection('contact')} className="text-slate-600 hover:text-slate-900">Contact Us</button>
+              <Link to={createPageUrl('Contact')} className="text-slate-600 hover:text-slate-900">Contact Us</Link>
             </div>
 
             <div className="flex items-center gap-3">
@@ -552,9 +552,9 @@ export default function Home() {
             <div>
               <h4 className="font-semibold text-white mb-4">Contact</h4>
               <ul className="space-y-2 text-sm">
-                <li>Email: info@mi-proc.sa</li>
+                <li>Email: info@mi-technologies.sa</li>
                 <li>Phone: +966 XX XXX XXXX</li>
-                <li>Address: Riyadh, Saudi Arabia</li>
+                <li>Address: Al Kifah Tower, King Fahd Road, Dhahran 34232, Saudi Arabia</li>
               </ul>
             </div>
           </div>
