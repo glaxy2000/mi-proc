@@ -358,96 +358,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Security & Compliance Section */}
-      <section id="security" className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <Badge className="bg-indigo-100 text-indigo-700 mb-4">SECURITY & COMPLIANCE</Badge>
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
-              Bank-Grade Security & <span className="text-indigo-600">Full Regulatory Compliance</span>
-            </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Your data and transactions are protected by enterprise-level security and regulated by Saudi authorities
-            </p>
-          </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 mb-12">
-            {/* Security Features */}
-            <div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
-                <Lock className="h-6 w-6 text-indigo-600" />
-                Security Features
-              </h3>
-              <div className="space-y-4">
-                {securityFeatures.map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Card>
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
-                          <Shield className="h-5 w-5 text-teal-600" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-slate-900">{feature.title}</p>
-                          <p className="text-sm text-slate-500">{feature.description}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Compliance Certifications */}
-            <div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
-                <CheckCircle2 className="h-6 w-6 text-teal-600" />
-                Compliance Certifications
-              </h3>
-              <div className="space-y-4">
-                {complianceCertifications.map((cert, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Card>
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
-                          <Server className="h-5 w-5 text-indigo-600" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-slate-900">{cert.title}</p>
-                          <p className="text-sm text-slate-500">{cert.description}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Trust Badge */}
-          <div className="bg-gradient-to-r from-indigo-50 to-teal-50 rounded-2xl p-8 text-center border border-indigo-100">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Shield className="h-8 w-8 text-indigo-600" />
-              <h3 className="text-2xl font-bold text-slate-900">Trusted & Regulated</h3>
-            </div>
-            <p className="text-slate-600 max-w-2xl mx-auto">
-              Mi-Proc is fully licensed by SAMA (Saudi Arabian Monetary Authority) as a Payment Service Provider
-              and complies with all local and international security standards.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Target Sectors */}
       <section className="py-20 bg-white">
@@ -539,6 +450,68 @@ export default function Home() {
       {/* Footer */}
       <footer id="contact" className="bg-slate-900 text-slate-300 py-12">
         <div className="max-w-7xl mx-auto px-6">
+          {/* Security & Compliance Section */}
+          <div id="security" className="mb-12 pb-12 border-b border-slate-800">
+            <div className="text-center mb-8">
+              <Badge className="bg-indigo-900 text-indigo-200 mb-4">SECURITY & COMPLIANCE</Badge>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                Bank-Grade Security & <span className="text-teal-400">Full Regulatory Compliance</span>
+              </h2>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-8 mb-8">
+              {/* Security Features */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <Lock className="h-5 w-5 text-teal-400" />
+                  Security Features
+                </h3>
+                <div className="space-y-3">
+                  {securityFeatures.map((feature, index) => (
+                    <div key={index} className="flex items-center gap-3 text-sm">
+                      <Shield className="h-4 w-4 text-teal-400 flex-shrink-0" />
+                      <div>
+                        <span className="font-medium text-slate-200">{feature.title}</span>
+                        <span className="text-slate-400"> - {feature.description}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Compliance Certifications */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-teal-400" />
+                  Compliance Certifications
+                </h3>
+                <div className="space-y-3">
+                  {complianceCertifications.map((cert, index) => (
+                    <div key={index} className="flex items-center gap-3 text-sm">
+                      <Server className="h-4 w-4 text-teal-400 flex-shrink-0" />
+                      <div>
+                        <span className="font-medium text-slate-200">{cert.title}</span>
+                        <span className="text-slate-400"> - {cert.description}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Trust Badge */}
+            <div className="bg-slate-800 rounded-xl p-6 text-center border border-slate-700">
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <Shield className="h-6 w-6 text-teal-400" />
+                <h3 className="text-xl font-bold text-white">Trusted & Regulated</h3>
+              </div>
+              <p className="text-slate-400 text-sm max-w-2xl mx-auto">
+                Mi-Proc is fully licensed by SAMA (Saudi Arabian Monetary Authority) as a Payment Service Provider
+                and complies with all local and international security standards.
+              </p>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
