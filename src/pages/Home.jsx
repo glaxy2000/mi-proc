@@ -450,65 +450,56 @@ export default function Home() {
       {/* Footer */}
       <footer id="contact" className="bg-slate-900 text-slate-300 py-12">
         <div className="max-w-7xl mx-auto px-6">
-          {/* Security & Compliance Section */}
+          {/* Compliance Footer Section */}
           <div id="security" className="mb-12 pb-12 border-b border-slate-800">
-            <div className="text-center mb-8">
-              <Badge className="bg-indigo-900 text-indigo-200 mb-4">SECURITY & COMPLIANCE</Badge>
-              <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-                Bank-Grade Security & <span className="text-teal-400">Full Regulatory Compliance</span>
-              </h2>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-8 mb-8">
-              {/* Security Features */}
+            <div className="grid lg:grid-cols-3 gap-8 mb-8">
+              {/* Security */}
               <div>
                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                   <Lock className="h-5 w-5 text-teal-400" />
-                  Security Features
+                  Security
                 </h3>
-                <div className="space-y-3">
+                <ul className="space-y-2 text-sm text-slate-400">
                   {securityFeatures.map((feature, index) => (
-                    <div key={index} className="flex items-center gap-3 text-sm">
-                      <Shield className="h-4 w-4 text-teal-400 flex-shrink-0" />
-                      <div>
-                        <span className="font-medium text-slate-200">{feature.title}</span>
-                        <span className="text-slate-400"> - {feature.description}</span>
-                      </div>
-                    </div>
+                    <li key={index} className="flex items-start gap-2">
+                      <Shield className="h-4 w-4 text-teal-400 flex-shrink-0 mt-0.5" />
+                      <span>{feature.title}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
 
-              {/* Compliance Certifications */}
+              {/* Compliance */}
               <div>
                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-teal-400" />
-                  Compliance Certifications
+                  Compliance
                 </h3>
-                <div className="space-y-3">
+                <ul className="space-y-2 text-sm text-slate-400">
                   {complianceCertifications.map((cert, index) => (
-                    <div key={index} className="flex items-center gap-3 text-sm">
-                      <Server className="h-4 w-4 text-teal-400 flex-shrink-0" />
-                      <div>
-                        <span className="font-medium text-slate-200">{cert.title}</span>
-                        <span className="text-slate-400"> - {cert.description}</span>
-                      </div>
-                    </div>
+                    <li key={index} className="flex items-start gap-2">
+                      <Server className="h-4 w-4 text-teal-400 flex-shrink-0 mt-0.5" />
+                      <span>{cert.title}</span>
+                    </li>
                   ))}
+                </ul>
+              </div>
+
+              {/* Trust & Licensing */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-teal-400" />
+                  Licensed & Regulated
+                </h3>
+                <p className="text-sm text-slate-400 mb-4">
+                  Mi-Proc is fully licensed by SAMA as a Payment Service Provider and complies with all local and international security standards.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge className="bg-teal-900 text-teal-200 border-teal-700">SAMA Licensed</Badge>
+                  <Badge className="bg-indigo-900 text-indigo-200 border-indigo-700">PCI-DSS L1</Badge>
+                  <Badge className="bg-purple-900 text-purple-200 border-purple-700">NCA Compliant</Badge>
                 </div>
               </div>
-            </div>
-
-            {/* Trust Badge */}
-            <div className="bg-slate-800 rounded-xl p-6 text-center border border-slate-700">
-              <div className="flex items-center justify-center gap-2 mb-3">
-                <Shield className="h-6 w-6 text-teal-400" />
-                <h3 className="text-xl font-bold text-white">Trusted & Regulated</h3>
-              </div>
-              <p className="text-slate-400 text-sm max-w-2xl mx-auto">
-                Mi-Proc is fully licensed by SAMA (Saudi Arabian Monetary Authority) as a Payment Service Provider
-                and complies with all local and international security standards.
-              </p>
             </div>
           </div>
 

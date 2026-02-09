@@ -63,6 +63,7 @@ import SupplierSignin from './pages/SupplierSignin';
 import SupplierSignup from './pages/SupplierSignup';
 import Suppliers from './pages/Suppliers';
 import Wallet from './pages/Wallet';
+import TopUpWallet from './pages/TopUpWallet';
 import __Layout from './Layout.jsx';
 
 
@@ -83,6 +84,7 @@ export const PAGES = {
     "SupplierSignup": SupplierSignup,
     "Suppliers": Suppliers,
     "Wallet": Wallet,
+    "TopUpWallet": TopUpWallet,
 }
 
 export const pagesConfig = {
