@@ -63,14 +63,18 @@ export default function WalletPage() {
             <p className="text-slate-500">Your integrated B2B digital wallet for instant settlements</p>
           </div>
           <div className="flex gap-3 mt-4 md:mt-0">
-            <Button variant="outline">
-              <Download className="h-4 w-4 mr-2" />
-              Withdraw
-            </Button>
-            <Button className="bg-indigo-600 hover:bg-indigo-700">
-              <Send className="h-4 w-4 mr-2" />
-              Send
-            </Button>
+            <Link to={createPageUrl('WithdrawWallet')}>
+              <Button variant="outline">
+                <Download className="h-4 w-4 mr-2" />
+                Withdraw
+              </Button>
+            </Link>
+            <Link to={createPageUrl('SendWallet')}>
+              <Button className="bg-indigo-600 hover:bg-indigo-700">
+                <Send className="h-4 w-4 mr-2" />
+                Send
+              </Button>
+            </Link>
           </div>
         </div>
 

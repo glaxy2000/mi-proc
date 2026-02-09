@@ -67,6 +67,7 @@ import TopUpWallet from './pages/TopUpWallet';
 import PayWallet from './pages/PayWallet';
 import ReceiveWallet from './pages/ReceiveWallet';
 import WithdrawWallet from './pages/WithdrawWallet';
+import SendWallet from './pages/SendWallet';
 import __Layout from './Layout.jsx';
 
 
@@ -91,6 +92,7 @@ export const PAGES = {
     "PayWallet": PayWallet,
     "ReceiveWallet": ReceiveWallet,
     "WithdrawWallet": WithdrawWallet,
+    "SendWallet": SendWallet,
 }
 
 export const pagesConfig = {
