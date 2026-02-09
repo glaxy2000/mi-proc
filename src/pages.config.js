@@ -47,26 +47,26 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
 import CreateRFQ from './pages/CreateRFQ';
-import Wallet from './pages/Wallet';
-import Negotiations from './pages/Negotiations';
+import Dashboard from './pages/Dashboard';
 import Escrow from './pages/Escrow';
-import Suppliers from './pages/Suppliers';
+import Home from './pages/Home';
+import Negotiations from './pages/Negotiations';
 import RFQList from './pages/RFQList';
+import Suppliers from './pages/Suppliers';
+import Wallet from './pages/Wallet';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Home": Home,
-    "Dashboard": Dashboard,
     "CreateRFQ": CreateRFQ,
-    "Wallet": Wallet,
-    "Negotiations": Negotiations,
+    "Dashboard": Dashboard,
     "Escrow": Escrow,
-    "Suppliers": Suppliers,
+    "Home": Home,
+    "Negotiations": Negotiations,
     "RFQList": RFQList,
+    "Suppliers": Suppliers,
+    "Wallet": Wallet,
 }
 
 export const pagesConfig = {

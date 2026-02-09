@@ -56,7 +56,7 @@ export default function Layout({ children, currentPageName }) {
         <div className="flex items-center justify-between h-16 px-6 border-b">
           <Link to={createPageUrl('Home')} className="flex items-center gap-3">
             <img 
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/2e05b03c0_MI-logo-color.png" 
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png" 
               alt="MI Technologies" 
               className="h-8"
             />

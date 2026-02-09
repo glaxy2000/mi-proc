@@ -110,11 +110,12 @@ export default function Home() {
               <div className="relative">
                 <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-teal-600 rounded-2xl flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white">mi</span>
-                    </div>
+                    <img 
+                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png" 
+                      alt="MI Technologies" 
+                      className="h-12"
+                    />
                     <div>
-                      <p className="text-white font-semibold text-lg">Mi Technologies</p>
                       <p className="text-indigo-200 text-sm">Strategy Office • January 2026</p>
                     </div>
                   </div>
