@@ -519,7 +519,7 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <img 
-                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png" 
+                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/f81a0c650_MITechLogoblack.png" 
                   alt="MI Technologies" 
                   className="h-8 brightness-0 invert"
                 />
