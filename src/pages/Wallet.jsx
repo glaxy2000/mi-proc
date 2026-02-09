@@ -107,7 +107,13 @@ export default function WalletPage() {
                 </div>
 
                 <div className="mt-8 lg:mt-0 lg:text-right">
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-4 gap-3">
+                    <Link to={createPageUrl('TopUpWallet')}>
+                      <button className="flex flex-col items-center p-4 bg-teal-500/20 border-2 border-teal-400/50 rounded-xl hover:bg-teal-500/30 transition-colors w-full">
+                        <Wallet className="h-6 w-6 mb-2" />
+                        <span className="text-sm font-semibold">Top Up</span>
+                      </button>
+                    </Link>
                     <button className="flex flex-col items-center p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors">
                       <ArrowUpRight className="h-6 w-6 mb-2" />
                       <span className="text-sm">Pay</span>
