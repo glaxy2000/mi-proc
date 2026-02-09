@@ -47,42 +47,42 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import About from './pages/About';
+import BuyerOnboarding from './pages/BuyerOnboarding';
+import BuyerSignin from './pages/BuyerSignin';
+import BuyerSignup from './pages/BuyerSignup';
+import Contact from './pages/Contact';
 import CreateRFQ from './pages/CreateRFQ';
 import Dashboard from './pages/Dashboard';
 import Escrow from './pages/Escrow';
 import Home from './pages/Home';
 import Negotiations from './pages/Negotiations';
 import RFQList from './pages/RFQList';
+import SupplierOnboarding from './pages/SupplierOnboarding';
+import SupplierSignin from './pages/SupplierSignin';
+import SupplierSignup from './pages/SupplierSignup';
 import Suppliers from './pages/Suppliers';
 import Wallet from './pages/Wallet';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import SupplierSignup from './pages/SupplierSignup';
-import SupplierSignin from './pages/SupplierSignin';
-import SupplierOnboarding from './pages/SupplierOnboarding';
-import BuyerSignup from './pages/BuyerSignup';
-import BuyerSignin from './pages/BuyerSignin';
-import BuyerOnboarding from './pages/BuyerOnboarding';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "About": About,
+    "BuyerOnboarding": BuyerOnboarding,
+    "BuyerSignin": BuyerSignin,
+    "BuyerSignup": BuyerSignup,
+    "Contact": Contact,
     "CreateRFQ": CreateRFQ,
     "Dashboard": Dashboard,
     "Escrow": Escrow,
     "Home": Home,
     "Negotiations": Negotiations,
     "RFQList": RFQList,
+    "SupplierOnboarding": SupplierOnboarding,
+    "SupplierSignin": SupplierSignin,
+    "SupplierSignup": SupplierSignup,
     "Suppliers": Suppliers,
     "Wallet": Wallet,
-    "About": About,
-    "Contact": Contact,
-    "SupplierSignup": SupplierSignup,
-    "SupplierSignin": SupplierSignin,
-    "SupplierOnboarding": SupplierOnboarding,
-    "BuyerSignup": BuyerSignup,
-    "BuyerSignin": BuyerSignin,
-    "BuyerOnboarding": BuyerOnboarding,
 }
 
 export const pagesConfig = {

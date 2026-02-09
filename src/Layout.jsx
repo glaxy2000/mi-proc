@@ -243,6 +243,14 @@ export default function Layout({ children, currentPageName }) {
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem>Profile</DropdownMenuItem>
                   <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('BuyerSignin')}>Switch to Buyer</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('SupplierSignin')}>Switch to Supplier</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem>Help Center</DropdownMenuItem>
                   <DropdownMenuItem className="text-red-600">Sign Out</DropdownMenuItem>
                 </DropdownMenuContent>

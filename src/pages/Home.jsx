@@ -34,6 +34,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Home() {
   const [activeTab, setActiveTab] = React.useState('buyer');
@@ -139,9 +145,23 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-3">
-              <Link to={createPageUrl('Dashboard')}>
-                <Button variant="outline">Sign In</Button>
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">Sign In</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('BuyerSignin')} className="cursor-pointer">
+                      Sign In as Buyer
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('SupplierSignin')} className="cursor-pointer">
+                      Sign In as Supplier
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <Button onClick={() => scrollToSection('get-started')} className="bg-indigo-600 hover:bg-indigo-700">
                 Get Started
               </Button>
@@ -189,8 +209,12 @@ export default function Home() {
             
             <p className="text-indigo-200 text-sm">
               Already have an account?{' '}
-              <Link to={createPageUrl('Dashboard')} className="text-teal-400 hover:text-teal-300 font-semibold">
-                Sign in here
+              <Link to={createPageUrl('BuyerSignin')} className="text-teal-400 hover:text-teal-300 font-semibold">
+                Sign in as Buyer
+              </Link>
+              {' or '}
+              <Link to={createPageUrl('SupplierSignin')} className="text-teal-400 hover:text-teal-300 font-semibold">
+                Supplier
               </Link>
             </p>
           </motion.div>
