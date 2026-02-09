@@ -173,7 +173,7 @@ export default function Home() {
             </p>
             
             <div id="get-started" className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-              <Link to={createPageUrl('Dashboard')}>
+              <Link to={createPageUrl('BuyerSignup')}>
                 <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
                   <Users className="mr-2 h-5 w-5" />
                   I'm a Buyer
@@ -496,7 +496,7 @@ export default function Home() {
             Join 2,500+ SMEs already using Mi-Proc for secure, efficient procurement
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to={createPageUrl('Dashboard')}>
+            <Link to={createPageUrl('BuyerSignup')}>
               <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
                 <Users className="mr-2 h-5 w-5" />
                 Get Started as Buyer

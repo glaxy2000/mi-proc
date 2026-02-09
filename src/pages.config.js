@@ -60,6 +60,9 @@ import Contact from './pages/Contact';
 import SupplierSignup from './pages/SupplierSignup';
 import SupplierSignin from './pages/SupplierSignin';
 import SupplierOnboarding from './pages/SupplierOnboarding';
+import BuyerSignup from './pages/BuyerSignup';
+import BuyerSignin from './pages/BuyerSignin';
+import BuyerOnboarding from './pages/BuyerOnboarding';
 import __Layout from './Layout.jsx';
 
 
@@ -77,6 +80,9 @@ export const PAGES = {
     "SupplierSignup": SupplierSignup,
     "SupplierSignin": SupplierSignin,
     "SupplierOnboarding": SupplierOnboarding,
+    "BuyerSignup": BuyerSignup,
+    "BuyerSignin": BuyerSignin,
+    "BuyerOnboarding": BuyerOnboarding,
 }
 
 export const pagesConfig = {
