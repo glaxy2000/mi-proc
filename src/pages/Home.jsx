@@ -6,40 +6,74 @@ import {
   ArrowRight, 
   Shield, 
   Zap, 
-  TrendingDown, 
-  Building2, 
-  Factory, 
-  Stethoscope, 
-  ShoppingCart,
-  CheckCircle2,
+  TrendingDown,
   Users,
   DollarSign,
-  Clock
+  Clock,
+  CheckCircle2,
+  FileText,
+  MessageSquare,
+  Package,
+  Wallet,
+  Lock,
+  Building2,
+  Factory,
+  Stethoscope,
+  ShoppingCart,
+  Globe,
+  Server,
+  Eye,
+  ChevronDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function Home() {
-  const features = [
-    {
-      icon: Shield,
-      title: 'Blind RFQs & Matching',
-      description: 'AI-driven anonymous sourcing to prevent bias and ensure fair pricing.',
-      color: 'bg-indigo-100 text-indigo-600'
-    },
-    {
-      icon: Zap,
-      title: 'Instant Settlements',
-      description: 'Real-time transfers improving cash flow velocity for all parties.',
-      color: 'bg-teal-100 text-teal-600'
-    },
-    {
-      icon: TrendingDown,
-      title: 'Cost Reduction',
-      description: 'Lower payment & transaction costs by 20-25%.',
-      color: 'bg-purple-100 text-purple-600'
-    }
+  const [activeTab, setActiveTab] = React.useState('buyer');
+
+  const buyerBenefits = [
+    { icon: DollarSign, title: 'Competitive Pricing', description: 'Access 50+ verified suppliers anonymously' },
+    { icon: Clock, title: 'Speed', description: 'Reduce procurement cycle from weeks to 3-7 days' },
+    { icon: Shield, title: 'Secure Payments', description: 'Built-in escrow and instant settlements' },
+    { icon: TrendingDown, title: 'Cost Savings', description: '20-25% reduction in procurement costs' }
+  ];
+
+  const supplierBenefits = [
+    { icon: Globe, title: 'Broader Market Access', description: 'Reach 2,500+ SME buyers' },
+    { icon: Zap, title: 'Faster Payments', description: 'Instant settlements instead of T+3 to T+30 days' },
+    { icon: TrendingDown, title: 'Lower Fees', description: 'Sub-1% transaction costs vs. 2-3% traditional methods' },
+    { icon: Eye, title: 'Fair Competition', description: 'Compete on merit with blind bidding' }
+  ];
+
+  const howItWorksSteps = [
+    { number: 1, title: 'Create Blind RFQ', subtitle: 'Buyers post needs / Suppliers browse', icon: FileText },
+    { number: 2, title: 'AI Matching & Anonymous Bids', subtitle: 'Smart supplier matching', icon: Users },
+    { number: 3, title: 'Secure Virtual Negotiations', subtitle: 'End-to-end encrypted communication', icon: MessageSquare },
+    { number: 4, title: 'Escrow Funding & Deal Confirmation', subtitle: 'Secure payment guarantee', icon: Lock },
+    { number: 5, title: 'Delivery & Verification', subtitle: 'Track and confirm delivery', icon: Package },
+    { number: 6, title: 'Instant Settlement', subtitle: 'Immediate fund release', icon: Wallet }
+  ];
+
+  const securityFeatures = [
+    { title: 'AES-256 Encryption', description: 'Data at rest' },
+    { title: 'TLS 1.3 Encryption', description: 'Data in transit' },
+    { title: 'End-to-End Encrypted', description: 'Communications' },
+    { title: 'Zero-Trust Architecture', description: 'Network security' },
+    { title: 'Multi-Factor Authentication', description: 'MFA' }
+  ];
+
+  const complianceCertifications = [
+    { title: 'SAMA PSP License', description: 'Saudi Central Bank approved' },
+    { title: 'PCI-DSS Level 1', description: 'Payment security certified' },
+    { title: 'NCA Compliance', description: 'National Cybersecurity Authority' },
+    { title: 'Data Sovereignty', description: 'KSA-hosted on STC Cloud / AWS Riyadh' }
   ];
 
   const sectors = [
@@ -49,113 +83,199 @@ export default function Home() {
     { icon: ShoppingCart, name: 'Trading & Retail', savings: '15-25%' }
   ];
 
-  const stats = [
-    { value: '2.0M+', label: 'Active SMEs in KSA', icon: Users },
-    { value: '~300B', label: 'SAR B2B Procurement', icon: DollarSign },
-    { value: '30-40%', label: 'Faster Procurement', icon: Clock },
-    { value: '<1%', label: 'Transaction Fees', icon: TrendingDown }
+  const faqs = [
+    {
+      question: 'What is a blind RFQ and why is it important?',
+      answer: 'A blind RFQ (Request for Quotation) keeps your identity anonymous during the bidding process, preventing supplier bias and ensuring you receive the most competitive pricing based on merit rather than relationship.'
+    },
+    {
+      question: 'How long does the onboarding process take?',
+      answer: 'The onboarding process typically takes 24-48 hours for document verification. You can complete the registration form in about 15-20 minutes, and our compliance team will review your documents within 2-3 business days.'
+    },
+    {
+      question: 'What documents do I need to provide for KYB verification?',
+      answer: 'You\'ll need: Commercial Registration (CR) Certificate, Tax Registration Certificate (VAT), Bank Account Verification, Ownership/Authorization Document, and Identification Document (Owner/Authorized Person).'
+    },
+    {
+      question: 'How are disputes resolved?',
+      answer: 'Our platform includes a built-in dispute resolution mechanism with escrow protection. Our team mediates disputes and ensures fair outcomes based on delivery confirmations and transaction records.'
+    },
+    {
+      question: 'What are the transaction fees?',
+      answer: 'Mi-Proc charges sub-1% transaction fees, significantly lower than traditional payment methods (2-3%). This helps both buyers and suppliers save on procurement costs.'
+    },
+    {
+      question: 'Is my data secure on Mi-Proc?',
+      answer: 'Yes. We use AES-256 encryption for data at rest, TLS 1.3 for data in transit, and maintain SAMA PSP licensing, PCI-DSS Level 1 certification, and NCA compliance. All data is hosted in Saudi Arabia.'
+    }
   ];
 
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-white">
+      {/* Navigation Bar */}
+      <nav className="sticky top-0 z-50 bg-white border-b shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <img 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png" 
+                alt="MI Technologies" 
+                className="h-8"
+              />
+              <span className="font-bold text-slate-900">Mi-Proc</span>
+            </div>
+            
+            <div className="hidden md:flex items-center gap-8">
+              <button onClick={() => scrollToSection('home')} className="text-slate-600 hover:text-slate-900">Home</button>
+              <button onClick={() => scrollToSection('how-it-works')} className="text-slate-600 hover:text-slate-900">How It Works</button>
+              <button onClick={() => scrollToSection('features')} className="text-slate-600 hover:text-slate-900">Features</button>
+              <button onClick={() => scrollToSection('security')} className="text-slate-600 hover:text-slate-900">Security & Compliance</button>
+              <button onClick={() => scrollToSection('contact')} className="text-slate-600 hover:text-slate-900">Contact Us</button>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Link to={createPageUrl('Dashboard')}>
+                <Button variant="outline">Sign In</Button>
+              </Link>
+              <Button onClick={() => scrollToSection('get-started')} className="bg-indigo-600 hover:bg-indigo-700">
+                Get Started
+              </Button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800" />
+      <section id="home" className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-72 h-72 bg-teal-400 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-400 rounded-full blur-3xl" />
         </div>
         
         <div className="relative max-w-7xl mx-auto px-6 py-24 lg:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Badge className="bg-teal-500/20 text-teal-300 border-teal-500/30 mb-6">
-                MI TECHNOLOGIES
-              </Badge>
-              <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Mi-Proc Supply
-                <span className="block text-teal-400">Aggregator Platform</span>
-              </h1>
-              <p className="text-xl text-indigo-100 mb-8 leading-relaxed">
-                with Integrated B2B Digital Wallet
-              </p>
-              <p className="text-indigo-200 mb-8 max-w-lg">
-                Revolutionizing SME B2B procurement and payments in Saudi Arabia by creating a trusted, end-to-end digital ecosystem.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link to={createPageUrl('Dashboard')}>
-                  <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white">
-                    View Dashboard
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link to={createPageUrl('CreateRFQ')}>
-                  <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 font-semibold">
-                    Create RFQ
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              Transform Your B2B
+              <span className="block text-teal-400">Procurement & Payments</span>
+            </h1>
+            <p className="text-xl text-indigo-100 mb-8 max-w-3xl mx-auto">
+              Discover competitive suppliers, negotiate securely, and settle instantly with Mi-Proc
+            </p>
             
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="hidden lg:block"
-            >
-              <div className="relative">
-                <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
-                  <div className="flex items-center gap-4 mb-6">
-                    <img 
-                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png" 
-                      alt="MI Technologies" 
-                      className="h-12"
-                    />
-                    <div>
-                      <p className="text-indigo-200 text-sm">Strategy Office • January 2026</p>
+            <div id="get-started" className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+              <Link to={createPageUrl('Dashboard')}>
+                <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
+                  <Users className="mr-2 h-5 w-5" />
+                  I'm a Buyer
+                </Button>
+              </Link>
+              <Link to={createPageUrl('Dashboard')}>
+                <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
+                  <Package className="mr-2 h-5 w-5" />
+                  I'm a Supplier
+                </Button>
+              </Link>
+            </div>
+            
+            <p className="text-indigo-200 text-sm">
+              Already have an account?{' '}
+              <Link to={createPageUrl('Dashboard')} className="text-teal-400 hover:text-teal-300 font-semibold">
+                Sign in here
+              </Link>
+            </p>
+          </motion.div>
+
+          {/* Hero Visual */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-16"
+          >
+            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  { icon: Shield, label: 'Secure Escrow', value: '2,500+' },
+                  { icon: Users, label: 'Active SMEs', value: '6,000+' },
+                  { icon: Zap, label: 'Deals Closed', value: 'Instant' }
+                ].map((item, i) => (
+                  <div key={i} className="text-center">
+                    <div className="w-12 h-12 bg-teal-400/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                      <item.icon className="h-6 w-6 text-teal-400" />
                     </div>
+                    <p className="text-2xl font-bold text-white mb-1">{item.value}</p>
+                    <p className="text-indigo-200 text-sm">{item.label}</p>
                   </div>
-                  <div className="space-y-4">
-                    {['Blind RFQ System', 'Integrated Escrow', 'SAMA Compliance', 'Instant Settlement'].map((item, i) => (
-                      <div key={i} className="flex items-center gap-3 text-white">
-                        <CheckCircle2 className="h-5 w-5 text-teal-400" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                ))}
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 -mt-12 relative z-10">
+      {/* Value Proposition Section */}
+      <section id="features" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+              Built for <span className="text-indigo-600">Buyers & Suppliers</span>
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Mi-Proc delivers value to both sides of the B2B marketplace
+            </p>
+          </div>
+
+          {/* Tab Switcher */}
+          <div className="flex justify-center mb-12">
+            <div className="inline-flex bg-white rounded-xl p-1 shadow-sm">
+              <button
+                onClick={() => setActiveTab('buyer')}
+                className={`px-8 py-3 rounded-lg font-medium transition-all ${
+                  activeTab === 'buyer'
+                    ? 'bg-indigo-600 text-white'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                For Buyers
+              </button>
+              <button
+                onClick={() => setActiveTab('supplier')}
+                className={`px-8 py-3 rounded-lg font-medium transition-all ${
+                  activeTab === 'supplier'
+                    ? 'bg-indigo-600 text-white'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                For Suppliers
+              </button>
+            </div>
+          </div>
+
+          {/* Benefits Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {(activeTab === 'buyer' ? buyerBenefits : supplierBenefits).map((benefit, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="bg-white shadow-xl border-0">
+                <Card className="h-full hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-3xl font-bold text-indigo-600">{stat.value}</p>
-                        <p className="text-sm text-slate-500 mt-1">{stat.label}</p>
-                      </div>
-                      <div className="p-2 bg-indigo-50 rounded-lg">
-                        <stat.icon className="h-5 w-5 text-indigo-500" />
-                      </div>
+                    <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                      <benefit.icon className="h-6 w-6 text-indigo-600" />
                     </div>
+                    <h3 className="font-semibold text-slate-900 mb-2">{benefit.title}</h3>
+                    <p className="text-sm text-slate-600">{benefit.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -164,96 +284,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20">
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <Badge className="bg-teal-100 text-teal-700 mb-4">THE PRODUCT</Badge>
+            <Badge className="bg-teal-100 text-teal-700 mb-4">HOW IT WORKS</Badge>
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
-              A unified platform combining supply aggregation
-              <span className="text-indigo-600"> with embedded finance</span>
+              From RFQ to Payment in <span className="text-teal-600">6 Simple Steps</span>
             </h2>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="h-full hover:shadow-xl transition-shadow border-0 shadow-lg">
-                  <CardContent className="p-8">
-                    <div className={`w-14 h-14 rounded-2xl ${feature.color} flex items-center justify-center mb-6`}>
-                      <feature.icon className="h-7 w-7" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-slate-900 mb-3">{feature.title}</h3>
-                    <p className="text-slate-600 leading-relaxed">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Target Outcomes */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <Badge className="bg-indigo-100 text-indigo-700 mb-4">TARGET OUTCOMES</Badge>
-              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-8">
-                Delivering measurable business impact
-              </h2>
-              
-              <div className="space-y-6">
-                <div className="flex items-center gap-6 p-6 bg-white rounded-2xl shadow-sm">
-                  <div className="text-right">
-                    <p className="text-xs text-slate-500 uppercase tracking-wide">Efficiency</p>
-                    <p className="text-sm text-slate-600">Faster procurement cycles</p>
-                  </div>
-                  <div className="text-4xl font-bold text-teal-500">30-40%↓</div>
-                </div>
-                
-                <div className="flex items-center gap-6 p-6 bg-white rounded-2xl shadow-sm">
-                  <div className="text-right">
-                    <p className="text-xs text-slate-500 uppercase tracking-wide">Cost Reduction</p>
-                    <p className="text-sm text-slate-600">Lower payment & transaction costs</p>
-                  </div>
-                  <div className="text-4xl font-bold text-teal-500">20-25%↓</div>
-                </div>
-                
-                <div className="flex items-center gap-6 p-6 bg-white rounded-2xl shadow-sm">
-                  <div className="text-right">
-                    <p className="text-xs text-slate-500 uppercase tracking-wide">Trust & Cash Flow</p>
-                    <p className="text-sm text-slate-600">Settlements via Escrow</p>
-                  </div>
-                  <div className="text-4xl font-bold text-indigo-600">Instant⚡</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              {sectors.map((sector, index) => (
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-200 via-teal-200 to-purple-200 transform -translate-x-1/2" />
+
+            <div className="space-y-12">
+              {howItWorksSteps.map((step, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
+                  className={`lg:grid lg:grid-cols-2 gap-8 items-center ${
+                    index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                  }`}
                 >
-                  <Card className="hover:shadow-lg transition-shadow border-0 shadow-md">
-                    <CardContent className="p-6 text-center">
-                      <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                        <sector.icon className="h-6 w-6 text-indigo-600" />
-                      </div>
-                      <h4 className="font-semibold text-slate-900 mb-1">{sector.name}</h4>
-                      <p className="text-teal-600 font-bold">{sector.savings} savings</p>
-                    </CardContent>
-                  </Card>
+                  <div className={index % 2 === 0 ? 'lg:text-right' : 'lg:col-start-2'}>
+                    <Card className="inline-block hover:shadow-xl transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-teal-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span className="text-white font-bold text-lg">{step.number}</span>
+                          </div>
+                          <div className="text-left">
+                            <h3 className="font-semibold text-slate-900 mb-1">{step.title}</h3>
+                            <p className="text-sm text-slate-600">{step.subtitle}</p>
+                          </div>
+                          <step.icon className="h-8 w-8 text-indigo-300 ml-auto" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -261,30 +333,236 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Security & Compliance Section */}
+      <section id="security" className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <Badge className="bg-indigo-100 text-indigo-700 mb-4">SECURITY & COMPLIANCE</Badge>
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+              Bank-Grade Security & <span className="text-indigo-600">Full Regulatory Compliance</span>
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Your data and transactions are protected by enterprise-level security and regulated by Saudi authorities
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 mb-12">
+            {/* Security Features */}
+            <div>
+              <h3 className="text-xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
+                <Lock className="h-6 w-6 text-indigo-600" />
+                Security Features
+              </h3>
+              <div className="space-y-4">
+                {securityFeatures.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Card>
+                      <CardContent className="p-4 flex items-center gap-4">
+                        <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
+                          <Shield className="h-5 w-5 text-teal-600" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-slate-900">{feature.title}</p>
+                          <p className="text-sm text-slate-500">{feature.description}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Compliance Certifications */}
+            <div>
+              <h3 className="text-xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
+                <CheckCircle2 className="h-6 w-6 text-teal-600" />
+                Compliance Certifications
+              </h3>
+              <div className="space-y-4">
+                {complianceCertifications.map((cert, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Card>
+                      <CardContent className="p-4 flex items-center gap-4">
+                        <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+                          <Server className="h-5 w-5 text-indigo-600" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-slate-900">{cert.title}</p>
+                          <p className="text-sm text-slate-500">{cert.description}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Trust Badge */}
+          <div className="bg-gradient-to-r from-indigo-50 to-teal-50 rounded-2xl p-8 text-center border border-indigo-100">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Shield className="h-8 w-8 text-indigo-600" />
+              <h3 className="text-2xl font-bold text-slate-900">Trusted & Regulated</h3>
+            </div>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              Mi-Proc is fully licensed by SAMA (Saudi Arabian Monetary Authority) as a Payment Service Provider
+              and complies with all local and international security standards.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Target Sectors */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+              Proven Results Across <span className="text-teal-600">Multiple Industries</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {sectors.map((sector, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6 text-center">
+                    <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <sector.icon className="h-8 w-8 text-indigo-600" />
+                    </div>
+                    <h4 className="font-semibold text-slate-900 mb-2">{sector.name}</h4>
+                    <p className="text-teal-600 font-bold text-lg">{sector.savings}</p>
+                    <p className="text-sm text-slate-500">Cost Savings</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-slate-600">
+              Everything you need to know about Mi-Proc
+            </p>
+          </div>
+
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-xl border px-6">
+                <AccordionTrigger className="text-left font-semibold text-slate-900 hover:text-indigo-600">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-slate-600">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-            Ready to transform your B2B procurement?
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+            Ready to Transform Your B2B Procurement?
           </h2>
-          <p className="text-xl text-slate-600 mb-8">
-            Join the digital procurement revolution with Mi-Proc
+          <p className="text-xl text-indigo-100 mb-8">
+            Join 2,500+ SMEs already using Mi-Proc for secure, efficient procurement
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link to={createPageUrl('CreateRFQ')}>
-              <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
-                Create Your First RFQ
-                <ArrowRight className="ml-2 h-5 w-5" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link to={createPageUrl('Dashboard')}>
+              <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
+                <Users className="mr-2 h-5 w-5" />
+                Get Started as Buyer
               </Button>
             </Link>
-            <Link to={createPageUrl('Wallet')}>
-              <Button size="lg" variant="outline">
-                Explore Mi-Wallet
+            <Link to={createPageUrl('Dashboard')}>
+              <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
+                <Package className="mr-2 h-5 w-5" />
+                Get Started as Supplier
               </Button>
             </Link>
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer id="contact" className="bg-slate-900 text-slate-300 py-12">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <img 
+                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png" 
+                  alt="MI Technologies" 
+                  className="h-8 brightness-0 invert"
+                />
+              </div>
+              <p className="text-sm text-slate-400">
+                Revolutionizing B2B procurement and payments in Saudi Arabia
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold text-white mb-4">Platform</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-white">How It Works</a></li>
+                <li><a href="#" className="hover:text-white">Features</a></li>
+                <li><a href="#" className="hover:text-white">Pricing</a></li>
+                <li><a href="#" className="hover:text-white">Security</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold text-white mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-white">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white">Cookie Policy</a></li>
+                <li><a href="#" className="hover:text-white">Compliance</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold text-white mb-4">Contact</h4>
+              <ul className="space-y-2 text-sm">
+                <li>Email: info@mi-proc.sa</li>
+                <li>Phone: +966 XX XXX XXXX</li>
+                <li>Address: Riyadh, Saudi Arabia</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-800 pt-8 text-center text-sm text-slate-400">
+            <p>&copy; 2026 MI Technologies. All rights reserved. Licensed by SAMA.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
