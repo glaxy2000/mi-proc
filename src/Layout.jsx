@@ -28,14 +28,21 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   const [notificationsOpen, setNotificationsOpen] = React.useState(false);
+  const [user, setUser] = React.useState(null);
   const location = useLocation();
   
-  // Determine user role based on current page
-  const [userRole, setUserRole] = React.useState(() => {
+  React.useEffect(() => {
+    // In production, fetch user from base44.auth.me()
+    // For now, simulate based on path for demo purposes
     const path = location.pathname;
-    if (path.includes('Supplier')) return 'supplier';
-    return 'buyer';
-  });
+    if (path.includes('Supplier')) {
+      setUser({ full_name: 'Supplier Corp', email: 'supplier@example.com', role: 'supplier' });
+    } else {
+      setUser({ full_name: 'SME Corp', email: 'buyer@example.com', role: 'buyer' });
+    }
+  }, [location.pathname]);
+
+  const userRole = user?.role || 'buyer';
 
   const notifications = [
     {
@@ -82,6 +89,18 @@ export default function Layout({ children, currentPageName }) {
 
   const unreadCount = notifications.filter(n => n.unread).length;
 
+  const adminNavigation = [
+    { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
+    { name: 'All RFQs', href: 'RFQList', icon: FileText },
+    { name: 'All Bids', href: 'Bids', icon: MessageSquare },
+    { name: 'All Orders', href: 'Orders', icon: Shield },
+    { name: 'Users', href: 'UserJourney', icon: Users },
+    { name: 'Suppliers', href: 'Suppliers', icon: Users },
+    { name: 'Payments', href: 'Wallet', icon: Wallet },
+    { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
+    { name: 'Escrow', href: 'Escrow', icon: Shield },
+  ];
+
   const buyerNavigation = [
     { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
     { name: 'RFQs', href: 'RFQList', icon: FileText },
@@ -100,7 +119,9 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Mi-Wallet', href: 'Wallet', icon: Wallet },
   ];
 
-  const navigation = userRole === 'buyer' ? buyerNavigation : supplierNavigation;
+  const navigation = userRole === 'admin' ? adminNavigation : 
+                     userRole === 'buyer' ? buyerNavigation : 
+                     supplierNavigation;
 
   const isActive = (pageName) => currentPageName === pageName;
 
@@ -162,8 +183,12 @@ export default function Layout({ children, currentPageName }) {
               <span className="text-indigo-600 font-semibold">SM</span>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium text-slate-900">SME Corp</p>
-              <p className="text-xs text-slate-500">{userRole === 'buyer' ? 'Verified Buyer' : 'Verified Supplier'}</p>
+              <p className="text-sm font-medium text-slate-900">{user?.full_name || 'User'}</p>
+              <p className="text-xs text-slate-500">
+                {userRole === 'admin' ? 'Administrator' : 
+                 userRole === 'buyer' ? 'Verified Buyer' : 
+                 'Verified Supplier'}
+              </p>
             </div>
             <ChevronDown className="h-4 w-4 text-slate-400" />
           </div>
@@ -185,7 +210,7 @@ export default function Layout({ children, currentPageName }) {
             </div>
 
             <div className="flex items-center gap-4">
-              {userRole === 'buyer' && (
+              {(userRole === 'buyer' || userRole === 'admin') && (
                 <Link to={createPageUrl('CreateRFQ')}>
                   <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold hidden sm:flex">
                     <FileText className="h-4 w-4 mr-2" />
@@ -258,16 +283,24 @@ export default function Layout({ children, currentPageName }) {
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => setUserRole('buyer')} asChild>
-                    <Link to={createPageUrl('BuyerSignin')}>Switch to Buyer</Link>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('Profile')}>Profile</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setUserRole('supplier')} asChild>
-                    <Link to={createPageUrl('SupplierSignin')}>Switch to Supplier</Link>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('Settings')}>Settings</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
+                  {userRole === 'admin' && (
+                    <>
+                      <DropdownMenuItem asChild>
+                        <Link to={createPageUrl('BuyerSignin')}>Switch to Buyer View</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to={createPageUrl('SupplierSignin')}>Switch to Supplier View</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
                   <DropdownMenuItem>Help Center</DropdownMenuItem>
                   <DropdownMenuItem className="text-red-600">Sign Out</DropdownMenuItem>
                 </DropdownMenuContent>

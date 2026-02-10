@@ -23,11 +23,17 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 
 export default function Dashboard() {
-  // Determine user role - in production this should come from auth context
-  const userRole = React.useMemo(() => {
+  // Determine user role - in production this should come from base44.auth.me()
+  const [userRole, setUserRole] = React.useState('buyer');
+
+  React.useEffect(() => {
+    // In production: const user = await base44.auth.me(); setUserRole(user.role);
     const path = window.location.pathname;
-    if (path.includes('Supplier')) return 'supplier';
-    return 'buyer';
+    if (path.includes('Supplier')) {
+      setUserRole('supplier');
+    } else {
+      setUserRole('buyer');
+    }
   }, []);
 
   const buyerStats = [
