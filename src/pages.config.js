@@ -76,6 +76,7 @@ import WithdrawWallet from './pages/WithdrawWallet';
 import BuyerDashboard from './pages/BuyerDashboard';
 import SupplierDashboard from './pages/SupplierDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminSignin from './pages/AdminSignin';
 import __Layout from './Layout.jsx';
 
 
@@ -109,6 +110,7 @@ export const PAGES = {
     "BuyerDashboard": BuyerDashboard,
     "SupplierDashboard": SupplierDashboard,
     "AdminDashboard": AdminDashboard,
+    "AdminSignin": AdminSignin,
 }
 
 export const pagesConfig = {
