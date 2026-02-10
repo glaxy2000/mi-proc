@@ -59,7 +59,7 @@ export default function Home() {
   ];
 
   const howItWorksSteps = [
-    { number: 1, title: 'Create Blind RFQ', subtitle: 'Buyers post needs / Suppliers browse', icon: FileText },
+    { number: 1, title: 'Create RFQ / Blind RFQ', subtitle: 'Buyers post needs / Suppliers browse', icon: FileText },
     { number: 2, title: 'AI Matching & Anonymous Bids', subtitle: 'Smart supplier matching', icon: Users },
     { number: 3, title: 'Secure Virtual Negotiations', subtitle: 'End-to-end encrypted communication', icon: MessageSquare },
     { number: 4, title: 'Escrow Funding & Deal Confirmation', subtitle: 'Secure payment guarantee', icon: Lock },

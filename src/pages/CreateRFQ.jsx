@@ -70,7 +70,7 @@ export default function CreateRFQ() {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard
           </Link>
-          <h1 className="text-3xl font-bold text-slate-900">Create Blind / RFQ</h1>
+          <h1 className="text-3xl font-bold text-slate-900">Create RFQ / Blind RFQ</h1>
           <p className="text-slate-500 mt-1">Post an anonymous request for quotation to verified suppliers</p>
         </div>
 
@@ -108,7 +108,7 @@ export default function CreateRFQ() {
           </div>
           <div className="flex-1">
             <p className="font-medium text-indigo-900">
-              {blindRFQ ? 'Blind / RFQ Mode Active' : 'Standard RFQ Mode'}
+              {blindRFQ ? 'RFQ / Blind RFQ Mode Active' : 'Standard RFQ Mode'}
             </p>
             <p className="text-sm text-indigo-600">
               {blindRFQ ? 'Your identity is hidden from suppliers until you choose to reveal it' : 'Suppliers can see your company information'}
@@ -376,7 +376,7 @@ export default function CreateRFQ() {
                     <CheckCircle2 className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
                     <h3 className="text-xl font-semibold text-indigo-900 mb-2">Ready to Broadcast</h3>
                     <p className="text-indigo-700">
-                      Your blind / RFQ will be sent to verified suppliers matching your requirements.
+                      Your RFQ / Blind RFQ will be sent to verified suppliers matching your requirements.
                       You'll receive anonymous quotes within your deadline.
                     </p>
                   </div>
@@ -407,7 +407,7 @@ export default function CreateRFQ() {
                     <div className="space-y-4">
                       <h4 className="font-medium text-slate-900">Settings</h4>
                       <div className="space-y-2">
-                        <Badge className="bg-indigo-100 text-indigo-700 mr-2">Blind / RFQ</Badge>
+                        <Badge className="bg-indigo-100 text-indigo-700 mr-2">RFQ / Blind RFQ</Badge>
                         <Badge className="bg-teal-100 text-teal-700 mr-2">Escrow Required</Badge>
                         <Badge className="bg-purple-100 text-purple-700 mr-2">Negotiations Enabled</Badge>
                         <Badge className="bg-emerald-100 text-emerald-700">Verified Only</Badge>
