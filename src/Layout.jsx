@@ -301,6 +301,14 @@ export default function Layout({ children, currentPageName }) {
                       <DropdownMenuSeparator />
                     </>
                   )}
+                  {userRole !== 'admin' && (
+                    <>
+                      <DropdownMenuItem asChild>
+                        <Link to={createPageUrl('AdminSignin')}>Admin Login</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
                   <DropdownMenuItem>Help Center</DropdownMenuItem>
                   <DropdownMenuItem 
                     className="text-red-600" 

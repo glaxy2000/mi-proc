@@ -159,6 +159,11 @@ export default function Home() {
                       Sign In as Supplier
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('AdminSignin')} className="cursor-pointer">
+                      Admin Login
+                    </Link>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button onClick={() => scrollToSection('get-started')} className="bg-indigo-600 hover:bg-indigo-700">
