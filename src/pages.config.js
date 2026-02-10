@@ -47,7 +47,6 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import About from './pages/About';
 import BuyerOnboarding from './pages/BuyerOnboarding';
 import BuyerSignin from './pages/BuyerSignin';
 import BuyerSignup from './pages/BuyerSignup';
@@ -66,14 +65,13 @@ import SupplierSignin from './pages/SupplierSignin';
 import SupplierSignup from './pages/SupplierSignup';
 import Suppliers from './pages/Suppliers';
 import TopUpWallet from './pages/TopUpWallet';
+import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import UserJourney from './pages/UserJourney';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "About": About,
     "BuyerOnboarding": BuyerOnboarding,
     "BuyerSignin": BuyerSignin,
     "BuyerSignup": BuyerSignup,
@@ -92,9 +90,9 @@ export const PAGES = {
     "SupplierSignup": SupplierSignup,
     "Suppliers": Suppliers,
     "TopUpWallet": TopUpWallet,
+    "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "UserJourney": UserJourney,
 }
 
 export const pagesConfig = {
