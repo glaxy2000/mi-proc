@@ -101,7 +101,7 @@ export default function CreateRFQ() {
           </div>
         </div>
 
-        {/* Blind RFQ Badge */}
+        {/* Blind / RFQ Badge */}
         <div className="flex items-center gap-3 mb-6 p-4 bg-indigo-50 rounded-xl border border-indigo-100">
           <div className="p-2 bg-indigo-100 rounded-lg">
             {blindRFQ ? <EyeOff className="h-5 w-5 text-indigo-600" /> : <Eye className="h-5 w-5 text-indigo-600" />}
