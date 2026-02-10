@@ -552,6 +552,7 @@ export default function SupplierOnboarding() {
                           <SelectItem value="instant">Instant Transfer (SARIE)</SelectItem>
                           <SelectItem value="same_day">Same-Day Transfer</SelectItem>
                           <SelectItem value="next_day">Next-Day Transfer</SelectItem>
+                          <SelectItem value="bnpl">Buy Now, Pay Later (BNPL)</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
