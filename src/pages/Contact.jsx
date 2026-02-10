@@ -285,7 +285,7 @@ export default function Contact() {
                 About Mi-Proc
               </Button>
             </Link>
-            <Link to={createPageUrl('Dashboard')}>
+            <Link to={createPageUrl('Home')}>
               <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700">
                 Get Started
               </Button>
