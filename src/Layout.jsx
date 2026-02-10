@@ -29,6 +29,7 @@ export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   const [notificationsOpen, setNotificationsOpen] = React.useState(false);
   const [user, setUser] = React.useState(null);
+  const [selectedRole, setSelectedRole] = React.useState(localStorage.getItem('selectedRole') || 'buyer');
   const location = useLocation();
   
   React.useEffect(() => {
@@ -42,7 +43,14 @@ export default function Layout({ children, currentPageName }) {
     }
   }, [location.pathname]);
 
-  const userRole = user?.role || 'buyer';
+  const handleRoleSwitch = (role) => {
+    setSelectedRole(role);
+    localStorage.setItem('selectedRole', role);
+    // Navigate to appropriate dashboard
+    window.location.href = createPageUrl('Dashboard');
+  };
+
+  const userRole = selectedRole || user?.role || 'buyer';
 
   const notifications = [
     {
@@ -192,8 +200,8 @@ export default function Layout({ children, currentPageName }) {
               <p className="text-sm font-medium text-slate-900">{user?.full_name || 'User'}</p>
               <p className="text-xs text-slate-500">
                 {userRole === 'admin' ? 'Administrator' : 
-                 userRole === 'buyer' ? 'Verified Buyer' : 
-                 'Verified Supplier'}
+                 userRole === 'buyer' ? 'Buyer' : 
+                 'Supplier'}
               </p>
             </div>
             <ChevronDown className="h-4 w-4 text-slate-400" />
@@ -290,17 +298,29 @@ export default function Layout({ children, currentPageName }) {
                     <Link to={createPageUrl('Settings')}>Settings</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  {userRole === 'admin' && (
-                    <>
-                      <DropdownMenuItem asChild>
-                        <Link to={createPageUrl('BuyerSignin')}>Switch to Buyer View</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to={createPageUrl('SupplierSignin')}>Switch to Supplier View</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                    </>
-                  )}
+
+                  {/* Role Switching */}
+                  <div className="px-2 py-1.5 text-xs font-semibold text-slate-500">
+                    Switch Role
+                  </div>
+                  <DropdownMenuItem 
+                    onClick={() => handleRoleSwitch('buyer')}
+                    className={userRole === 'buyer' ? 'bg-indigo-50 text-indigo-600' : ''}
+                  >
+                    <Users className="mr-2 h-4 w-4" />
+                    Buyer Dashboard
+                    {userRole === 'buyer' && <span className="ml-auto text-xs">✓</span>}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    onClick={() => handleRoleSwitch('supplier')}
+                    className={userRole === 'supplier' ? 'bg-indigo-50 text-indigo-600' : ''}
+                  >
+                    <Shield className="mr-2 h-4 w-4" />
+                    Supplier Dashboard
+                    {userRole === 'supplier' && <span className="ml-auto text-xs">✓</span>}
+                  </DropdownMenuItem>
+
+                  <DropdownMenuSeparator />
                   {userRole !== 'admin' && (
                     <>
                       <DropdownMenuItem asChild>
@@ -313,6 +333,7 @@ export default function Layout({ children, currentPageName }) {
                   <DropdownMenuItem 
                     className="text-red-600" 
                     onClick={async () => {
+                      localStorage.removeItem('selectedRole');
                       // In production: await base44.auth.logout(createPageUrl('Home'));
                       window.location.href = createPageUrl('Home');
                     }}
