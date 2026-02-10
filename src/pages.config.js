@@ -10,12 +10,12 @@
  * Example file structure:
  * 
  *   import HomePage from './pages/HomePage';
- *   import Dashboard from './pages/Dashboard';
+ *   import BuyerDashboard from './pages/BuyerDashboard';
  *   import Settings from './pages/Settings';
  *   
  *   export const PAGES = {
  *       "HomePage": HomePage,
- *       "Dashboard": Dashboard,
+ *       "BuyerDashboard": BuyerDashboard,
  *       "Settings": Settings,
  *   }
  *   
@@ -51,7 +51,6 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminSignin from './pages/AdminSignin';
 import Analytics from './pages/Analytics';
 import Bids from './pages/Bids';
-import BrowseRFQs from './pages/BrowseRFQs';
 import BuyerDashboard from './pages/BuyerDashboard';
 import BuyerOnboarding from './pages/BuyerOnboarding';
 import BuyerSignin from './pages/BuyerSignin';
@@ -78,6 +77,7 @@ import TopUpWallet from './pages/TopUpWallet';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
+import BrowseRFQs from './pages/BrowseRFQs';
 import __Layout from './Layout.jsx';
 
 
@@ -86,7 +86,6 @@ export const PAGES = {
     "AdminSignin": AdminSignin,
     "Analytics": Analytics,
     "Bids": Bids,
-    "BrowseRFQs": BrowseRFQs,
     "BuyerDashboard": BuyerDashboard,
     "BuyerOnboarding": BuyerOnboarding,
     "BuyerSignin": BuyerSignin,
@@ -113,6 +112,7 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
+    "BrowseRFQs": BrowseRFQs,
 }
 
 export const pagesConfig = {
