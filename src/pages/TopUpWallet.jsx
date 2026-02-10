@@ -51,6 +51,14 @@ export default function TopUpWallet() {
       description: 'Fast and secure digital wallet payment',
       fee: '0% fee',
       time: 'Instant'
+    },
+    {
+      id: 'bnpl',
+      name: 'Buy Now, Pay Later (BNPL)',
+      icon: DollarSign,
+      description: 'Flexible payment plans with installments',
+      fee: 'Low interest',
+      time: 'Instant approval'
     }
   ];
 

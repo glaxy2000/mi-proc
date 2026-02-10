@@ -85,7 +85,6 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Escrow', href: 'Escrow', icon: Shield },
     { name: 'Mi-Wallet', href: 'Wallet', icon: Wallet },
     { name: 'Top Up Wallet', href: 'TopUpWallet', icon: Wallet },
-    { name: 'About', href: 'About', icon: FileText },
     { name: 'Contact', href: 'Contact', icon: MessageSquare },
   ];
 

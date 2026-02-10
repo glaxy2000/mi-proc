@@ -350,6 +350,7 @@ export default function CreateRFQ() {
                         <SelectItem value="30_70">30% Advance / 70% Delivery</SelectItem>
                         <SelectItem value="50_50">50% Advance / 50% Delivery</SelectItem>
                         <SelectItem value="net_30">Net 30</SelectItem>
+                        <SelectItem value="bnpl">Buy Now, Pay Later (BNPL)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
