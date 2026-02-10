@@ -210,7 +210,7 @@ export default function Layout({ children, currentPageName }) {
             </div>
 
             <div className="flex items-center gap-4">
-              {(userRole === 'buyer' || userRole === 'admin') && (
+              {userRole === 'buyer' && (
                 <Link to={createPageUrl('CreateRFQ')}>
                   <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold hidden sm:flex">
                     <FileText className="h-4 w-4 mr-2" />
