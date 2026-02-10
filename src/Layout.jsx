@@ -210,15 +210,6 @@ export default function Layout({ children, currentPageName }) {
             </div>
 
             <div className="flex items-center gap-4">
-              {userRole === 'buyer' && (
-                <Link to={createPageUrl('CreateRFQ')}>
-                  <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold hidden sm:flex">
-                    <FileText className="h-4 w-4 mr-2" />
-                    Create RFQ
-                  </Button>
-                </Link>
-              )}
-
               <Popover open={notificationsOpen} onOpenChange={setNotificationsOpen}>
                 <PopoverTrigger asChild>
                   <button className="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg">
