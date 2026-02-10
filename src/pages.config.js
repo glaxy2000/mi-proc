@@ -41,9 +41,9 @@
  *       Layout: __Layout,
  *   };
  *
- * To change the main page from HomePage to Dashboard, use find_replace:
+ * To change the main page from HomePage to BuyerDashboard, use find_replace:
  *   Old: mainPage: "HomePage",
- *   New: mainPage: "Dashboard",
+ *   New: mainPage: "BuyerDashboard",
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
