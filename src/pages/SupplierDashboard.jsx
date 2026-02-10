@@ -138,7 +138,7 @@ export default function SupplierDashboard() {
             <Card className="border-0 shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-lg font-semibold">New RFQs Available</CardTitle>
-                <Link to={createPageUrl('RFQList')}>
+                <Link to={createPageUrl('BrowseRFQs')}>
                   <Button variant="ghost" size="sm" className="text-indigo-600">
                     View All
                     <ArrowUpRight className="h-4 w-4 ml-1" />
@@ -215,7 +215,7 @@ export default function SupplierDashboard() {
         <div className="mt-8">
           <h2 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link to={createPageUrl('RFQList')}>
+            <Link to={createPageUrl('BrowseRFQs')}>
               <Card className="border-0 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
                 <CardContent className="p-6 text-center">
                   <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mx-auto mb-3">
