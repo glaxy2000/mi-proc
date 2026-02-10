@@ -30,7 +30,7 @@ export default function BuyerSignin() {
       return;
     }
 
-    window.location.href = createPageUrl('BuyerDashboard');
+    window.location.href = createPageUrl('Dashboard');
   };
 
   return (
