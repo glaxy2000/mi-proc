@@ -23,28 +23,32 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 
 export default function Dashboard() {
-  // Determine user role - in production this should come from base44.auth.me()
-  const [user, setUser] = React.useState(null);
+  // Determine user role and info - in production this should come from base44.auth.me()
+  const [user, setUser] = React.useState({
+    full_name: 'Ahmed Al-Sayed',
+    company: 'SME Corporation Ltd.',
+    role: 'buyer'
+  });
 
   React.useEffect(() => {
-    // In production: const user = await base44.auth.me(); setUser(user);
+    // In production: const userData = await base44.auth.me(); setUser(userData);
     const path = window.location.pathname;
     if (path.includes('Supplier')) {
       setUser({
-        full_name: 'Ahmed Al-Mansour',
-        company: 'Al-Mansour Trading Co.',
+        full_name: 'Khalid Mohammed',
+        company: 'ABC Steel Industries',
         role: 'supplier'
       });
     } else {
       setUser({
-        full_name: 'Khalid Al-Salem',
+        full_name: 'Ahmed Al-Sayed',
         company: 'SME Corporation Ltd.',
         role: 'buyer'
       });
     }
   }, []);
 
-  const userRole = user?.role || 'buyer';
+  const userRole = user.role;
 
   const buyerStats = [
     {
@@ -167,30 +171,37 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-slate-50 p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900">
-              Welcome, {user?.full_name || 'User'}
-            </h1>
-            <div className="flex items-center gap-2 mt-2">
-              <Building2 className="h-4 w-4 text-slate-500" />
-              <p className="text-slate-500">{user?.company || 'Company'}</p>
-              <span className="text-slate-300">•</span>
-              <Badge className={userRole === 'buyer' ? 'bg-indigo-100 text-indigo-700' : 'bg-teal-100 text-teal-700'}>
-                {userRole === 'buyer' ? 'Buyer' : 'Supplier'}
-              </Badge>
+        {/* Welcome Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">
+                Welcome back, {user.full_name}! 👋
+              </h1>
+              <div className="flex items-center gap-2 text-indigo-100">
+                <Building2 className="h-5 w-5" />
+                <span className="text-lg">{user.company}</span>
+              </div>
+              <p className="text-indigo-100 mt-3">
+                {userRole === 'buyer' 
+                  ? "Here's your procurement overview and latest opportunities."
+                  : "Here's your sales overview and new RFQ opportunities."}
+              </p>
+            </div>
+            <div className="hidden md:block">
+              <Link to={createPageUrl('Wallet')}>
+                <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                  <Wallet className="h-4 w-4 mr-2" />
+                  Mi-Wallet
+                </Button>
+              </Link>
             </div>
           </div>
-          <div className="flex gap-3 mt-4 md:mt-0">
-            <Link to={createPageUrl('Wallet')}>
-              <Button variant="outline">
-                <Wallet className="h-4 w-4 mr-2" />
-                Mi-Wallet
-              </Button>
-            </Link>
-          </div>
-        </div>
+        </motion.div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
