@@ -7,13 +7,23 @@ import {
   Package,
   Users,
   Clock,
-  BarChart3
+  BarChart3,
+  Calendar,
+  ArrowLeftRight
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 export default function Analytics() {
-  const kpis = [
+  const [dateRange, setDateRange] = React.useState('last_6_months');
+  const [viewMode, setViewMode] = React.useState('buyer');
+  const selectedRole = localStorage.getItem('selectedRole') || 'buyer';
+  // Buyer KPIs
+  const buyerKpis = [
     {
       title: 'Total Procurement Value',
       value: 'SAR 12.4M',
@@ -48,13 +58,71 @@ export default function Analytics() {
     }
   ];
 
-  const categoryBreakdown = [
-    { category: 'Construction Materials', amount: 'SAR 4.2M', percentage: 34, color: 'bg-indigo-500' },
-    { category: 'Office Equipment', amount: 'SAR 2.8M', percentage: 23, color: 'bg-teal-500' },
-    { category: 'Medical Supplies', amount: 'SAR 2.1M', percentage: 17, color: 'bg-purple-500' },
-    { category: 'Raw Materials', amount: 'SAR 1.9M', percentage: 15, color: 'bg-amber-500' },
-    { category: 'IT & Hardware', amount: 'SAR 1.4M', percentage: 11, color: 'bg-emerald-500' }
+  // Supplier KPIs
+  const supplierKpis = [
+    {
+      title: 'Total Revenue',
+      value: 'SAR 8.9M',
+      change: '+22.3%',
+      trend: 'up',
+      icon: DollarSign,
+      color: 'bg-emerald-500'
+    },
+    {
+      title: 'Average Deal Size',
+      value: 'SAR 128,400',
+      change: '+15.1%',
+      trend: 'up',
+      icon: Package,
+      color: 'bg-indigo-500'
+    },
+    {
+      title: 'Active Buyers',
+      value: '89',
+      change: '+12',
+      trend: 'up',
+      icon: Users,
+      color: 'bg-teal-500'
+    },
+    {
+      title: 'Win Rate',
+      value: '68%',
+      change: '+5.2%',
+      trend: 'up',
+      icon: TrendingUp,
+      color: 'bg-purple-500'
+    }
   ];
+
+  const kpis = viewMode === 'buyer' ? buyerKpis : supplierKpis;
+
+  // Spending data over time
+  const spendingTrend = [
+    { month: 'Aug 2025', buyer: 1.8, supplier: 1.2 },
+    { month: 'Sep 2025', buyer: 2.2, supplier: 1.5 },
+    { month: 'Oct 2025', buyer: 2.0, supplier: 1.4 },
+    { month: 'Nov 2025', buyer: 2.8, supplier: 2.0 },
+    { month: 'Dec 2025', buyer: 2.5, supplier: 1.8 },
+    { month: 'Jan 2026', buyer: 3.4, supplier: 2.5 }
+  ];
+
+  const buyerCategoryBreakdown = [
+    { category: 'Construction Materials', amount: 4.2, percentage: 34, color: '#6366f1' },
+    { category: 'Office Equipment', amount: 2.8, percentage: 23, color: '#14b8a6' },
+    { category: 'Medical Supplies', amount: 2.1, percentage: 17, color: '#a855f7' },
+    { category: 'Raw Materials', amount: 1.9, percentage: 15, color: '#f59e0b' },
+    { category: 'IT & Hardware', amount: 1.4, percentage: 11, color: '#10b981' }
+  ];
+
+  const supplierCategoryBreakdown = [
+    { category: 'Construction Materials', amount: 3.1, percentage: 35, color: '#6366f1' },
+    { category: 'Office Equipment', amount: 1.9, percentage: 21, color: '#14b8a6' },
+    { category: 'Medical Supplies', amount: 1.6, percentage: 18, color: '#a855f7' },
+    { category: 'Raw Materials', amount: 1.4, percentage: 16, color: '#f59e0b' },
+    { category: 'IT & Hardware', amount: 0.9, percentage: 10, color: '#10b981' }
+  ];
+
+  const categoryBreakdown = viewMode === 'buyer' ? buyerCategoryBreakdown : supplierCategoryBreakdown;
 
   const topSuppliers = [
     { name: 'ABC Steel Co.', orders: 24, value: 'SAR 3.2M', rating: 4.8 },
@@ -66,10 +134,62 @@ export default function Analytics() {
   return (
     <div className="min-h-screen bg-slate-50 p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {/* Header with Controls */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Procurement Analytics</h1>
-          <p className="text-slate-600">View detailed reports and insights</p>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+            <div>
+              <h1 className="text-3xl font-bold text-slate-900 mb-2">Analytics Dashboard</h1>
+              <p className="text-slate-600">Comprehensive insights and performance metrics</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <Select value={dateRange} onValueChange={setDateRange}>
+                <SelectTrigger className="w-48">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="last_7_days">Last 7 Days</SelectItem>
+                  <SelectItem value="last_30_days">Last 30 Days</SelectItem>
+                  <SelectItem value="last_3_months">Last 3 Months</SelectItem>
+                  <SelectItem value="last_6_months">Last 6 Months</SelectItem>
+                  <SelectItem value="last_year">Last Year</SelectItem>
+                  <SelectItem value="custom">Custom Range</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Role Toggle */}
+          <div className="flex items-center gap-3 p-3 bg-white rounded-xl border">
+            <ArrowLeftRight className="h-4 w-4 text-slate-500" />
+            <span className="text-sm font-medium text-slate-700">View as:</span>
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant={viewMode === 'buyer' ? 'default' : 'outline'}
+                onClick={() => setViewMode('buyer')}
+                className={viewMode === 'buyer' ? 'bg-indigo-600' : ''}
+              >
+                Buyer
+              </Button>
+              <Button
+                size="sm"
+                variant={viewMode === 'supplier' ? 'default' : 'outline'}
+                onClick={() => setViewMode('supplier')}
+                className={viewMode === 'supplier' ? 'bg-indigo-600' : ''}
+              >
+                Supplier
+              </Button>
+              <Button
+                size="sm"
+                variant={viewMode === 'comparison' ? 'default' : 'outline'}
+                onClick={() => setViewMode('comparison')}
+                className={viewMode === 'comparison' ? 'bg-indigo-600' : ''}
+              >
+                Comparison
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* KPI Cards */}
@@ -101,7 +221,7 @@ export default function Analytics() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          {/* Category Breakdown */}
+          {/* Category Breakdown - Bar Chart */}
           <Card className="border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -110,30 +230,57 @@ export default function Analytics() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {categoryBreakdown.map((item, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={categoryBreakdown}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="category" tick={{ fontSize: 12 }} angle={-15} textAnchor="end" height={80} />
+                  <YAxis tick={{ fontSize: 12 }} />
+                  <Tooltip 
+                    formatter={(value) => `SAR ${value}M`}
+                    contentStyle={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px' }}
+                  />
+                  <Bar dataKey="amount" fill="#6366f1" radius={[8, 8, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          {/* Category Breakdown - Pie Chart */}
+          <Card className="border-0 shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="h-5 w-5 text-teal-600" />
+                Category Distribution
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={categoryBreakdown}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={(entry) => `${entry.percentage}%`}
+                    outerRadius={100}
+                    fill="#8884d8"
+                    dataKey="percentage"
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-slate-900">{item.category}</span>
-                      <span className="text-sm font-semibold text-slate-700">{item.amount}</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="flex-1 bg-slate-200 h-2 rounded-full overflow-hidden">
-                        <div 
-                          className={`h-full ${item.color} rounded-full transition-all duration-500`}
-                          style={{ width: `${item.percentage}%` }}
-                        />
-                      </div>
-                      <span className="text-sm text-slate-500 w-12 text-right">{item.percentage}%</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+                    {categoryBreakdown.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip 
+                    formatter={(value, name, props) => [`${value}% (SAR ${props.payload.amount}M)`, props.payload.category]}
+                    contentStyle={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px' }}
+                  />
+                  <Legend 
+                    verticalAlign="bottom" 
+                    height={36}
+                    formatter={(value, entry) => entry.payload.category}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
             </CardContent>
           </Card>
 
@@ -177,28 +324,55 @@ export default function Analytics() {
           </Card>
         </div>
 
-        {/* Monthly Trend */}
+        {/* Spending Trend Over Time */}
         <Card className="border-0 shadow-lg mt-6">
           <CardHeader>
-            <CardTitle>Procurement Trend (Last 6 Months)</CardTitle>
+            <CardTitle>
+              {viewMode === 'comparison' ? 'Spending Comparison: Buyer vs Supplier' : `${viewMode === 'buyer' ? 'Procurement' : 'Revenue'} Trend Over Time`}
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64 flex items-end justify-around gap-4">
-              {['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'].map((month, index) => {
-                const heights = [40, 55, 48, 70, 62, 85];
-                return (
-                  <div key={month} className="flex-1 flex flex-col items-center gap-2">
-                    <motion.div
-                      initial={{ height: 0 }}
-                      animate={{ height: `${heights[index]}%` }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
-                      className="w-full bg-gradient-to-t from-indigo-600 to-indigo-400 rounded-t-lg"
+            <ResponsiveContainer width="100%" height={350}>
+              <LineChart data={spendingTrend}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+                <YAxis tick={{ fontSize: 12 }} label={{ value: 'Amount (SAR M)', angle: -90, position: 'insideLeft' }} />
+                <Tooltip 
+                  formatter={(value) => `SAR ${value}M`}
+                  contentStyle={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px' }}
+                />
+                <Legend />
+                {viewMode === 'comparison' ? (
+                  <>
+                    <Line 
+                      type="monotone" 
+                      dataKey="buyer" 
+                      stroke="#6366f1" 
+                      strokeWidth={3}
+                      dot={{ fill: '#6366f1', r: 5 }}
+                      name="Buyer Spending"
                     />
-                    <span className="text-sm text-slate-600">{month}</span>
-                  </div>
-                );
-              })}
-            </div>
+                    <Line 
+                      type="monotone" 
+                      dataKey="supplier" 
+                      stroke="#14b8a6" 
+                      strokeWidth={3}
+                      dot={{ fill: '#14b8a6', r: 5 }}
+                      name="Supplier Revenue"
+                    />
+                  </>
+                ) : (
+                  <Line 
+                    type="monotone" 
+                    dataKey={viewMode === 'buyer' ? 'buyer' : 'supplier'}
+                    stroke={viewMode === 'buyer' ? '#6366f1' : '#14b8a6'}
+                    strokeWidth={3}
+                    dot={{ fill: viewMode === 'buyer' ? '#6366f1' : '#14b8a6', r: 5 }}
+                    name={viewMode === 'buyer' ? 'Procurement' : 'Revenue'}
+                  />
+                )}
+              </LineChart>
+            </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
