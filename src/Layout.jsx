@@ -113,10 +113,12 @@ export default function Layout({ children, currentPageName }) {
 
   const supplierNavigation = [
     { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
-    { name: 'Browse RFQs', href: 'BrowseRFQs', icon: FileText },
-    { name: 'My Bids', href: 'Negotiations', icon: MessageSquare },
+    { name: 'RFQs', href: 'RFQList', icon: FileText },
+    { name: 'Bids', href: 'Bids', icon: MessageSquare },
     { name: 'Orders', href: 'Orders', icon: Shield },
-    { name: 'Mi-Wallet', href: 'Wallet', icon: Wallet },
+    { name: 'Payments', href: 'Wallet', icon: Wallet },
+    { name: 'Suppliers', href: 'Suppliers', icon: Users },
+    { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
   ];
 
   const navigation = userRole === 'admin' ? adminNavigation : 
@@ -125,7 +127,7 @@ export default function Layout({ children, currentPageName }) {
 
   const isActive = (pageName) => currentPageName === pageName;
   
-  const authPages = ['Home', 'BuyerSignin', 'BuyerSignup', 'SupplierSignin', 'SupplierSignup', 'AdminSignin', 'SupplierOnboarding', 'BuyerOnboarding'];
+  const authPages = ['Home', 'BuyerSignin', 'BuyerSignup', 'SupplierSignin', 'SupplierSignup', 'AdminSignin', 'SupplierOnboarding', 'BuyerOnboarding', 'Contact'];
   const hidesidebar = authPages.includes(currentPageName);
 
   return (
