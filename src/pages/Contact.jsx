@@ -280,7 +280,7 @@ export default function Contact() {
                 Homepage
               </Button>
             </Link>
-            <Link to={createPageUrl('About')}>
+            <Link to={createPageUrl('Home')}>
               <Button variant="outline" size="lg">
                 About Mi-Proc
               </Button>
