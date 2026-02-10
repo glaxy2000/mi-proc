@@ -11,7 +11,8 @@ import {
   Shield,
   TrendingUp,
   Clock,
-  Award
+  Award,
+  ThumbsUp
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -35,7 +36,10 @@ export default function Suppliers() {
       deliveryTime: '3-5 days',
       responseRate: '98%',
       completedDeals: 342,
-      specialties: ['Steel Rebar', 'Structural Steel', 'Metal Sheets']
+      specialties: ['Steel Rebar', 'Structural Steel', 'Metal Sheets'],
+      performanceScore: 92,
+      onTimeRate: 95,
+      recommendRate: 88
     },
     {
       id: 2,
@@ -49,7 +53,10 @@ export default function Suppliers() {
       deliveryTime: '1-2 days',
       responseRate: '99%',
       completedDeals: 567,
-      specialties: ['PPE', 'Medical Equipment', 'Pharmaceuticals']
+      specialties: ['PPE', 'Medical Equipment', 'Pharmaceuticals'],
+      performanceScore: 96,
+      onTimeRate: 98,
+      recommendRate: 94
     },
     {
       id: 3,
@@ -63,7 +70,10 @@ export default function Suppliers() {
       deliveryTime: '5-7 days',
       responseRate: '95%',
       completedDeals: 189,
-      specialties: ['Servers', 'Networking', 'Components']
+      specialties: ['Servers', 'Networking', 'Components'],
+      performanceScore: 85,
+      onTimeRate: 87,
+      recommendRate: 82
     },
     {
       id: 4,
@@ -77,7 +87,10 @@ export default function Suppliers() {
       deliveryTime: '7-10 days',
       responseRate: '92%',
       completedDeals: 124,
-      specialties: ['Motors', 'Bearings', 'Hydraulics']
+      specialties: ['Motors', 'Bearings', 'Hydraulics'],
+      performanceScore: 88,
+      onTimeRate: 90,
+      recommendRate: 85
     },
     {
       id: 5,
@@ -91,7 +104,10 @@ export default function Suppliers() {
       deliveryTime: '2-4 days',
       responseRate: '97%',
       completedDeals: 456,
-      specialties: ['Boxes', 'Labels', 'Custom Packaging']
+      specialties: ['Boxes', 'Labels', 'Custom Packaging'],
+      performanceScore: 83,
+      onTimeRate: 85,
+      recommendRate: 80
     },
     {
       id: 6,
@@ -105,7 +121,10 @@ export default function Suppliers() {
       deliveryTime: '1-3 days',
       responseRate: '94%',
       completedDeals: 789,
-      specialties: ['Furniture', 'Stationery', 'Electronics']
+      specialties: ['Furniture', 'Stationery', 'Electronics'],
+      performanceScore: 81,
+      onTimeRate: 83,
+      recommendRate: 78
     }
   ];
 
@@ -254,27 +273,34 @@ export default function Suppliers() {
                     ))}
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 pt-4 border-t">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-1 text-slate-500">
-                        <Clock className="h-3 w-3" />
-                      </div>
-                      <p className="text-xs font-medium text-slate-900 mt-1">{supplier.deliveryTime}</p>
-                      <p className="text-xs text-slate-400">Delivery</p>
-                    </div>
+                  <div className="grid grid-cols-4 gap-2 pt-4 border-t">
                     <div className="text-center">
                       <div className="flex items-center justify-center gap-1 text-slate-500">
                         <TrendingUp className="h-3 w-3" />
                       </div>
-                      <p className="text-xs font-medium text-slate-900 mt-1">{supplier.responseRate}</p>
-                      <p className="text-xs text-slate-400">Response</p>
+                      <p className="text-xs font-medium text-emerald-600 mt-1">{supplier.performanceScore}/100</p>
+                      <p className="text-xs text-slate-400">Score</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-1 text-slate-500">
+                        <Clock className="h-3 w-3" />
+                      </div>
+                      <p className="text-xs font-medium text-slate-900 mt-1">{supplier.onTimeRate}%</p>
+                      <p className="text-xs text-slate-400">On-Time</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-1 text-slate-500">
+                        <ThumbsUp className="h-3 w-3" />
+                      </div>
+                      <p className="text-xs font-medium text-slate-900 mt-1">{supplier.recommendRate}%</p>
+                      <p className="text-xs text-slate-400">Recommend</p>
                     </div>
                     <div className="text-center">
                       <div className="flex items-center justify-center gap-1 text-slate-500">
                         <Package className="h-3 w-3" />
                       </div>
                       <p className="text-xs font-medium text-slate-900 mt-1">{supplier.completedDeals}</p>
-                      <p className="text-xs text-slate-400">Deals</p>
+                      <p className="text-xs text-slate-400">Orders</p>
                     </div>
                   </div>
 

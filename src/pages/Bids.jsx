@@ -11,7 +11,9 @@ import {
   MessageSquare,
   ArrowUpRight,
   Filter,
-  Search
+  Search,
+  TrendingUp,
+  Award
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -28,39 +30,51 @@ export default function Bids() {
       rfqId: 'RFQ-2024-001',
       rfqTitle: 'Construction Materials - Steel Rebar',
       supplierId: 'SUP-A8F3',
+      supplierName: 'ABC Steel Industries',
       pricePerUnit: 'SAR 2,500',
       totalPrice: 'SAR 150,000',
       deliveryTime: '10 days',
       paymentTerms: '50% Advance',
       complianceScore: 95,
       status: 'pending',
-      receivedDate: '2 hours ago'
+      receivedDate: '2 hours ago',
+      supplierRating: 4.8,
+      performanceScore: 92,
+      onTimeRate: 95
     },
     {
       id: 'BID-002',
       rfqId: 'RFQ-2024-001',
       rfqTitle: 'Construction Materials - Steel Rebar',
       supplierId: 'SUP-B2D9',
+      supplierName: 'Steel Masters Co.',
       pricePerUnit: 'SAR 2,350',
       totalPrice: 'SAR 141,000',
       deliveryTime: '12 days',
       paymentTerms: '30% Advance',
       complianceScore: 88,
       status: 'shortlisted',
-      receivedDate: '5 hours ago'
+      receivedDate: '5 hours ago',
+      supplierRating: 4.6,
+      performanceScore: 85,
+      onTimeRate: 87
     },
     {
       id: 'BID-003',
       rfqId: 'RFQ-2024-002',
       rfqTitle: 'Office Equipment - IT Hardware',
       supplierId: 'SUP-C5E1',
+      supplierName: 'TechParts Global',
       pricePerUnit: 'SAR 3,200',
       totalPrice: 'SAR 45,000',
       deliveryTime: '7 days',
       paymentTerms: 'Net 30',
       complianceScore: 92,
       status: 'negotiating',
-      receivedDate: '1 day ago'
+      receivedDate: '1 day ago',
+      supplierRating: 4.7,
+      performanceScore: 88,
+      onTimeRate: 90
     }
   ];
 
@@ -134,15 +148,31 @@ export default function Bids() {
                   className="border-2 border-slate-200 rounded-xl p-6 hover:border-indigo-300 transition-colors"
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div>
+                    <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="font-semibold text-slate-900">{bid.rfqTitle}</h3>
                         <Badge variant="outline" className="text-slate-600">{bid.rfqId}</Badge>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-slate-500">
-                        <span>Supplier: {bid.supplierId}</span>
+                      <div className="flex items-center gap-4 text-sm text-slate-500 mb-2">
+                        <span className="font-medium text-slate-700">{bid.supplierName}</span>
+                        <span>•</span>
+                        <span>ID: {bid.supplierId}</span>
                         <span>•</span>
                         <span>Received {bid.receivedDate}</span>
+                      </div>
+                      <div className="flex items-center gap-4 text-sm">
+                        <div className="flex items-center gap-1">
+                          <Star className="h-4 w-4 text-amber-500 fill-amber-500" />
+                          <span className="font-medium text-slate-700">{bid.supplierRating}</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-emerald-600">
+                          <Award className="h-4 w-4" />
+                          <span className="font-medium">{bid.performanceScore}/100</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-indigo-600">
+                          <Clock className="h-4 w-4" />
+                          <span className="font-medium">{bid.onTimeRate}% on-time</span>
+                        </div>
                       </div>
                     </div>
                     <Badge className={`${statusColors[bid.status].bg} ${statusColors[bid.status].text}`}>

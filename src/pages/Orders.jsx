@@ -8,19 +8,24 @@ import {
   AlertTriangle,
   Download,
   Eye,
-  MapPin
+  MapPin,
+  Star
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import RatingModal from '../components/supplier/RatingModal';
 
 export default function Orders() {
+  const [ratingModalOpen, setRatingModalOpen] = React.useState(false);
+  const [selectedOrder, setSelectedOrder] = React.useState(null);
   const orders = [
     {
       id: 'ORD-2024-156',
       rfqTitle: 'Construction Materials - Steel Rebar',
       supplier: 'ABC Steel Co.',
+      supplier_email: 'supplier1@example.com',
       orderDate: 'Jan 10, 2026',
       totalAmount: 'SAR 150,000',
       status: 'in_transit',
@@ -32,6 +37,7 @@ export default function Orders() {
       id: 'ORD-2024-155',
       rfqTitle: 'Office Equipment - IT Hardware',
       supplier: 'TechSupply Ltd.',
+      supplier_email: 'supplier2@example.com',
       orderDate: 'Jan 8, 2026',
       totalAmount: 'SAR 45,000',
       status: 'awaiting_shipment',
@@ -43,6 +49,7 @@ export default function Orders() {
       id: 'ORD-2024-154',
       rfqTitle: 'Medical Supplies - PPE',
       supplier: 'MedSupply International',
+      supplier_email: 'supplier3@example.com',
       orderDate: 'Jan 5, 2026',
       totalAmount: 'SAR 85,000',
       status: 'delivered',
@@ -194,10 +201,23 @@ export default function Orders() {
                       </Button>
                     )}
                     {order.status === 'delivered' && (
-                      <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700">
-                        <CheckCircle2 className="h-4 w-4 mr-2" />
-                        Confirm Delivery
-                      </Button>
+                      <>
+                        <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700">
+                          <CheckCircle2 className="h-4 w-4 mr-2" />
+                          Confirm Delivery
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => {
+                            setSelectedOrder(order);
+                            setRatingModalOpen(true);
+                          }}
+                        >
+                          <Star className="h-4 w-4 mr-2" />
+                          Rate Supplier
+                        </Button>
+                      </>
                     )}
                     <Button size="sm" variant="outline">
                       <Download className="h-4 w-4 mr-2" />
@@ -213,6 +233,22 @@ export default function Orders() {
             </motion.div>
           ))}
         </div>
+
+        {/* Rating Modal */}
+        {selectedOrder && (
+          <RatingModal
+            open={ratingModalOpen}
+            onClose={() => {
+              setRatingModalOpen(false);
+              setSelectedOrder(null);
+            }}
+            order={selectedOrder}
+            onRatingSubmitted={() => {
+              // Refresh orders list if needed
+              console.log('Rating submitted successfully');
+            }}
+          />
+        )}
       </div>
     </div>
   );
