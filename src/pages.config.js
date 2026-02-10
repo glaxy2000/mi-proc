@@ -60,9 +60,11 @@ import Home from './pages/Home';
 import Negotiations from './pages/Negotiations';
 import Orders from './pages/Orders';
 import PayWallet from './pages/PayWallet';
+import Profile from './pages/Profile';
 import RFQList from './pages/RFQList';
 import ReceiveWallet from './pages/ReceiveWallet';
 import SendWallet from './pages/SendWallet';
+import Settings from './pages/Settings';
 import SupplierOnboarding from './pages/SupplierOnboarding';
 import SupplierSignin from './pages/SupplierSignin';
 import SupplierSignup from './pages/SupplierSignup';
@@ -71,8 +73,9 @@ import TopUpWallet from './pages/TopUpWallet';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import Profile from './pages/Profile';
-import Settings from './pages/Settings';
+import BuyerDashboard from './pages/BuyerDashboard';
+import SupplierDashboard from './pages/SupplierDashboard';
+import AdminDashboard from './pages/AdminDashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -90,9 +93,11 @@ export const PAGES = {
     "Negotiations": Negotiations,
     "Orders": Orders,
     "PayWallet": PayWallet,
+    "Profile": Profile,
     "RFQList": RFQList,
     "ReceiveWallet": ReceiveWallet,
     "SendWallet": SendWallet,
+    "Settings": Settings,
     "SupplierOnboarding": SupplierOnboarding,
     "SupplierSignin": SupplierSignin,
     "SupplierSignup": SupplierSignup,
@@ -101,8 +106,9 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "Profile": Profile,
-    "Settings": Settings,
+    "BuyerDashboard": BuyerDashboard,
+    "SupplierDashboard": SupplierDashboard,
+    "AdminDashboard": AdminDashboard,
 }
 
 export const pagesConfig = {
