@@ -47,8 +47,11 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import AdminDashboard from './pages/AdminDashboard';
+import AdminSignin from './pages/AdminSignin';
 import Analytics from './pages/Analytics';
 import Bids from './pages/Bids';
+import BuyerDashboard from './pages/BuyerDashboard';
 import BuyerOnboarding from './pages/BuyerOnboarding';
 import BuyerSignin from './pages/BuyerSignin';
 import BuyerSignup from './pages/BuyerSignup';
@@ -65,6 +68,7 @@ import RFQList from './pages/RFQList';
 import ReceiveWallet from './pages/ReceiveWallet';
 import SendWallet from './pages/SendWallet';
 import Settings from './pages/Settings';
+import SupplierDashboard from './pages/SupplierDashboard';
 import SupplierOnboarding from './pages/SupplierOnboarding';
 import SupplierSignin from './pages/SupplierSignin';
 import SupplierSignup from './pages/SupplierSignup';
@@ -73,16 +77,15 @@ import TopUpWallet from './pages/TopUpWallet';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import BuyerDashboard from './pages/BuyerDashboard';
-import SupplierDashboard from './pages/SupplierDashboard';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminSignin from './pages/AdminSignin';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "AdminDashboard": AdminDashboard,
+    "AdminSignin": AdminSignin,
     "Analytics": Analytics,
     "Bids": Bids,
+    "BuyerDashboard": BuyerDashboard,
     "BuyerOnboarding": BuyerOnboarding,
     "BuyerSignin": BuyerSignin,
     "BuyerSignup": BuyerSignup,
@@ -99,6 +102,7 @@ export const PAGES = {
     "ReceiveWallet": ReceiveWallet,
     "SendWallet": SendWallet,
     "Settings": Settings,
+    "SupplierDashboard": SupplierDashboard,
     "SupplierOnboarding": SupplierOnboarding,
     "SupplierSignin": SupplierSignin,
     "SupplierSignup": SupplierSignup,
@@ -107,10 +111,6 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "BuyerDashboard": BuyerDashboard,
-    "SupplierDashboard": SupplierDashboard,
-    "AdminDashboard": AdminDashboard,
-    "AdminSignin": AdminSignin,
 }
 
 export const pagesConfig = {
