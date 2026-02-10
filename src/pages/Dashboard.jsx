@@ -30,10 +30,11 @@ export default function Dashboard() {
     role: 'buyer'
   });
 
+  const selectedRole = localStorage.getItem('selectedRole') || 'buyer';
+
   React.useEffect(() => {
     // In production: const userData = await base44.auth.me(); setUser(userData);
-    const path = window.location.pathname;
-    if (path.includes('Supplier')) {
+    if (selectedRole === 'supplier') {
       setUser({
         full_name: 'Khalid Mohammed',
         company: 'ABC Steel Industries',
@@ -46,9 +47,9 @@ export default function Dashboard() {
         role: 'buyer'
       });
     }
-  }, []);
+  }, [selectedRole]);
 
-  const userRole = user.role;
+  const userRole = selectedRole;
 
   const buyerStats = [
     {
