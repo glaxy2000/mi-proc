@@ -47,6 +47,8 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import Analytics from './pages/Analytics';
+import Bids from './pages/Bids';
 import BuyerOnboarding from './pages/BuyerOnboarding';
 import BuyerSignin from './pages/BuyerSignin';
 import BuyerSignup from './pages/BuyerSignup';
@@ -56,6 +58,7 @@ import Dashboard from './pages/Dashboard';
 import Escrow from './pages/Escrow';
 import Home from './pages/Home';
 import Negotiations from './pages/Negotiations';
+import Orders from './pages/Orders';
 import PayWallet from './pages/PayWallet';
 import RFQList from './pages/RFQList';
 import ReceiveWallet from './pages/ReceiveWallet';
@@ -68,13 +71,12 @@ import TopUpWallet from './pages/TopUpWallet';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import Bids from './pages/Bids';
-import Orders from './pages/Orders';
-import Analytics from './pages/Analytics';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "Analytics": Analytics,
+    "Bids": Bids,
     "BuyerOnboarding": BuyerOnboarding,
     "BuyerSignin": BuyerSignin,
     "BuyerSignup": BuyerSignup,
@@ -84,6 +86,7 @@ export const PAGES = {
     "Escrow": Escrow,
     "Home": Home,
     "Negotiations": Negotiations,
+    "Orders": Orders,
     "PayWallet": PayWallet,
     "RFQList": RFQList,
     "ReceiveWallet": ReceiveWallet,
@@ -96,9 +99,6 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "Bids": Bids,
-    "Orders": Orders,
-    "Analytics": Analytics,
 }
 
 export const pagesConfig = {

@@ -245,10 +245,10 @@ export default function Layout({ children, currentPageName }) {
                   <DropdownMenuItem>Profile</DropdownMenuItem>
                   <DropdownMenuItem>Settings</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem onClick={() => setUserRole('buyer')} asChild>
                     <Link to={createPageUrl('BuyerSignin')}>Switch to Buyer</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem onClick={() => setUserRole('supplier')} asChild>
                     <Link to={createPageUrl('SupplierSignin')}>Switch to Supplier</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
