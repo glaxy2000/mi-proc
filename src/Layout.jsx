@@ -29,6 +29,13 @@ export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   const [notificationsOpen, setNotificationsOpen] = React.useState(false);
   const location = useLocation();
+  
+  // Determine user role based on current page
+  const [userRole, setUserRole] = React.useState(() => {
+    const path = location.pathname;
+    if (path.includes('Supplier')) return 'supplier';
+    return 'buyer';
+  });
 
   const notifications = [
     {
@@ -75,18 +82,25 @@ export default function Layout({ children, currentPageName }) {
 
   const unreadCount = notifications.filter(n => n.unread).length;
 
-  const navigation = [
-    { name: 'Home', href: 'Home', icon: Home },
+  const buyerNavigation = [
     { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
-    { name: 'User Journey', href: 'UserJourney', icon: Users },
-    { name: 'My RFQs', href: 'RFQList', icon: FileText },
+    { name: 'RFQs', href: 'RFQList', icon: FileText },
+    { name: 'Bids', href: 'Bids', icon: MessageSquare },
+    { name: 'Orders', href: 'Orders', icon: Shield },
+    { name: 'Payments', href: 'Wallet', icon: Wallet },
     { name: 'Suppliers', href: 'Suppliers', icon: Users },
-    { name: 'Negotiations', href: 'Negotiations', icon: MessageSquare },
-    { name: 'Escrow', href: 'Escrow', icon: Shield },
-    { name: 'Mi-Wallet', href: 'Wallet', icon: Wallet },
-    { name: 'Top Up Wallet', href: 'TopUpWallet', icon: Wallet },
-    { name: 'Contact', href: 'Contact', icon: MessageSquare },
+    { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
   ];
+
+  const supplierNavigation = [
+    { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
+    { name: 'Browse RFQs', href: 'RFQList', icon: FileText },
+    { name: 'My Bids', href: 'Negotiations', icon: MessageSquare },
+    { name: 'Orders', href: 'Orders', icon: Shield },
+    { name: 'Mi-Wallet', href: 'Wallet', icon: Wallet },
+  ];
+
+  const navigation = userRole === 'buyer' ? buyerNavigation : supplierNavigation;
 
   const isActive = (pageName) => currentPageName === pageName;
 
@@ -149,7 +163,7 @@ export default function Layout({ children, currentPageName }) {
             </div>
             <div className="flex-1">
               <p className="text-sm font-medium text-slate-900">SME Corp</p>
-              <p className="text-xs text-slate-500">Verified Buyer</p>
+              <p className="text-xs text-slate-500">{userRole === 'buyer' ? 'Verified Buyer' : 'Verified Supplier'}</p>
             </div>
             <ChevronDown className="h-4 w-4 text-slate-400" />
           </div>
@@ -171,12 +185,14 @@ export default function Layout({ children, currentPageName }) {
             </div>
 
             <div className="flex items-center gap-4">
-              <Link to={createPageUrl('CreateRFQ')}>
-                <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold hidden sm:flex">
-                  <FileText className="h-4 w-4 mr-2" />
-                  Create RFQ
-                </Button>
-              </Link>
+              {userRole === 'buyer' && (
+                <Link to={createPageUrl('CreateRFQ')}>
+                  <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold hidden sm:flex">
+                    <FileText className="h-4 w-4 mr-2" />
+                    Create RFQ
+                  </Button>
+                </Link>
+              )}
 
               <Popover open={notificationsOpen} onOpenChange={setNotificationsOpen}>
                 <PopoverTrigger asChild>
