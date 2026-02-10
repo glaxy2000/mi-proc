@@ -24,17 +24,27 @@ import { Progress } from '@/components/ui/progress';
 
 export default function Dashboard() {
   // Determine user role - in production this should come from base44.auth.me()
-  const [userRole, setUserRole] = React.useState('buyer');
+  const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
-    // In production: const user = await base44.auth.me(); setUserRole(user.role);
+    // In production: const user = await base44.auth.me(); setUser(user);
     const path = window.location.pathname;
     if (path.includes('Supplier')) {
-      setUserRole('supplier');
+      setUser({
+        full_name: 'Ahmed Al-Mansour',
+        company: 'Al-Mansour Trading Co.',
+        role: 'supplier'
+      });
     } else {
-      setUserRole('buyer');
+      setUser({
+        full_name: 'Khalid Al-Salem',
+        company: 'SME Corporation Ltd.',
+        role: 'buyer'
+      });
     }
   }, []);
+
+  const userRole = user?.role || 'buyer';
 
   const buyerStats = [
     {
@@ -160,8 +170,17 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
-            <p className="text-slate-500 mt-1">Welcome back! Here's your procurement overview.</p>
+            <h1 className="text-3xl font-bold text-slate-900">
+              Welcome, {user?.full_name || 'User'}
+            </h1>
+            <div className="flex items-center gap-2 mt-2">
+              <Building2 className="h-4 w-4 text-slate-500" />
+              <p className="text-slate-500">{user?.company || 'Company'}</p>
+              <span className="text-slate-300">•</span>
+              <Badge className={userRole === 'buyer' ? 'bg-indigo-100 text-indigo-700' : 'bg-teal-100 text-teal-700'}>
+                {userRole === 'buyer' ? 'Buyer' : 'Supplier'}
+              </Badge>
+            </div>
           </div>
           <div className="flex gap-3 mt-4 md:mt-0">
             <Link to={createPageUrl('Wallet')}>
