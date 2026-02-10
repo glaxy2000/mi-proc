@@ -250,7 +250,7 @@ export default function Contact() {
                         For urgent inquiries, please reach out directly via email or phone during business hours.
                       </p>
                       <div className="flex flex-wrap gap-2">
-                        <Link to={createPageUrl('Home')}>
+                        <Link to={createPageUrl('Contact')}>
                           <Button size="sm" variant="outline">
                             Contact Our Team
                           </Button>
