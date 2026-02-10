@@ -78,6 +78,7 @@ export default function Layout({ children, currentPageName }) {
   const navigation = [
     { name: 'Home', href: 'Home', icon: Home },
     { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
+    { name: 'User Journey', href: 'UserJourney', icon: Users },
     { name: 'My RFQs', href: 'RFQList', icon: FileText },
     { name: 'Suppliers', href: 'Suppliers', icon: Users },
     { name: 'Negotiations', href: 'Negotiations', icon: MessageSquare },

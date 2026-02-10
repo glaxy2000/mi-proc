@@ -57,17 +57,18 @@ import Dashboard from './pages/Dashboard';
 import Escrow from './pages/Escrow';
 import Home from './pages/Home';
 import Negotiations from './pages/Negotiations';
+import PayWallet from './pages/PayWallet';
 import RFQList from './pages/RFQList';
+import ReceiveWallet from './pages/ReceiveWallet';
+import SendWallet from './pages/SendWallet';
 import SupplierOnboarding from './pages/SupplierOnboarding';
 import SupplierSignin from './pages/SupplierSignin';
 import SupplierSignup from './pages/SupplierSignup';
 import Suppliers from './pages/Suppliers';
-import Wallet from './pages/Wallet';
 import TopUpWallet from './pages/TopUpWallet';
-import PayWallet from './pages/PayWallet';
-import ReceiveWallet from './pages/ReceiveWallet';
+import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import SendWallet from './pages/SendWallet';
+import UserJourney from './pages/UserJourney';
 import __Layout from './Layout.jsx';
 
 
@@ -82,17 +83,18 @@ export const PAGES = {
     "Escrow": Escrow,
     "Home": Home,
     "Negotiations": Negotiations,
+    "PayWallet": PayWallet,
     "RFQList": RFQList,
+    "ReceiveWallet": ReceiveWallet,
+    "SendWallet": SendWallet,
     "SupplierOnboarding": SupplierOnboarding,
     "SupplierSignin": SupplierSignin,
     "SupplierSignup": SupplierSignup,
     "Suppliers": Suppliers,
-    "Wallet": Wallet,
     "TopUpWallet": TopUpWallet,
-    "PayWallet": PayWallet,
-    "ReceiveWallet": ReceiveWallet,
+    "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "SendWallet": SendWallet,
+    "UserJourney": UserJourney,
 }
 
 export const pagesConfig = {
