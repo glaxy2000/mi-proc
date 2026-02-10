@@ -30,8 +30,8 @@ export default function SupplierSignin() {
       return;
     }
 
-    // Redirect to dashboard
-    window.location.href = createPageUrl('Dashboard');
+    // Redirect to supplier dashboard
+    window.location.href = createPageUrl('SupplierDashboard');
   };
 
   return (
