@@ -11,18 +11,46 @@ import {
   Truck,
   DollarSign,
   ArrowRight,
-  Eye
+  Eye,
+  Star,
+  TrendingUp
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { base44 } from '@/api/base44Client';
+import RatingModal from '../components/supplier/RatingModal';
 
 export default function Escrow() {
+  const [transactions, setTransactions] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [ratingModalOpen, setRatingModalOpen] = React.useState(false);
+  const [selectedTransaction, setSelectedTransaction] = React.useState(null);
+
+  React.useEffect(() => {
+    loadTransactions();
+  }, []);
+
+  const loadTransactions = async () => {
+    try {
+      // In production, fetch from base44.entities.EscrowTransaction.list()
+      // For now, use demo data
+      setTransactions(escrowTransactions);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error loading escrow transactions:', error);
+      setLoading(false);
+    }
+  };
   const escrowTransactions = [
     {
       id: 'TRX-8821',
+      order_id: 'ORD-2024-156',
       supplier: 'ABC Steel Co.',
+      supplier_email: 'supplier1@example.com',
+      supplierRating: 4.8,
+      performanceScore: 92,
       amount: 150000,
       status: 'awaiting_delivery',
       milestones: [
@@ -36,7 +64,11 @@ export default function Escrow() {
     },
     {
       id: 'TRX-8820',
+      order_id: 'ORD-2024-154',
       supplier: 'MedSupply Ltd.',
+      supplier_email: 'supplier3@example.com',
+      supplierRating: 4.9,
+      performanceScore: 96,
       amount: 85000,
       status: 'completed',
       milestones: [
@@ -50,7 +82,11 @@ export default function Escrow() {
     },
     {
       id: 'TRX-8819',
+      order_id: 'ORD-2024-153',
       supplier: 'TechParts Inc.',
+      supplier_email: 'supplier4@example.com',
+      supplierRating: 4.6,
+      performanceScore: 85,
       amount: 42500,
       status: 'dispute',
       milestones: [
@@ -160,6 +196,16 @@ export default function Escrow() {
                       <div>
                         <p className="text-sm text-slate-500">Supplier</p>
                         <p className="font-semibold text-slate-900">{tx.supplier}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <div className="flex items-center gap-1">
+                            <Star className="h-3 w-3 text-amber-500 fill-amber-500" />
+                            <span className="text-xs font-medium text-slate-600">{tx.supplierRating}</span>
+                          </div>
+                          <div className="flex items-center gap-1 text-emerald-600">
+                            <TrendingUp className="h-3 w-3" />
+                            <span className="text-xs font-medium">{tx.performanceScore}/100</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -226,6 +272,34 @@ export default function Escrow() {
                     </div>
                   )}
 
+                  {tx.status === 'completed' && (
+                    <div className="mt-6 p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                          <div>
+                            <p className="font-medium text-emerald-900">Transaction Completed</p>
+                            <p className="text-sm text-emerald-700">Funds have been released to the supplier. Rate your experience.</p>
+                          </div>
+                        </div>
+                        <Button 
+                          className="bg-emerald-600 hover:bg-emerald-700"
+                          onClick={() => {
+                            setSelectedTransaction({
+                              id: tx.order_id,
+                              supplier: tx.supplier,
+                              supplier_email: tx.supplier_email
+                            });
+                            setRatingModalOpen(true);
+                          }}
+                        >
+                          <Star className="h-4 w-4 mr-2" />
+                          Rate Supplier
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
                   {tx.status === 'dispute' && (
                     <div className="mt-6 p-4 bg-red-50 rounded-xl border border-red-200">
                       <div className="flex items-center justify-between">
@@ -274,6 +348,21 @@ export default function Escrow() {
             ))}
           </div>
         </div>
+
+        {/* Rating Modal */}
+        {selectedTransaction && (
+          <RatingModal
+            open={ratingModalOpen}
+            onClose={() => {
+              setRatingModalOpen(false);
+              setSelectedTransaction(null);
+            }}
+            order={selectedTransaction}
+            onRatingSubmitted={() => {
+              console.log('Rating submitted for escrow transaction');
+            }}
+          />
+        )}
       </div>
     </div>
   );
