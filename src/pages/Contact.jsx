@@ -252,7 +252,7 @@ export default function Contact() {
                       <div className="flex flex-wrap gap-2">
                         <Link to={createPageUrl('Home')}>
                           <Button size="sm" variant="outline">
-                            Call Us
+                            Contact Our Team
                           </Button>
                         </Link>
                       </div>
