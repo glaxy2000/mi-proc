@@ -94,12 +94,6 @@ export default function Dashboard() {
             <p className="text-slate-500 mt-1">Welcome back! Here's your procurement overview.</p>
           </div>
           <div className="flex gap-3 mt-4 md:mt-0">
-            <Link to={createPageUrl('CreateRFQ')}>
-              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
-                <Plus className="h-4 w-4 mr-2" />
-                New RFQ
-              </Button>
-            </Link>
             <Link to={createPageUrl('Wallet')}>
               <Button variant="outline">
                 <Wallet className="h-4 w-4 mr-2" />
@@ -236,16 +230,6 @@ export default function Dashboard() {
         <div className="mt-8">
           <h2 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link to={createPageUrl('CreateRFQ')}>
-              <Card className="border-0 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <FileText className="h-6 w-6 text-indigo-600" />
-                  </div>
-                  <p className="font-medium text-slate-900">Create RFQ</p>
-                </CardContent>
-              </Card>
-            </Link>
             <Link to={createPageUrl('Suppliers')}>
               <Card className="border-0 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
                 <CardContent className="p-6 text-center">
