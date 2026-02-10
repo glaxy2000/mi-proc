@@ -125,7 +125,8 @@ export default function Layout({ children, currentPageName }) {
 
   const isActive = (pageName) => currentPageName === pageName;
   
-  const hidesidebar = currentPageName === 'Home';
+  const authPages = ['Home', 'BuyerSignin', 'BuyerSignup', 'SupplierSignin', 'SupplierSignup', 'AdminSignin', 'SupplierOnboarding', 'BuyerOnboarding'];
+  const hidesidebar = authPages.includes(currentPageName);
 
   return (
     <div className="min-h-screen bg-slate-50">
