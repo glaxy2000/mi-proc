@@ -113,7 +113,7 @@ export default function Layout({ children, currentPageName }) {
 
   const supplierNavigation = [
     { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
-    { name: 'Browse RFQs', href: 'RFQList', icon: FileText },
+    { name: 'Browse RFQs', href: 'BrowseRFQs', icon: FileText },
     { name: 'My Bids', href: 'Negotiations', icon: MessageSquare },
     { name: 'Orders', href: 'Orders', icon: Shield },
     { name: 'Mi-Wallet', href: 'Wallet', icon: Wallet },
