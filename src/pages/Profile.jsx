@@ -15,25 +15,57 @@ import {
   Edit,
   Camera
 } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function Profile() {
   // In production, get user from base44.auth.me()
-  const [user, setUser] = React.useState({
-    full_name: 'SME Corporation',
-    email: 'contact@smecorp.com',
-    role: 'buyer',
-    phone: '+966 XX XXX XXXX',
-    company: 'SME Corporation Ltd.',
-    industry: 'Construction',
-    address: 'Al Kifah Tower, King Fahd Road, Dhahran 34232',
-    registrationDate: '2024-01-15',
-    verificationStatus: 'verified',
-    rating: 4.8,
-    completedTransactions: 24,
-    totalSpend: 'SAR 2.4M'
-  });
+  const [user, setUser] = React.useState(null);
+  const [isEditing, setIsEditing] = React.useState(false);
+
+  React.useEffect(() => {
+    // In production: const userData = await base44.auth.me(); setUser(userData);
+    const path = window.location.pathname;
+    if (path.includes('Supplier')) {
+      setUser({
+        full_name: 'Khalid Mohammed',
+        email: 'khalid@abcsteel.com',
+        role: 'supplier',
+        phone: '+966 50 123 4567',
+        company: 'ABC Steel Industries',
+        industry: 'Manufacturing',
+        address: 'Industrial City, 2nd Industrial St, Dammam 32245',
+        registrationDate: '2024-02-10',
+        verificationStatus: 'verified',
+        rating: 4.9,
+        completedTransactions: 32,
+        totalSpend: 'SAR 1.8M'
+      });
+    } else {
+      setUser({
+        full_name: 'Ahmed Al-Sayed',
+        email: 'ahmed@smecorp.com',
+        role: 'buyer',
+        phone: '+966 55 987 6543',
+        company: 'SME Corporation Ltd.',
+        industry: 'Construction',
+        address: 'Al Kifah Tower, King Fahd Road, Dhahran 34232',
+        registrationDate: '2024-01-15',
+        verificationStatus: 'verified',
+        rating: 4.8,
+        completedTransactions: 24,
+        totalSpend: 'SAR 2.4M'
+      });
+    }
+  }, []);
 
   const userRole = user?.role || 'buyer';
+
+  const handleSaveProfile = () => {
+    // In production: await base44.auth.updateMe(user);
+    setIsEditing(false);
+  };
 
   const getRoleBadge = (role) => {
     switch(role) {
@@ -47,6 +79,10 @@ export default function Profile() {
         return <Badge>User</Badge>;
     }
   };
+
+  if (!user) {
+    return <div className="min-h-screen bg-slate-50 p-6 flex items-center justify-center">Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 p-6">
@@ -85,30 +121,85 @@ export default function Profile() {
                       )}
                     </div>
                   </div>
-                  <Button className="bg-indigo-600 hover:bg-indigo-700">
-                    <Edit className="h-4 w-4 mr-2" />
-                    Edit Profile
-                  </Button>
+                  {isEditing ? (
+                    <div className="flex gap-2">
+                      <Button variant="outline" onClick={() => setIsEditing(false)}>
+                        Cancel
+                      </Button>
+                      <Button className="bg-indigo-600 hover:bg-indigo-700" onClick={handleSaveProfile}>
+                        Save Changes
+                      </Button>
+                    </div>
+                  ) : (
+                    <Button className="bg-indigo-600 hover:bg-indigo-700" onClick={() => setIsEditing(true)}>
+                      <Edit className="h-4 w-4 mr-2" />
+                      Edit Profile
+                    </Button>
+                  )}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                  <div className="flex items-center gap-3 text-slate-600">
-                    <Mail className="h-5 w-5" />
-                    <span>{user.email}</span>
+                {isEditing ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                      <Label className="text-sm font-medium text-slate-500 flex items-center gap-2">
+                        <Mail className="h-4 w-4" />
+                        Email Address
+                      </Label>
+                      <Input 
+                        type="email"
+                        value={user?.email} 
+                        onChange={(e) => setUser({...user, email: e.target.value})}
+                        className="mt-1.5"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-sm font-medium text-slate-500 flex items-center gap-2">
+                        <Phone className="h-4 w-4" />
+                        Phone Number
+                      </Label>
+                      <Input 
+                        type="tel"
+                        value={user?.phone} 
+                        onChange={(e) => setUser({...user, phone: e.target.value})}
+                        className="mt-1.5"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-sm font-medium text-slate-500 flex items-center gap-2">
+                        <User className="h-4 w-4" />
+                        Full Name
+                      </Label>
+                      <Input 
+                        value={user?.full_name} 
+                        onChange={(e) => setUser({...user, full_name: e.target.value})}
+                        className="mt-1.5"
+                      />
+                    </div>
+                    <div className="flex items-center gap-3 text-slate-600">
+                      <Calendar className="h-5 w-5" />
+                      <span>Member since {new Date(user?.registrationDate).toLocaleDateString()}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 text-slate-600">
-                    <Phone className="h-5 w-5" />
-                    <span>{user.phone}</span>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div className="flex items-center gap-3 text-slate-600">
+                      <Mail className="h-5 w-5" />
+                      <span>{user?.email}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-slate-600">
+                      <Phone className="h-5 w-5" />
+                      <span>{user?.phone}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-slate-600">
+                      <Building2 className="h-5 w-5" />
+                      <span>{user?.company}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-slate-600">
+                      <Calendar className="h-5 w-5" />
+                      <span>Member since {new Date(user?.registrationDate).toLocaleDateString()}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 text-slate-600">
-                    <Building2 className="h-5 w-5" />
-                    <span>{user.company}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-600">
-                    <Calendar className="h-5 w-5" />
-                    <span>Member since {new Date(user.registrationDate).toLocaleDateString()}</span>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </CardContent>
@@ -125,19 +216,44 @@ export default function Profile() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-slate-500">Company Name</label>
-                <p className="text-slate-900 mt-1">{user.company}</p>
+                <Label className="text-sm font-medium text-slate-500">Company Name</Label>
+                {isEditing ? (
+                  <Input 
+                    value={user?.company} 
+                    onChange={(e) => setUser({...user, company: e.target.value})}
+                    className="mt-1.5"
+                  />
+                ) : (
+                  <p className="text-slate-900 mt-1">{user?.company}</p>
+                )}
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-500">Industry</label>
-                <p className="text-slate-900 mt-1">{user.industry}</p>
+                <Label className="text-sm font-medium text-slate-500">Industry</Label>
+                {isEditing ? (
+                  <Input 
+                    value={user?.industry} 
+                    onChange={(e) => setUser({...user, industry: e.target.value})}
+                    className="mt-1.5"
+                  />
+                ) : (
+                  <p className="text-slate-900 mt-1">{user?.industry}</p>
+                )}
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-500">Address</label>
-                <p className="text-slate-900 mt-1 flex items-start gap-2">
-                  <MapPin className="h-4 w-4 mt-0.5 text-slate-400" />
-                  {user.address}
-                </p>
+                <Label className="text-sm font-medium text-slate-500">Address</Label>
+                {isEditing ? (
+                  <Textarea 
+                    value={user?.address} 
+                    onChange={(e) => setUser({...user, address: e.target.value})}
+                    className="mt-1.5"
+                    rows={3}
+                  />
+                ) : (
+                  <p className="text-slate-900 mt-1 flex items-start gap-2">
+                    <MapPin className="h-4 w-4 mt-0.5 text-slate-400" />
+                    {user?.address}
+                  </p>
+                )}
               </div>
             </CardContent>
           </Card>

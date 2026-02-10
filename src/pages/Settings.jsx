@@ -19,13 +19,35 @@ import {
 } from 'lucide-react';
 
 export default function Settings() {
-  const [user, setUser] = React.useState({
-    role: 'buyer',
-    email: 'contact@smecorp.com',
-    phone: '+966 XX XXX XXXX'
-  });
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    // In production: const userData = await base44.auth.me(); setUser(userData);
+    const path = window.location.pathname;
+    if (path.includes('Supplier')) {
+      setUser({
+        full_name: 'Khalid Mohammed',
+        email: 'khalid@abcsteel.com',
+        role: 'supplier',
+        phone: '+966 50 123 4567',
+        company: 'ABC Steel Industries'
+      });
+    } else {
+      setUser({
+        full_name: 'Ahmed Al-Sayed',
+        email: 'ahmed@smecorp.com',
+        role: 'buyer',
+        phone: '+966 55 987 6543',
+        company: 'SME Corporation Ltd.'
+      });
+    }
+  }, []);
 
   const userRole = user?.role || 'buyer';
+
+  if (!user) {
+    return <div className="min-h-screen bg-slate-50 p-6 flex items-center justify-center">Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 p-6">
@@ -65,12 +87,38 @@ export default function Settings() {
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
+                    <Label>Full Name</Label>
+                    <Input 
+                      value={user.full_name} 
+                      onChange={(e) => setUser({...user, full_name: e.target.value})}
+                      className="mt-1.5" 
+                    />
+                  </div>
+                  <div>
+                    <Label>Company Name</Label>
+                    <Input 
+                      value={user.company} 
+                      onChange={(e) => setUser({...user, company: e.target.value})}
+                      className="mt-1.5" 
+                    />
+                  </div>
+                  <div>
                     <Label>Email Address</Label>
-                    <Input type="email" defaultValue={user.email} className="mt-1.5" />
+                    <Input 
+                      type="email" 
+                      value={user.email}
+                      onChange={(e) => setUser({...user, email: e.target.value})}
+                      className="mt-1.5" 
+                    />
                   </div>
                   <div>
                     <Label>Phone Number</Label>
-                    <Input type="tel" defaultValue={user.phone} className="mt-1.5" />
+                    <Input 
+                      type="tel" 
+                      value={user.phone}
+                      onChange={(e) => setUser({...user, phone: e.target.value})}
+                      className="mt-1.5" 
+                    />
                   </div>
                   <div>
                     <Label>Language</Label>
