@@ -302,7 +302,15 @@ export default function Layout({ children, currentPageName }) {
                     </>
                   )}
                   <DropdownMenuItem>Help Center</DropdownMenuItem>
-                  <DropdownMenuItem className="text-red-600">Sign Out</DropdownMenuItem>
+                  <DropdownMenuItem 
+                    className="text-red-600" 
+                    onClick={async () => {
+                      // In production: await base44.auth.logout(createPageUrl('Home'));
+                      window.location.href = createPageUrl('Home');
+                    }}
+                  >
+                    Sign Out
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
