@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
 import {
   ArrowLeft,
   ArrowRight,
@@ -32,6 +33,8 @@ export default function CreateRFQ() {
   const [items, setItems] = useState([
     { id: 1, description: '', quantity: '', unit: 'units', specifications: '' }
   ]);
+  const [uploadedDocuments, setUploadedDocuments] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   const categories = [
     'Construction Materials',
@@ -52,6 +55,35 @@ export default function CreateRFQ() {
     if (items.length > 1) {
       setItems(items.filter(item => item.id !== id));
     }
+  };
+
+  const handleFileUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    setUploading(true);
+    try {
+      const uploadPromises = files.map(async (file) => {
+        const { file_url } = await base44.integrations.Core.UploadFile({ file });
+        return {
+          name: file.name,
+          url: file_url,
+          size: (file.size / 1024).toFixed(2) + ' KB',
+          uploadedAt: new Date().toISOString()
+        };
+      });
+
+      const newDocuments = await Promise.all(uploadPromises);
+      setUploadedDocuments([...uploadedDocuments, ...newDocuments]);
+    } catch (error) {
+      console.error('Upload failed:', error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeDocument = (url) => {
+    setUploadedDocuments(uploadedDocuments.filter(doc => doc.url !== url));
   };
 
   const steps = [
@@ -204,6 +236,52 @@ export default function CreateRFQ() {
                         </SelectContent>
                       </Select>
                     </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label>Supporting Documents</Label>
+                    <div className="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-indigo-400 transition-colors">
+                      <input
+                        type="file"
+                        id="file-upload"
+                        multiple
+                        onChange={handleFileUpload}
+                        className="hidden"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
+                      />
+                      <label htmlFor="file-upload" className="cursor-pointer">
+                        <Upload className="h-10 w-10 text-slate-400 mx-auto mb-3" />
+                        <p className="text-sm font-medium text-slate-700">
+                          {uploading ? 'Uploading...' : 'Click to upload or drag and drop'}
+                        </p>
+                        <p className="text-xs text-slate-500 mt-1">
+                          PDF, DOC, XLS, PNG, JPG (max 10MB per file)
+                        </p>
+                      </label>
+                    </div>
+
+                    {uploadedDocuments.length > 0 && (
+                      <div className="space-y-2">
+                        {uploadedDocuments.map((doc) => (
+                          <div key={doc.url} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                            <div className="flex items-center gap-3 flex-1">
+                              <FileText className="h-5 w-5 text-indigo-600" />
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-slate-900 truncate">{doc.name}</p>
+                                <p className="text-xs text-slate-500">{doc.size}</p>
+                              </div>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeDocument(doc.url)}
+                            >
+                              <Trash2 className="h-4 w-4 text-red-500" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
