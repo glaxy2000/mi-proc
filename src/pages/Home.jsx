@@ -144,31 +144,14 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-3">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline">Portal Access</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('AuthBuyer')} className="cursor-pointer">
-                      Buyer Portal
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('AuthSupplier')} className="cursor-pointer">
-                      Supplier Portal
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('AdminSignin')} className="cursor-pointer">
-                      Admin Login
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <Button onClick={() => scrollToSection('get-started')} className="bg-indigo-600 hover:bg-indigo-700">
-                Get Started
-              </Button>
+              <Link to={createPageUrl('Signin')}>
+                <Button variant="outline">Sign In</Button>
+              </Link>
+              <Link to={createPageUrl('Signup')}>
+                <Button className="bg-indigo-600 hover:bg-indigo-700">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -197,22 +180,20 @@ export default function Home() {
             </p>
             
             <div id="get-started" className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-              <Link to={createPageUrl('AuthBuyer')}>
+              <Link to={createPageUrl('Signup')}>
                 <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
-                  <Users className="mr-2 h-5 w-5" />
-                  Buyer Portal
+                  Get Started Free
                 </Button>
               </Link>
-              <Link to={createPageUrl('AuthSupplier')}>
+              <Link to={createPageUrl('Signin')}>
                 <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
-                  <Package className="mr-2 h-5 w-5" />
-                  Supplier Portal
+                  Sign In
                 </Button>
               </Link>
             </div>
 
             <p className="text-indigo-200 text-sm">
-              Access your account through the portals above
+              Register as a buyer, supplier, or both • Instant approval
             </p>
           </motion.div>
 
@@ -428,18 +409,16 @@ export default function Home() {
             Join 2,500+ SMEs already using Mi-Proc for secure, efficient procurement
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link to={createPageUrl('AuthBuyer')}>
-            <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
-              <Users className="mr-2 h-5 w-5" />
-              Buyer Portal
-            </Button>
-          </Link>
-          <Link to={createPageUrl('AuthSupplier')}>
-            <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
-              <Package className="mr-2 h-5 w-5" />
-              Supplier Portal
-            </Button>
-          </Link>
+            <Link to={createPageUrl('Signup')}>
+              <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
+                Create Free Account
+              </Button>
+            </Link>
+            <Link to={createPageUrl('Contact')}>
+              <Button size="lg" variant="outline" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
+                Contact Sales
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
