@@ -411,7 +411,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to={createPageUrl('Register')}>
               <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
-                Create Free Account
+                Create Account
               </Button>
             </Link>
             <Link to={createPageUrl('Contact')}>
