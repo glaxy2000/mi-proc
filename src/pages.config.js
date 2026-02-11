@@ -50,6 +50,8 @@
 import AdminDashboard from './pages/AdminDashboard';
 import AdminSignin from './pages/AdminSignin';
 import Analytics from './pages/Analytics';
+import AuthBuyer from './pages/AuthBuyer';
+import AuthSupplier from './pages/AuthSupplier';
 import Bids from './pages/Bids';
 import BrowseRFQs from './pages/BrowseRFQs';
 import BuyerDashboard from './pages/BuyerDashboard';
@@ -67,8 +69,10 @@ import PayWallet from './pages/PayWallet';
 import Profile from './pages/Profile';
 import RFQList from './pages/RFQList';
 import ReceiveWallet from './pages/ReceiveWallet';
+import Register from './pages/Register';
 import SendWallet from './pages/SendWallet';
 import Settings from './pages/Settings';
+import Signin from './pages/Signin';
 import SupplierDashboard from './pages/SupplierDashboard';
 import SupplierOnboarding from './pages/SupplierOnboarding';
 import SupplierSignin from './pages/SupplierSignin';
@@ -78,10 +82,6 @@ import TopUpWallet from './pages/TopUpWallet';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import AuthBuyer from './pages/AuthBuyer';
-import AuthSupplier from './pages/AuthSupplier';
-import Signin from './pages/Signin';
-import Register from './pages/Register';
 import __Layout from './Layout.jsx';
 
 
@@ -89,6 +89,8 @@ export const PAGES = {
     "AdminDashboard": AdminDashboard,
     "AdminSignin": AdminSignin,
     "Analytics": Analytics,
+    "AuthBuyer": AuthBuyer,
+    "AuthSupplier": AuthSupplier,
     "Bids": Bids,
     "BrowseRFQs": BrowseRFQs,
     "BuyerDashboard": BuyerDashboard,
@@ -106,8 +108,10 @@ export const PAGES = {
     "Profile": Profile,
     "RFQList": RFQList,
     "ReceiveWallet": ReceiveWallet,
+    "Register": Register,
     "SendWallet": SendWallet,
     "Settings": Settings,
+    "Signin": Signin,
     "SupplierDashboard": SupplierDashboard,
     "SupplierOnboarding": SupplierOnboarding,
     "SupplierSignin": SupplierSignin,
@@ -117,10 +121,6 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "AuthBuyer": AuthBuyer,
-    "AuthSupplier": AuthSupplier,
-    "Signin": Signin,
-    "Register": Register,
 }
 
 export const pagesConfig = {

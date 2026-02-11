@@ -209,48 +209,7 @@ export default function Register() {
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
-                <div className="space-y-1 mt-2">
-                  <div className="flex items-center gap-2 text-xs">
-                    {passwordValidation.minLength ? (
-                      <CheckCircle2 className="h-3 w-3 text-emerald-500" />
-                    ) : (
-                      <div className="h-3 w-3 rounded-full border-2 border-slate-300" />
-                    )}
-                    <span className={passwordValidation.minLength ? 'text-emerald-600' : 'text-slate-500'}>
-                      At least 12 characters
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    {passwordValidation.hasUppercase && passwordValidation.hasLowercase ? (
-                      <CheckCircle2 className="h-3 w-3 text-emerald-500" />
-                    ) : (
-                      <div className="h-3 w-3 rounded-full border-2 border-slate-300" />
-                    )}
-                    <span className={passwordValidation.hasUppercase && passwordValidation.hasLowercase ? 'text-emerald-600' : 'text-slate-500'}>
-                      Upper & lowercase letters
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    {passwordValidation.hasNumber ? (
-                      <CheckCircle2 className="h-3 w-3 text-emerald-500" />
-                    ) : (
-                      <div className="h-3 w-3 rounded-full border-2 border-slate-300" />
-                    )}
-                    <span className={passwordValidation.hasNumber ? 'text-emerald-600' : 'text-slate-500'}>
-                      At least one number
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    {passwordValidation.hasSpecial ? (
-                      <CheckCircle2 className="h-3 w-3 text-emerald-500" />
-                    ) : (
-                      <div className="h-3 w-3 rounded-full border-2 border-slate-300" />
-                    )}
-                    <span className={passwordValidation.hasSpecial ? 'text-emerald-600' : 'text-slate-500'}>
-                      Special character (!@#$%^&*)
-                    </span>
-                  </div>
-                </div>
+
               </div>
 
               <div className="space-y-2">
