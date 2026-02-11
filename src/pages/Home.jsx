@@ -147,7 +147,7 @@ export default function Home() {
               <Link to={createPageUrl('Signin')}>
                 <Button variant="outline">Sign In</Button>
               </Link>
-              <Link to={createPageUrl('Signup')}>
+              <Link to={createPageUrl('Register')}>
                 <Button className="bg-indigo-600 hover:bg-indigo-700">
                   Get Started
                 </Button>
@@ -180,7 +180,7 @@ export default function Home() {
             </p>
             
             <div id="get-started" className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-              <Link to={createPageUrl('Signup')}>
+              <Link to={createPageUrl('Register')}>
                 <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
                   Get Started Free
                 </Button>
@@ -409,7 +409,7 @@ export default function Home() {
             Join 2,500+ SMEs already using Mi-Proc for secure, efficient procurement
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to={createPageUrl('Signup')}>
+            <Link to={createPageUrl('Register')}>
               <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
                 Create Free Account
               </Button>
