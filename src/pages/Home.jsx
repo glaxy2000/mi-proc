@@ -182,7 +182,7 @@ export default function Home() {
             <div id="get-started" className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
               <Link to={createPageUrl('Register')}>
                 <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
-                  Get Started Free
+                  Get Started - Sign Up
                 </Button>
               </Link>
               <Link to={createPageUrl('Signin')}>
