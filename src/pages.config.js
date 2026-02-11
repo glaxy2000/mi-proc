@@ -78,6 +78,8 @@ import TopUpWallet from './pages/TopUpWallet';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
+import AuthBuyer from './pages/AuthBuyer';
+import AuthSupplier from './pages/AuthSupplier';
 import Signin from './pages/Signin';
 import Register from './pages/Register';
 import __Layout from './Layout.jsx';
@@ -115,6 +117,8 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
+    "AuthBuyer": AuthBuyer,
+    "AuthSupplier": AuthSupplier,
     "Signin": Signin,
     "Register": Register,
 }

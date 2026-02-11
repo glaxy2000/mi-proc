@@ -114,8 +114,7 @@ export default function Register() {
                 <Label>Register As *</Label>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div
-                    onClick={() => setFormData({ ...formData, registerAsBuyer: !formData.registerAsBuyer })}
-                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                    className={`p-4 rounded-xl border-2 transition-all ${
                       formData.registerAsBuyer
                         ? 'border-teal-500 bg-teal-50'
                         : 'border-slate-200 hover:border-slate-300'
@@ -127,19 +126,18 @@ export default function Register() {
                         checked={formData.registerAsBuyer}
                         onCheckedChange={(checked) => setFormData({ ...formData, registerAsBuyer: checked })}
                       />
-                      <div className="flex-1">
+                      <Label htmlFor="registerAsBuyer" className="flex-1 cursor-pointer">
                         <div className="flex items-center gap-2 mb-1">
                           <ShoppingCart className="h-5 w-5 text-teal-600" />
                           <span className="font-semibold text-slate-900">Buyer</span>
                         </div>
-                        <p className="text-xs text-slate-600">Source and purchase products</p>
-                      </div>
+                        <p className="text-xs text-slate-600 font-normal">Source and purchase products</p>
+                      </Label>
                     </div>
                   </div>
 
                   <div
-                    onClick={() => setFormData({ ...formData, registerAsSupplier: !formData.registerAsSupplier })}
-                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                    className={`p-4 rounded-xl border-2 transition-all ${
                       formData.registerAsSupplier
                         ? 'border-indigo-500 bg-indigo-50'
                         : 'border-slate-200 hover:border-slate-300'
@@ -151,13 +149,13 @@ export default function Register() {
                         checked={formData.registerAsSupplier}
                         onCheckedChange={(checked) => setFormData({ ...formData, registerAsSupplier: checked })}
                       />
-                      <div className="flex-1">
+                      <Label htmlFor="registerAsSupplier" className="flex-1 cursor-pointer">
                         <div className="flex items-center gap-2 mb-1">
                           <Package className="h-5 w-5 text-indigo-600" />
                           <span className="font-semibold text-slate-900">Supplier</span>
                         </div>
-                        <p className="text-xs text-slate-600">Sell products and services</p>
-                      </div>
+                        <p className="text-xs text-slate-600 font-normal">Sell products and services</p>
+                      </Label>
                     </div>
                   </div>
                 </div>
