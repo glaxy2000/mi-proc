@@ -146,17 +146,17 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline">Sign In</Button>
+                  <Button variant="outline">Portal Access</Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('BuyerSignin')} className="cursor-pointer">
-                      Sign In as Buyer
+                    <Link to={createPageUrl('AuthBuyer')} className="cursor-pointer">
+                      Buyer Portal
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('SupplierSignin')} className="cursor-pointer">
-                      Sign In as Supplier
+                    <Link to={createPageUrl('AuthSupplier')} className="cursor-pointer">
+                      Supplier Portal
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -197,29 +197,22 @@ export default function Home() {
             </p>
             
             <div id="get-started" className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-              <Link to={createPageUrl('BuyerSignup')}>
+              <Link to={createPageUrl('AuthBuyer')}>
                 <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
                   <Users className="mr-2 h-5 w-5" />
-                  I'm a Buyer
+                  Buyer Portal
                 </Button>
               </Link>
-              <Link to={createPageUrl('SupplierSignup')}>
+              <Link to={createPageUrl('AuthSupplier')}>
                 <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
                   <Package className="mr-2 h-5 w-5" />
-                  I'm a Supplier
+                  Supplier Portal
                 </Button>
               </Link>
             </div>
-            
+
             <p className="text-indigo-200 text-sm">
-              Already have an account?{' '}
-              <Link to={createPageUrl('BuyerSignin')} className="text-teal-400 hover:text-teal-300 font-semibold">
-                Sign in as Buyer
-              </Link>
-              {' or '}
-              <Link to={createPageUrl('SupplierSignin')} className="text-teal-400 hover:text-teal-300 font-semibold">
-                Supplier
-              </Link>
+              Access your account through the portals above
             </p>
           </motion.div>
 
@@ -435,18 +428,18 @@ export default function Home() {
             Join 2,500+ SMEs already using Mi-Proc for secure, efficient procurement
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to={createPageUrl('BuyerSignup')}>
-              <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
-                <Users className="mr-2 h-5 w-5" />
-                Get Started as Buyer
-              </Button>
-            </Link>
-            <Link to={createPageUrl('SupplierSignup')}>
-              <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
-                <Package className="mr-2 h-5 w-5" />
-                Get Started as Supplier
-              </Button>
-            </Link>
+          <Link to={createPageUrl('AuthBuyer')}>
+            <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto">
+              <Users className="mr-2 h-5 w-5" />
+              Buyer Portal
+            </Button>
+          </Link>
+          <Link to={createPageUrl('AuthSupplier')}>
+            <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
+              <Package className="mr-2 h-5 w-5" />
+              Supplier Portal
+            </Button>
+          </Link>
           </div>
         </div>
       </section>
