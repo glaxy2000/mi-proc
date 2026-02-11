@@ -134,7 +134,7 @@ export default function Signin() {
 
               <div className="text-center text-sm text-slate-600">
                 Don't have an account?{' '}
-                <Link to={createPageUrl('Signup')} className="text-indigo-600 hover:underline font-medium">
+                <Link to={createPageUrl('Register')} className="text-indigo-600 hover:underline font-medium">
                   Sign Up
                 </Link>
               </div>
