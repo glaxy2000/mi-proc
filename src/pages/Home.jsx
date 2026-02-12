@@ -185,7 +185,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link to={createPageUrl('Signin')}>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900">
+                <Button size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/50 text-white hover:bg-white/20 hover:border-white shadow-lg">
                   Sign In
                 </Button>
               </Link>
