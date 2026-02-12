@@ -169,59 +169,59 @@ export default function Home() {
         </div>
 
         {/* Animated Floating Icons - Left Side */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-32 overflow-hidden pointer-events-none hidden lg:block">
+        <div className="absolute left-8 top-[30%] space-y-16 pointer-events-none hidden lg:block z-10">
           <motion.div
             animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-0"
+            className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg"
           >
-            <FileText className="w-12 h-12 text-white opacity-30" />
+            <FileText className="w-7 h-7 text-white" />
           </motion.div>
           <motion.div
             animate={{ y: [0, -15, 0], x: [0, 10, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute top-24"
+            className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg"
           >
-            <Handshake className="w-10 h-10 text-white opacity-25" />
+            <Handshake className="w-6 h-6 text-white" />
           </motion.div>
           <motion.div
             animate={{ y: [0, -25, 0], x: [0, -10, 0] }}
             transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-            className="absolute top-48"
+            className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg"
           >
-            <DollarSign className="w-10 h-10 text-white opacity-30" />
+            <DollarSign className="w-6 h-6 text-white" />
           </motion.div>
         </div>
 
         {/* Animated Floating Icons - Right Side */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-32 overflow-hidden pointer-events-none hidden lg:block">
+        <div className="absolute right-8 top-[30%] space-y-16 pointer-events-none hidden lg:block z-10">
           <motion.div
             animate={{ y: [0, 25, 0], rotate: [0, -5, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute top-0 right-0"
+            className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg"
           >
-            <CreditCard className="w-14 h-14 text-white opacity-30" />
+            <CreditCard className="w-8 h-8 text-white" />
           </motion.div>
           <motion.div
             animate={{ y: [0, 20, 0], rotate: [0, 10, 0] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-            className="absolute top-24 right-0"
+            className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg"
           >
-            <Receipt className="w-12 h-12 text-white opacity-25" />
+            <Receipt className="w-7 h-7 text-white" />
           </motion.div>
           <motion.div
             animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
             transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute top-48 right-0"
+            className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg"
           >
-            <TrendingUp className="w-10 h-10 text-white opacity-30" />
+            <TrendingUp className="w-6 h-6 text-white" />
           </motion.div>
           <motion.div
             animate={{ y: [0, -18, 0], x: [0, 8, 0] }}
             transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
-            className="absolute top-72 right-0"
+            className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg"
           >
-            <Package className="w-12 h-12 text-white opacity-25" />
+            <Package className="w-7 h-7 text-white" />
           </motion.div>
         </div>
         
