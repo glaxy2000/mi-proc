@@ -23,7 +23,11 @@ import {
   Globe,
   Server,
   Eye,
-  ChevronDown
+  ChevronDown,
+  CreditCard,
+  TrendingUp,
+  Handshake,
+  Receipt
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -162,6 +166,59 @@ export default function Home() {
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-72 h-72 bg-teal-400 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-400 rounded-full blur-3xl" />
+        </div>
+
+        {/* Animated Floating Icons */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/4 left-[10%] opacity-20"
+          >
+            <FileText className="w-16 h-16 text-teal-300" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, 25, 0], rotate: [0, -5, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            className="absolute top-[15%] right-[15%] opacity-20"
+          >
+            <CreditCard className="w-20 h-20 text-purple-300" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, -15, 0], x: [0, 10, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute bottom-1/4 left-[15%] opacity-20"
+          >
+            <Handshake className="w-14 h-14 text-indigo-300" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, 20, 0], rotate: [0, 10, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+            className="absolute bottom-[20%] right-[10%] opacity-20"
+          >
+            <Receipt className="w-16 h-16 text-teal-300" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, -25, 0], x: [0, -10, 0] }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+            className="absolute top-[40%] left-[5%] opacity-20"
+          >
+            <DollarSign className="w-12 h-12 text-purple-300" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
+            transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            className="absolute top-[30%] right-[8%] opacity-20"
+          >
+            <TrendingUp className="w-14 h-14 text-indigo-300" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, -18, 0], x: [0, 8, 0] }}
+            transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+            className="absolute bottom-[35%] right-[20%] opacity-20"
+          >
+            <Package className="w-16 h-16 text-teal-300" />
+          </motion.div>
         </div>
         
         <div className="relative max-w-7xl mx-auto px-6 py-24 lg:py-32">
