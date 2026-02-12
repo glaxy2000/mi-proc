@@ -176,7 +176,7 @@ export default function Home() {
                 <span className="block mt-2">Procurement & Payments</span>
               </h1>
               <p className="text-lg lg:text-xl text-white/90 mb-8 max-w-xl">
-                Discover competitive suppliers, negotiate securely, and settle instantly with Mi-Proc, and lasting business value.
+                Discover competitive suppliers, negotiate securely, and settle instantly with Mi-Proc, and lasting business value. <p Global Business Solutions For Best Strategies>
               </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to={createPageUrl('Register')}>
