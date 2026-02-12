@@ -168,56 +168,60 @@ export default function Home() {
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-400 rounded-full blur-3xl" />
         </div>
 
-        {/* Animated Floating Icons */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Animated Floating Icons - Left Side */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-32 overflow-hidden pointer-events-none hidden lg:block">
           <motion.div
             animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 left-[10%] opacity-20"
+            className="absolute top-0"
           >
-            <FileText className="w-16 h-16 text-teal-300" />
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, 25, 0], rotate: [0, -5, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute top-[15%] right-[15%] opacity-20"
-          >
-            <CreditCard className="w-20 h-20 text-purple-300" />
+            <FileText className="w-12 h-12 text-white opacity-30" />
           </motion.div>
           <motion.div
             animate={{ y: [0, -15, 0], x: [0, 10, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-1/4 left-[15%] opacity-20"
+            className="absolute top-24"
           >
-            <Handshake className="w-14 h-14 text-indigo-300" />
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, 20, 0], rotate: [0, 10, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-            className="absolute bottom-[20%] right-[10%] opacity-20"
-          >
-            <Receipt className="w-16 h-16 text-teal-300" />
+            <Handshake className="w-10 h-10 text-white opacity-25" />
           </motion.div>
           <motion.div
             animate={{ y: [0, -25, 0], x: [0, -10, 0] }}
             transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-            className="absolute top-[40%] left-[5%] opacity-20"
+            className="absolute top-48"
           >
-            <DollarSign className="w-12 h-12 text-purple-300" />
+            <DollarSign className="w-10 h-10 text-white opacity-30" />
+          </motion.div>
+        </div>
+
+        {/* Animated Floating Icons - Right Side */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-32 overflow-hidden pointer-events-none hidden lg:block">
+          <motion.div
+            animate={{ y: [0, 25, 0], rotate: [0, -5, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            className="absolute top-0 right-0"
+          >
+            <CreditCard className="w-14 h-14 text-white opacity-30" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, 20, 0], rotate: [0, 10, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+            className="absolute top-24 right-0"
+          >
+            <Receipt className="w-12 h-12 text-white opacity-25" />
           </motion.div>
           <motion.div
             animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
             transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute top-[30%] right-[8%] opacity-20"
+            className="absolute top-48 right-0"
           >
-            <TrendingUp className="w-14 h-14 text-indigo-300" />
+            <TrendingUp className="w-10 h-10 text-white opacity-30" />
           </motion.div>
           <motion.div
             animate={{ y: [0, -18, 0], x: [0, 8, 0] }}
             transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
-            className="absolute bottom-[35%] right-[20%] opacity-20"
+            className="absolute top-72 right-0"
           >
-            <Package className="w-16 h-16 text-teal-300" />
+            <Package className="w-12 h-12 text-white opacity-25" />
           </motion.div>
         </div>
         
