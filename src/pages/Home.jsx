@@ -162,7 +162,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="relative overflow-hidden bg-[#0a2540]">
+      <section id="home" className="relative overflow-hidden bg-gradient-to-br from-[#5b4fb8] via-[#4a8fb9] to-[#2bb3b3]">
 
         <div className="relative max-w-7xl mx-auto px-6 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
