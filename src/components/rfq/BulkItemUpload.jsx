@@ -56,7 +56,7 @@ export default function BulkItemUpload({ onItemsExtracted }) {
         }));
 
         onItemsExtracted(items);
-        toast.success(\`Successfully imported \${items.length} items\`);
+        toast.success(`Successfully imported ${items.length} items`);
       } else {
         toast.error('Failed to extract data from file');
       }
