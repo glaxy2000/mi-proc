@@ -458,10 +458,10 @@ export default function CreateRFQ() {
 
                     <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
                       <div>
-                        <p className="font-medium text-slate-900">Verified Suppliers Only</p>
-                        <p className="text-sm text-slate-500">Only receive quotes from KYC-verified suppliers</p>
+                        <p className="font-medium text-slate-900">Exclude New Suppliers</p>
+                        <p className="text-sm text-slate-500">Only receive quotes from verified suppliers (exclude new suppliers)</p>
                       </div>
-                      <Switch defaultChecked />
+                      <Switch />
                     </div>
 
                     <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
@@ -475,19 +475,10 @@ export default function CreateRFQ() {
 
                   <div className="space-y-2">
                     <Label>Preferred Payment Terms</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select payment terms" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="full_escrow">100% Escrow</SelectItem>
-                        <SelectItem value="30_70">30% Advance / 70% Delivery</SelectItem>
-                        <SelectItem value="50_50">50% Advance / 50% Delivery</SelectItem>
-                        <SelectItem value="net_30">Net 30</SelectItem>
-                        <SelectItem value="bnpl">Buy Now, Pay Later (BNPL)</SelectItem>
-                        <SelectItem value="lc">Letter of Credit (LC)</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Input 
+                      placeholder="e.g., 30 days, 60 days, 50% advance, Net 30, LC, etc." 
+                    />
+                    <p className="text-xs text-slate-500">Enter your preferred payment terms (suppliers can propose alternatives)</p>
                   </div>
                 </CardContent>
               </Card>
@@ -546,7 +537,7 @@ export default function CreateRFQ() {
                         <Badge className="bg-indigo-100 text-indigo-700 mr-2">RFQ / Blind RFQ</Badge>
                         <Badge className="bg-teal-100 text-teal-700 mr-2">Escrow Required</Badge>
                         <Badge className="bg-purple-100 text-purple-700 mr-2">Negotiations Enabled</Badge>
-                        <Badge className="bg-emerald-100 text-emerald-700">Verified Only</Badge>
+                        <Badge className="bg-emerald-100 text-emerald-700">New Suppliers Welcome</Badge>
                       </div>
                     </div>
                   </div>
