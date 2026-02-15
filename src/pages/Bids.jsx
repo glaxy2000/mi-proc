@@ -13,7 +13,9 @@ import {
   Filter,
   Search,
   TrendingUp,
-  Award
+  Award,
+  Heart,
+  Sparkles
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -25,6 +27,7 @@ export default function Bids() {
   const [selectedRFQ, setSelectedRFQ] = useState('all');
   const [sortBy, setSortBy] = useState('received_latest');
   const [itemFilter, setItemFilter] = useState('all');
+  const [supplierFilter, setSupplierFilter] = useState('all');
 
   const bids = [
     {
@@ -43,7 +46,9 @@ export default function Bids() {
       supplierRating: 4.8,
       performanceScore: 92,
       onTimeRate: 95,
-      itemsBidOn: ['Steel Rebar', 'Structural Steel']
+      itemsBidOn: ['Steel Rebar', 'Structural Steel'],
+      isFavorite: true,
+      isNew: false
     },
     {
       id: 'BID-002',
@@ -61,7 +66,9 @@ export default function Bids() {
       supplierRating: 4.6,
       performanceScore: 85,
       onTimeRate: 87,
-      itemsBidOn: ['Steel Rebar']
+      itemsBidOn: ['Steel Rebar'],
+      isFavorite: false,
+      isNew: true
     },
     {
       id: 'BID-003',
@@ -79,7 +86,9 @@ export default function Bids() {
       supplierRating: 4.7,
       performanceScore: 88,
       onTimeRate: 90,
-      itemsBidOn: ['Laptops', 'Printer Cartridges']
+      itemsBidOn: ['Laptops', 'Printer Cartridges'],
+      isFavorite: true,
+      isNew: false
     }
   ];
 
@@ -95,8 +104,12 @@ export default function Bids() {
 
   const filteredAndSortedBids = bids
     .filter(bid => {
-      if (itemFilter === 'all') return true;
-      return bid.itemsBidOn?.includes(itemFilter);
+      const itemMatch = itemFilter === 'all' || bid.itemsBidOn?.includes(itemFilter);
+      const supplierMatch = 
+        supplierFilter === 'all' ||
+        (supplierFilter === 'favorites' && bid.isFavorite) ||
+        (supplierFilter === 'new' && bid.isNew);
+      return itemMatch && supplierMatch;
     })
     .sort((a, b) => {
     switch (sortBy) {
@@ -128,7 +141,7 @@ export default function Bids() {
         {/* Filters */}
         <Card className="border-0 shadow-lg mb-6">
           <CardContent className="p-6">
-            <div className="grid md:grid-cols-5 gap-4">
+            <div className="grid md:grid-cols-6 gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <Input placeholder="Search bids..." className="pl-10" />
@@ -179,6 +192,26 @@ export default function Bids() {
                   ))}
                 </SelectContent>
               </Select>
+              <Select value={supplierFilter} onValueChange={setSupplierFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Supplier type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Suppliers</SelectItem>
+                  <SelectItem value="favorites">
+                    <div className="flex items-center gap-2">
+                      <Heart className="h-4 w-4 text-pink-600" />
+                      Favorites Only
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="new">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-purple-600" />
+                      New Suppliers
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </CardContent>
         </Card>
@@ -203,6 +236,13 @@ export default function Bids() {
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="font-semibold text-slate-900">{bid.rfqTitle}</h3>
                         <Badge variant="outline" className="text-slate-600">{bid.rfqId}</Badge>
+                        {bid.isFavorite && <Heart className="h-4 w-4 text-pink-600 fill-pink-600" />}
+                        {bid.isNew && (
+                          <Badge className="bg-purple-100 text-purple-700">
+                            <Sparkles className="h-3 w-3 mr-1" />
+                            New
+                          </Badge>
+                        )}
                       </div>
                       <div className="flex items-center gap-4 text-sm text-slate-500 mb-2">
                         <span className="font-medium text-slate-700">{bid.supplierName}</span>
