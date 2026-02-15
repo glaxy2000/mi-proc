@@ -22,6 +22,7 @@ import {
 export default function BrowseRFQs() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [activeTab, setActiveTab] = React.useState('all');
+  const [selectedRegion, setSelectedRegion] = React.useState('all');
 
   const rfqs = [
     {
@@ -104,11 +105,27 @@ export default function BrowseRFQs() {
   ];
 
   const filteredRFQs = rfqs.filter(rfq => {
-    if (activeTab === 'blind') return rfq.isBlind;
+    // Filter by tab
+    if (activeTab === 'blind' && !rfq.isBlind) return false;
     if (activeTab === 'closing_soon') {
       const daysUntilEnd = Math.ceil((new Date(rfq.biddingEnds) - new Date()) / (1000 * 60 * 60 * 24));
-      return daysUntilEnd <= 3;
+      if (daysUntilEnd > 3) return false;
     }
+    
+    // Filter by region
+    if (selectedRegion !== 'all') {
+      const locationRegionMap = {
+        'Riyadh': 'riyadh',
+        'Jeddah': 'jeddah',
+        'Dammam': 'eastern',
+        'Khobar': 'eastern',
+        'Mecca': 'mecca',
+        'Medina': 'medina'
+      };
+      const rfqRegion = locationRegionMap[rfq.location] || rfq.location.toLowerCase();
+      if (rfqRegion !== selectedRegion) return false;
+    }
+    
     return true;
   });
 
@@ -200,10 +217,21 @@ export default function BrowseRFQs() {
                   <SelectItem value="technology">Technology</SelectItem>
                 </SelectContent>
               </Select>
-              <Button variant="outline" className="gap-2">
-                <Filter className="h-4 w-4" />
-                More Filters
-              </Button>
+              <Select value={selectedRegion} onValueChange={setSelectedRegion}>
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Region" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Regions</SelectItem>
+                  <SelectItem value="riyadh">Riyadh Region</SelectItem>
+                  <SelectItem value="jeddah">Jeddah Region</SelectItem>
+                  <SelectItem value="eastern">Eastern Province</SelectItem>
+                  <SelectItem value="mecca">Mecca Region</SelectItem>
+                  <SelectItem value="medina">Medina Region</SelectItem>
+                  <SelectItem value="northern">Northern Region</SelectItem>
+                  <SelectItem value="southern">Southern Region</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </CardContent>
         </Card>
