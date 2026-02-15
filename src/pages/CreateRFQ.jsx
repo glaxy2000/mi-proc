@@ -254,9 +254,33 @@ export default function CreateRFQ() {
                           <SelectItem value="dammam">Dammam</SelectItem>
                           <SelectItem value="mecca">Mecca</SelectItem>
                           <SelectItem value="medina">Medina</SelectItem>
+                          <SelectItem value="khobar">Khobar</SelectItem>
+                          <SelectItem value="tabuk">Tabuk</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Limit RFQ to Specific Region(s)</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="All regions (no restriction)" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Regions</SelectItem>
+                        <SelectItem value="riyadh">Riyadh Region Only</SelectItem>
+                        <SelectItem value="jeddah">Jeddah Region Only</SelectItem>
+                        <SelectItem value="eastern">Eastern Province Only</SelectItem>
+                        <SelectItem value="mecca">Mecca Region Only</SelectItem>
+                        <SelectItem value="medina">Medina Region Only</SelectItem>
+                        <SelectItem value="northern">Northern Region Only</SelectItem>
+                        <SelectItem value="southern">Southern Region Only</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <p className="text-xs text-slate-500">
+                      Only suppliers from selected region(s) will see this RFQ
+                    </p>
                   </div>
 
                   <div className="space-y-4">
