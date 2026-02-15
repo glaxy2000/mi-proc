@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '../utils';
 import { motion } from 'framer-motion';
 import {
   Package,
@@ -247,9 +249,11 @@ export default function Orders() {
                       View Details
                     </Button>
                     {order.type === 'goods' && order.status === 'in_transit' && (
-                      <Button size="sm" variant="outline">
-                        <Truck className="h-4 w-4 mr-2" />
-                        Track Shipment
+                      <Button size="sm" variant="outline" asChild>
+                        <Link to={`${createPageUrl('TrackShipment')}?orderId=${order.id}&tracking=${order.trackingNumber}`}>
+                          <Truck className="h-4 w-4 mr-2" />
+                          Track Shipment
+                        </Link>
                       </Button>
                     )}
                     {order.type === 'services' && order.status === 'in_progress' && (
@@ -281,9 +285,11 @@ export default function Orders() {
                       <Download className="h-4 w-4 mr-2" />
                       Invoice
                     </Button>
-                    <Button size="sm" variant="outline" className="text-red-600 border-red-200 hover:bg-red-50 ml-auto">
-                      <AlertTriangle className="h-4 w-4 mr-2" />
-                      Raise Dispute
+                    <Button size="sm" variant="outline" className="text-red-600 border-red-200 hover:bg-red-50 ml-auto" asChild>
+                      <Link to={createPageUrl('Escrow')}>
+                        <AlertTriangle className="h-4 w-4 mr-2" />
+                        Raise Dispute
+                      </Link>
                     </Button>
                   </div>
                 </CardContent>
