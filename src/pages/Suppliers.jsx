@@ -15,7 +15,8 @@ import {
   ThumbsUp,
   Ban,
   AlertCircle,
-  Heart
+  Heart,
+  Sparkles
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent } from '@/components/ui/card';
@@ -45,6 +46,9 @@ export default function Suppliers() {
   const [selectedSupplier, setSelectedSupplier] = useState(null);
   const [blockReason, setBlockReason] = useState('');
   const [loading, setLoading] = useState(false);
+  const [filterType, setFilterType] = useState('all');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [locationFilter, setLocationFilter] = useState('all');
 
   useEffect(() => {
     loadUserAndBlacklist();
@@ -163,6 +167,8 @@ export default function Suppliers() {
       reviews: 156,
       verified: true,
       gold: true,
+      isNew: false,
+      joinedDate: '2023-05-10',
       deliveryTime: '3-5 days',
       responseRate: '98%',
       completedDeals: 342,
@@ -181,6 +187,8 @@ export default function Suppliers() {
       reviews: 89,
       verified: true,
       gold: true,
+      isNew: true,
+      joinedDate: '2026-01-15',
       deliveryTime: '1-2 days',
       responseRate: '99%',
       completedDeals: 567,
@@ -199,6 +207,8 @@ export default function Suppliers() {
       reviews: 234,
       verified: true,
       gold: false,
+      isNew: false,
+      joinedDate: '2024-03-20',
       deliveryTime: '5-7 days',
       responseRate: '95%',
       completedDeals: 189,
@@ -217,6 +227,8 @@ export default function Suppliers() {
       reviews: 78,
       verified: true,
       gold: false,
+      isNew: true,
+      joinedDate: '2026-02-01',
       deliveryTime: '7-10 days',
       responseRate: '92%',
       completedDeals: 124,
@@ -235,6 +247,8 @@ export default function Suppliers() {
       reviews: 167,
       verified: true,
       gold: true,
+      isNew: false,
+      joinedDate: '2023-11-12',
       deliveryTime: '2-4 days',
       responseRate: '97%',
       completedDeals: 456,
@@ -253,6 +267,8 @@ export default function Suppliers() {
       reviews: 312,
       verified: true,
       gold: false,
+      isNew: false,
+      joinedDate: '2024-08-05',
       deliveryTime: '1-3 days',
       responseRate: '94%',
       completedDeals: 789,
@@ -273,24 +289,77 @@ export default function Suppliers() {
     'Office Supplies'
   ];
 
+  const filteredSuppliers = suppliers.filter(supplier => {
+    // Search filter
+    const matchesSearch = supplier.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         supplier.category.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    // Category filter
+    const matchesCategory = categoryFilter === 'all' || 
+                           supplier.category.toLowerCase() === categoryFilter.toLowerCase().replace(/_/g, ' ');
+    
+    // Location filter
+    const matchesLocation = locationFilter === 'all' || 
+                           supplier.location.toLowerCase() === locationFilter.toLowerCase();
+    
+    // Type filter
+    let matchesType = true;
+    if (filterType === 'favorites') {
+      matchesType = isFavorite(supplier.email);
+    } else if (filterType === 'blacklisted') {
+      matchesType = isBlacklisted(supplier.email);
+    } else if (filterType === 'new') {
+      matchesType = supplier.isNew;
+    } else if (filterType === 'verified') {
+      matchesType = supplier.verified;
+    }
+
+    return matchesSearch && matchesCategory && matchesLocation && matchesType;
+  });
+
+  const filterTabs = [
+    { id: 'all', label: 'All Suppliers', count: suppliers.length, icon: Building2 },
+    { id: 'favorites', label: 'Favorites', count: favorites.length, icon: Heart },
+    { id: 'new', label: 'New Suppliers', count: suppliers.filter(s => s.isNew).length, icon: Sparkles },
+    { id: 'blacklisted', label: 'Blacklisted', count: blacklist.length, icon: Ban },
+  ];
+
   return (
     <div className="min-h-screen bg-slate-50 p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900">Suppliers</h1>
-          <p className="text-slate-500 mt-1">Browse our network of suppliers (including new suppliers)</p>
-          {user && user.role === 'buyer' && blacklist.length > 0 && (
-            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
-              <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="font-medium text-red-900 mb-1">Blacklisted Suppliers: {blacklist.length}</p>
-                <p className="text-sm text-red-700">
-                  These suppliers cannot see or bid on your RFQs. Click the checkmark icon to remove from blacklist.
-                </p>
-              </div>
-            </div>
-          )}
+          <h1 className="text-3xl font-bold text-slate-900">Suppliers Directory</h1>
+          <p className="text-slate-500 mt-1">Browse and manage your supplier network</p>
+        </div>
+
+        {/* Filter Tabs */}
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+          {filterTabs.map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setFilterType(tab.id)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap ${
+                  filterType === tab.id
+                    ? 'bg-indigo-600 text-white shadow-lg'
+                    : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                }`}
+              >
+                <Icon className={`h-4 w-4 ${filterType === tab.id ? 'text-white' : 'text-slate-400'}`} />
+                {tab.label}
+                <Badge 
+                  className={filterType === tab.id 
+                    ? "bg-white/20 text-white" 
+                    : "bg-slate-100 text-slate-600"
+                  }
+                >
+                  {tab.count}
+                </Badge>
+              </button>
+            );
+          })}
         </div>
 
         {/* Search & Filters */}
@@ -300,13 +369,13 @@ export default function Suppliers() {
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                 <Input
-                  placeholder="Search suppliers..."
+                  placeholder="Search suppliers by name or category..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10"
                 />
               </div>
-              <Select defaultValue="all">
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                 <SelectTrigger className="w-full md:w-48">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
@@ -318,7 +387,7 @@ export default function Suppliers() {
                   ))}
                 </SelectContent>
               </Select>
-              <Select defaultValue="all">
+              <Select value={locationFilter} onValueChange={setLocationFilter}>
                 <SelectTrigger className="w-full md:w-48">
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
@@ -329,32 +398,34 @@ export default function Suppliers() {
                   <SelectItem value="dammam">Dammam</SelectItem>
                 </SelectContent>
               </Select>
-              <Button variant="outline">
-                <Filter className="h-4 w-4 mr-2" />
-                More Filters
-              </Button>
             </div>
           </CardContent>
         </Card>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           <Card className="border-0 shadow-md">
             <CardContent className="p-4 text-center">
-              <p className="text-2xl font-bold text-indigo-600">2,500+</p>
-              <p className="text-sm text-slate-500">Total Suppliers</p>
+              <p className="text-2xl font-bold text-indigo-600">{filteredSuppliers.length}</p>
+              <p className="text-sm text-slate-500">Showing</p>
             </CardContent>
           </Card>
           <Card className="border-0 shadow-md">
             <CardContent className="p-4 text-center">
-              <p className="text-2xl font-bold text-teal-600">50+</p>
-              <p className="text-sm text-slate-500">Categories</p>
+              <p className="text-2xl font-bold text-pink-600">{favorites.length}</p>
+              <p className="text-sm text-slate-500">Favorites</p>
             </CardContent>
           </Card>
           <Card className="border-0 shadow-md">
             <CardContent className="p-4 text-center">
-              <p className="text-2xl font-bold text-purple-600">95%</p>
-              <p className="text-sm text-slate-500">Response Rate</p>
+              <p className="text-2xl font-bold text-purple-600">{suppliers.filter(s => s.isNew).length}</p>
+              <p className="text-sm text-slate-500">New Suppliers</p>
+            </CardContent>
+          </Card>
+          <Card className="border-0 shadow-md">
+            <CardContent className="p-4 text-center">
+              <p className="text-2xl font-bold text-red-600">{blacklist.length}</p>
+              <p className="text-sm text-slate-500">Blacklisted</p>
             </CardContent>
           </Card>
           <Card className="border-0 shadow-md">
@@ -365,9 +436,26 @@ export default function Suppliers() {
           </Card>
         </div>
 
-        {/* Supplier Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {suppliers.map((supplier, index) => (
+        {/* Results Header */}
+        {filteredSuppliers.length === 0 ? (
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-12 text-center">
+              <Building2 className="h-16 w-16 text-slate-300 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">No Suppliers Found</h3>
+              <p className="text-slate-500">Try adjusting your filters or search query</p>
+            </CardContent>
+          </Card>
+        ) : (
+          <>
+            <div className="mb-4 flex items-center justify-between">
+              <p className="text-sm text-slate-600">
+                Showing {filteredSuppliers.length} {filteredSuppliers.length === 1 ? 'supplier' : 'suppliers'}
+              </p>
+            </div>
+
+            {/* Supplier Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredSuppliers.map((supplier, index) => (
             <motion.div
               key={supplier.id}
               initial={{ opacity: 0, y: 20 }}
@@ -378,14 +466,31 @@ export default function Suppliers() {
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center">
-                        <Building2 className="h-7 w-7 text-slate-500" />
+                      <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${
+                        isFavorite(supplier.email) ? 'bg-pink-100' : 
+                        isBlacklisted(supplier.email) ? 'bg-red-100' :
+                        'bg-slate-100'
+                      }`}>
+                        <Building2 className={`h-7 w-7 ${
+                          isFavorite(supplier.email) ? 'text-pink-600' : 
+                          isBlacklisted(supplier.email) ? 'text-red-600' :
+                          'text-slate-500'
+                        }`} />
                       </div>
                       <div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <h3 className="font-semibold text-slate-900">{supplier.name}</h3>
                           {supplier.verified && (
                             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                          )}
+                          {supplier.isNew && (
+                            <Badge className="bg-purple-100 text-purple-700">
+                              <Sparkles className="h-3 w-3 mr-1" />
+                              New
+                            </Badge>
+                          )}
+                          {isFavorite(supplier.email) && (
+                            <Heart className="h-4 w-4 text-pink-600 fill-pink-600" />
                           )}
                         </div>
                         <p className="text-sm text-slate-500">{supplier.category}</p>
@@ -495,11 +600,19 @@ export default function Suppliers() {
                       <span>Blacklisted - Cannot bid on your RFQs</span>
                     </div>
                   )}
+                  {isFavorite(supplier.email) && !isBlacklisted(supplier.email) && (
+                    <div className="mt-2 flex items-center gap-2 text-xs text-pink-600 bg-pink-50 px-3 py-2 rounded-lg">
+                      <Heart className="h-3 w-3 fill-pink-600" />
+                      <span>In your favorites</span>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>
-          ))}
-        </div>
+              ))}
+            </div>
+          </>
+        )}
 
         {/* Verification Badge Info */}
         <div className="mt-12 p-6 bg-white rounded-2xl shadow-lg">
