@@ -16,7 +16,13 @@ import {
   CheckCircle2,
   Shield,
   Eye,
-  EyeOff
+  EyeOff,
+  Users,
+  Search,
+  Star,
+  Heart,
+  Award,
+  Sparkles
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -26,6 +32,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import { Checkbox } from '@/components/ui/checkbox';
 import BulkItemUpload from '../components/rfq/BulkItemUpload';
 
 export default function CreateRFQ() {
@@ -38,6 +45,9 @@ export default function CreateRFQ() {
   const [uploadedDocuments, setUploadedDocuments] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [externalLinks, setExternalLinks] = useState([]);
+  const [selectedSuppliers, setSelectedSuppliers] = useState([]);
+  const [supplierFilter, setSupplierFilter] = useState('all');
+  const [supplierSearch, setSupplierSearch] = useState('');
 
   const categories = [
     'Construction Materials',
@@ -108,11 +118,41 @@ export default function CreateRFQ() {
     setUploadedDocuments(uploadedDocuments.filter(doc => doc.url !== url));
   };
 
+  const allSuppliers = [
+    { id: 1, email: 'abc.steel@example.com', name: 'ABC Steel Industries', category: 'Construction Materials', rating: 4.8, reviews: 156, verified: true, gold: true, isFavorite: true, isNew: false },
+    { id: 2, email: 'medsupply@example.com', name: 'MedSupply Arabia', category: 'Medical Supplies', rating: 4.9, reviews: 89, verified: true, gold: true, isFavorite: false, isNew: true },
+    { id: 3, email: 'techparts@example.com', name: 'TechParts Global', category: 'IT & Hardware', rating: 4.6, reviews: 234, verified: true, gold: false, isFavorite: true, isNew: false },
+    { id: 4, email: 'industrial@example.com', name: 'Industrial Components Co.', category: 'Manufacturing', rating: 4.7, reviews: 78, verified: true, gold: false, isFavorite: false, isNew: true },
+    { id: 5, email: 'packpro@example.com', name: 'PackPro Solutions', category: 'Packaging', rating: 4.5, reviews: 167, verified: true, gold: true, isFavorite: true, isNew: false },
+    { id: 6, email: 'officeessentials@example.com', name: 'Office Essentials KSA', category: 'Office Supplies', rating: 4.4, reviews: 312, verified: true, gold: false, isFavorite: false, isNew: false },
+  ];
+
+  const filteredSuppliers = allSuppliers.filter(supplier => {
+    const matchesSearch = supplier.name.toLowerCase().includes(supplierSearch.toLowerCase());
+    const matchesFilter = 
+      supplierFilter === 'all' ||
+      (supplierFilter === 'favorites' && supplier.isFavorite) ||
+      (supplierFilter === 'new' && supplier.isNew) ||
+      (supplierFilter === 'rated' && supplier.rating >= 4.5) ||
+      (supplierFilter === 'gold' && supplier.gold) ||
+      (supplierFilter === 'verified' && supplier.verified);
+    return matchesSearch && matchesFilter;
+  });
+
+  const toggleSupplier = (supplierId) => {
+    if (selectedSuppliers.includes(supplierId)) {
+      setSelectedSuppliers(selectedSuppliers.filter(id => id !== supplierId));
+    } else {
+      setSelectedSuppliers([...selectedSuppliers, supplierId]);
+    }
+  };
+
   const steps = [
     { number: 1, title: 'Basic Info', icon: FileText },
     { number: 2, title: 'Line Items', icon: Package },
-    { number: 3, title: 'Settings', icon: Shield },
-    { number: 4, title: 'Review', icon: CheckCircle2 }
+    { number: 3, title: 'Suppliers', icon: Users },
+    { number: 4, title: 'Settings', icon: Shield },
+    { number: 5, title: 'Review', icon: CheckCircle2 }
   ];
 
   return (
@@ -485,10 +525,137 @@ export default function CreateRFQ() {
             </motion.div>
           )}
 
-          {/* Step 3: Settings */}
+          {/* Step 3: Supplier Selection */}
           {step === 3 && (
             <motion.div
               key="step3"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <Card className="border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle>Select Suppliers</CardTitle>
+                  <CardDescription>Choose specific suppliers or send to all verified suppliers</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Send to All or Select Specific */}
+                  <div className="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium text-indigo-900">Send to All Verified Suppliers</p>
+                        <p className="text-sm text-indigo-600">RFQ will be broadcast to all matching suppliers</p>
+                      </div>
+                      <Switch 
+                        checked={selectedSuppliers.length === 0}
+                        onCheckedChange={(checked) => {
+                          if (checked) setSelectedSuppliers([]);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Supplier Filters */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <div className="relative flex-1">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                        <Input
+                          placeholder="Search suppliers..."
+                          value={supplierSearch}
+                          onChange={(e) => setSupplierSearch(e.target.value)}
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2 flex-wrap">
+                      {[
+                        { id: 'all', label: 'All', icon: Building2 },
+                        { id: 'favorites', label: 'Favorites', icon: Heart },
+                        { id: 'rated', label: 'Top Rated', icon: Star },
+                        { id: 'new', label: 'New', icon: Sparkles },
+                        { id: 'gold', label: 'Gold', icon: Award },
+                        { id: 'verified', label: 'Verified', icon: CheckCircle2 },
+                      ].map((filter) => (
+                        <Button
+                          key={filter.id}
+                          variant={supplierFilter === filter.id ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => setSupplierFilter(filter.id)}
+                        >
+                          <filter.icon className="h-3 w-3 mr-1" />
+                          {filter.label}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Supplier List */}
+                  <div className="space-y-3 max-h-96 overflow-y-auto">
+                    {filteredSuppliers.map((supplier) => (
+                      <div
+                        key={supplier.id}
+                        className={`p-4 border rounded-xl cursor-pointer transition-all ${
+                          selectedSuppliers.includes(supplier.id)
+                            ? 'border-indigo-500 bg-indigo-50'
+                            : 'border-slate-200 hover:border-indigo-300'
+                        }`}
+                        onClick={() => toggleSupplier(supplier.id)}
+                      >
+                        <div className="flex items-start gap-3">
+                          <Checkbox
+                            checked={selectedSuppliers.includes(supplier.id)}
+                            onCheckedChange={() => toggleSupplier(supplier.id)}
+                          />
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 flex-wrap mb-1">
+                              <h4 className="font-medium text-slate-900">{supplier.name}</h4>
+                              {supplier.verified && <CheckCircle2 className="h-4 w-4 text-emerald-500" />}
+                              {supplier.gold && (
+                                <Badge className="bg-amber-100 text-amber-700">
+                                  <Award className="h-3 w-3 mr-1" />
+                                  Gold
+                                </Badge>
+                              )}
+                              {supplier.isFavorite && <Heart className="h-4 w-4 text-pink-600 fill-pink-600" />}
+                              {supplier.isNew && (
+                                <Badge className="bg-purple-100 text-purple-700">
+                                  <Sparkles className="h-3 w-3 mr-1" />
+                                  New
+                                </Badge>
+                              )}
+                            </div>
+                            <p className="text-sm text-slate-500 mb-2">{supplier.category}</p>
+                            <div className="flex items-center gap-3 text-sm">
+                              <div className="flex items-center gap-1">
+                                <Star className="h-3 w-3 text-amber-500 fill-amber-500" />
+                                <span className="font-medium">{supplier.rating}</span>
+                                <span className="text-slate-400">({supplier.reviews})</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {selectedSuppliers.length > 0 && (
+                    <div className="p-4 bg-teal-50 rounded-xl border border-teal-100">
+                      <p className="text-sm font-medium text-teal-900">
+                        {selectedSuppliers.length} supplier(s) selected
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* Step 4: Settings */}
+          {step === 4 && (
+            <motion.div
+              key="step4"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
@@ -567,8 +734,8 @@ export default function CreateRFQ() {
             </motion.div>
           )}
 
-          {/* Step 4: Review */}
-          {step === 4 && (
+          {/* Step 5: Review */}
+          {step === 5 && (
             <motion.div
               key="step4"
               initial={{ opacity: 0, x: 20 }}
@@ -640,9 +807,9 @@ export default function CreateRFQ() {
             Previous
           </Button>
           
-          {step < 4 ? (
+          {step < 5 ? (
             <Button
-              onClick={() => setStep(Math.min(4, step + 1))}
+              onClick={() => setStep(Math.min(5, step + 1))}
               className="bg-indigo-600 hover:bg-indigo-700"
             >
               Continue

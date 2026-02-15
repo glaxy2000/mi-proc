@@ -53,6 +53,7 @@ import Analytics from './pages/Analytics';
 import AuthBuyer from './pages/AuthBuyer';
 import AuthSupplier from './pages/AuthSupplier';
 import Bids from './pages/Bids';
+import BlacklistSuppliers from './pages/BlacklistSuppliers';
 import BrowseRFQs from './pages/BrowseRFQs';
 import BuyerDashboard from './pages/BuyerDashboard';
 import BuyerOnboarding from './pages/BuyerOnboarding';
@@ -62,6 +63,7 @@ import Contact from './pages/Contact';
 import CreateRFQ from './pages/CreateRFQ';
 import Dashboard from './pages/Dashboard';
 import Escrow from './pages/Escrow';
+import FavoriteSuppliers from './pages/FavoriteSuppliers';
 import HistoricPricing from './pages/HistoricPricing';
 import Home from './pages/Home';
 import Negotiations from './pages/Negotiations';
@@ -84,8 +86,6 @@ import TopUpWallet from './pages/TopUpWallet';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import FavoriteSuppliers from './pages/FavoriteSuppliers';
-import BlacklistSuppliers from './pages/BlacklistSuppliers';
 import __Layout from './Layout.jsx';
 
 
@@ -96,6 +96,7 @@ export const PAGES = {
     "AuthBuyer": AuthBuyer,
     "AuthSupplier": AuthSupplier,
     "Bids": Bids,
+    "BlacklistSuppliers": BlacklistSuppliers,
     "BrowseRFQs": BrowseRFQs,
     "BuyerDashboard": BuyerDashboard,
     "BuyerOnboarding": BuyerOnboarding,
@@ -105,6 +106,7 @@ export const PAGES = {
     "CreateRFQ": CreateRFQ,
     "Dashboard": Dashboard,
     "Escrow": Escrow,
+    "FavoriteSuppliers": FavoriteSuppliers,
     "HistoricPricing": HistoricPricing,
     "Home": Home,
     "Negotiations": Negotiations,
@@ -127,8 +129,6 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "FavoriteSuppliers": FavoriteSuppliers,
-    "BlacklistSuppliers": BlacklistSuppliers,
 }
 
 export const pagesConfig = {
