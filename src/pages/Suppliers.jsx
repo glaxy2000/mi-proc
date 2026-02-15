@@ -242,8 +242,8 @@ export default function Suppliers() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900">Verified Suppliers</h1>
-          <p className="text-slate-500 mt-1">Browse our network of KYC-verified suppliers</p>
+          <h1 className="text-3xl font-bold text-slate-900">Suppliers</h1>
+          <p className="text-slate-500 mt-1">Browse our network of suppliers (including new suppliers)</p>
         </div>
 
         {/* Search & Filters */}
@@ -295,7 +295,7 @@ export default function Suppliers() {
           <Card className="border-0 shadow-md">
             <CardContent className="p-4 text-center">
               <p className="text-2xl font-bold text-indigo-600">2,500+</p>
-              <p className="text-sm text-slate-500">Verified Suppliers</p>
+              <p className="text-sm text-slate-500">Total Suppliers</p>
             </CardContent>
           </Card>
           <Card className="border-0 shadow-md">
