@@ -244,9 +244,11 @@ export default function Orders() {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <Button size="sm" variant="outline">
-                      <Eye className="h-4 w-4 mr-2" />
-                      View Details
+                    <Button size="sm" variant="outline" asChild>
+                      <Link to={`${createPageUrl('OrderDetails')}?orderId=${order.id}`}>
+                        <Eye className="h-4 w-4 mr-2" />
+                        View Details
+                      </Link>
                     </Button>
                     {order.type === 'goods' && order.status === 'in_transit' && (
                       <Button size="sm" variant="outline" asChild>

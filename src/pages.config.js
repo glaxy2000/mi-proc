@@ -87,6 +87,7 @@ import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
 import TrackShipment from './pages/TrackShipment';
+import OrderDetails from './pages/OrderDetails';
 import __Layout from './Layout.jsx';
 
 
@@ -131,6 +132,7 @@ export const PAGES = {
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
     "TrackShipment": TrackShipment,
+    "OrderDetails": OrderDetails,
 }
 
 export const pagesConfig = {
