@@ -28,10 +28,12 @@ import {
 } from "@/components/ui/select";
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import ContactPersonForm from '../components/contacts/ContactPersonForm';
 
 export default function SupplierOnboarding() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
+    contacts: [],
     // Step 2: Business Information
     businessNameArabic: '',
     businessNameEnglish: '',
@@ -335,7 +337,14 @@ export default function SupplierOnboarding() {
                   </div>
 
                   <div className="border-t pt-6">
-                    <h3 className="font-semibold text-slate-900 mb-4">Contact Information</h3>
+                    <ContactPersonForm 
+                      contacts={formData.contacts}
+                      onChange={(contacts) => setFormData({...formData, contacts})}
+                    />
+                  </div>
+
+                  <div className="border-t pt-6">
+                    <h3 className="font-semibold text-slate-900 mb-4">Primary Contact Information</h3>
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label>Business Phone Number *</Label>

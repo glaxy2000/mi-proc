@@ -26,6 +26,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import BulkItemUpload from '../components/rfq/BulkItemUpload';
 
 export default function CreateRFQ() {
   const [step, setStep] = useState(1);
@@ -35,6 +36,7 @@ export default function CreateRFQ() {
   ]);
   const [uploadedDocuments, setUploadedDocuments] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [externalLinks, setExternalLinks] = useState([]);
 
   const categories = [
     'Construction Materials',
@@ -55,6 +57,25 @@ export default function CreateRFQ() {
     if (items.length > 1) {
       setItems(items.filter(item => item.id !== id));
     }
+  };
+
+  const handleBulkItemsExtracted = (extractedItems) => {
+    const newItems = extractedItems.map((item, index) => ({
+      id: items.length + index + 1,
+      description: item.name,
+      quantity: item.quantity,
+      unit: item.unit,
+      specifications: item.specifications
+    }));
+    setItems([...items, ...newItems]);
+  };
+
+  const addExternalLink = () => {
+    setExternalLinks([...externalLinks, { url: '', description: '' }]);
+  };
+
+  const removeExternalLink = (index) => {
+    setExternalLinks(externalLinks.filter((_, i) => i !== index));
   };
 
   const handleFileUpload = async (e) => {
@@ -239,7 +260,7 @@ export default function CreateRFQ() {
                   </div>
 
                   <div className="space-y-4">
-                    <Label>Supporting Documents</Label>
+                    <Label>Supporting Documents (Multiple files supported)</Label>
                     <div className="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-indigo-400 transition-colors">
                       <input
                         type="file"
@@ -247,15 +268,15 @@ export default function CreateRFQ() {
                         multiple
                         onChange={handleFileUpload}
                         className="hidden"
-                        accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.zip"
                       />
                       <label htmlFor="file-upload" className="cursor-pointer">
                         <Upload className="h-10 w-10 text-slate-400 mx-auto mb-3" />
                         <p className="text-sm font-medium text-slate-700">
-                          {uploading ? 'Uploading...' : 'Click to upload or drag and drop'}
+                          {uploading ? 'Uploading...' : 'Click to upload multiple files'}
                         </p>
                         <p className="text-xs text-slate-500 mt-1">
-                          PDF, DOC, XLS, PNG, JPG (max 10MB per file)
+                          PDF, DOC, XLS, PNG, JPG, ZIP (up to 50MB per file, multiple files supported)
                         </p>
                       </label>
                     </div>
@@ -282,6 +303,40 @@ export default function CreateRFQ() {
                         ))}
                       </div>
                     )}
+
+                    <div className="space-y-2">
+                      <Label>External Document Links</Label>
+                      {externalLinks.map((link, index) => (
+                        <div key={index} className="flex gap-2">
+                          <Input
+                            placeholder="https://drive.google.com/..."
+                            value={link.url}
+                            onChange={(e) => {
+                              const newLinks = [...externalLinks];
+                              newLinks[index].url = e.target.value;
+                              setExternalLinks(newLinks);
+                            }}
+                            className="flex-1"
+                          />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeExternalLink(index)}
+                          >
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        </div>
+                      ))}
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={addExternalLink}
+                        className="w-full"
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add External Link
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -301,7 +356,8 @@ export default function CreateRFQ() {
                   <CardTitle>Line Items</CardTitle>
                   <CardDescription>Add items you need to procure</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-6">
+                  <BulkItemUpload onItemsExtracted={handleBulkItemsExtracted} />
                   {items.map((item, index) => (
                     <div key={item.id} className="p-4 bg-slate-50 rounded-xl space-y-4">
                       <div className="flex items-center justify-between">
@@ -429,6 +485,7 @@ export default function CreateRFQ() {
                         <SelectItem value="50_50">50% Advance / 50% Delivery</SelectItem>
                         <SelectItem value="net_30">Net 30</SelectItem>
                         <SelectItem value="bnpl">Buy Now, Pay Later (BNPL)</SelectItem>
+                        <SelectItem value="lc">Letter of Credit (LC)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
