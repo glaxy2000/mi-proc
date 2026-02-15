@@ -67,6 +67,7 @@ import FavoriteSuppliers from './pages/FavoriteSuppliers';
 import HistoricPricing from './pages/HistoricPricing';
 import Home from './pages/Home';
 import Negotiations from './pages/Negotiations';
+import OrderDetails from './pages/OrderDetails';
 import Orders from './pages/Orders';
 import PayWallet from './pages/PayWallet';
 import Profile from './pages/Profile';
@@ -83,11 +84,10 @@ import SupplierSignup from './pages/SupplierSignup';
 import Suppliers from './pages/Suppliers';
 import TeamManagement from './pages/TeamManagement';
 import TopUpWallet from './pages/TopUpWallet';
+import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import TrackShipment from './pages/TrackShipment';
-import OrderDetails from './pages/OrderDetails';
 import __Layout from './Layout.jsx';
 
 
@@ -112,6 +112,7 @@ export const PAGES = {
     "HistoricPricing": HistoricPricing,
     "Home": Home,
     "Negotiations": Negotiations,
+    "OrderDetails": OrderDetails,
     "Orders": Orders,
     "PayWallet": PayWallet,
     "Profile": Profile,
@@ -128,11 +129,10 @@ export const PAGES = {
     "Suppliers": Suppliers,
     "TeamManagement": TeamManagement,
     "TopUpWallet": TopUpWallet,
+    "TrackShipment": TrackShipment,
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "TrackShipment": TrackShipment,
-    "OrderDetails": OrderDetails,
 }
 
 export const pagesConfig = {
