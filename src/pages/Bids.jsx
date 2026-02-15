@@ -23,6 +23,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 export default function Bids() {
   const [selectedRFQ, setSelectedRFQ] = useState('all');
+  const [sortBy, setSortBy] = useState('received_latest');
 
   const bids = [
     {
@@ -86,6 +87,24 @@ export default function Bids() {
     rejected: { bg: 'bg-red-100', text: 'text-red-700', label: 'Rejected' }
   };
 
+  const sortedBids = [...bids].sort((a, b) => {
+    switch (sortBy) {
+      case 'price_lowest':
+        return parseFloat(a.totalPrice.replace(/[^0-9]/g, '')) - parseFloat(b.totalPrice.replace(/[^0-9]/g, ''));
+      case 'price_highest':
+        return parseFloat(b.totalPrice.replace(/[^0-9]/g, '')) - parseFloat(a.totalPrice.replace(/[^0-9]/g, ''));
+      case 'delivery_fastest':
+        return parseInt(a.deliveryTime) - parseInt(b.deliveryTime);
+      case 'delivery_slowest':
+        return parseInt(b.deliveryTime) - parseInt(a.deliveryTime);
+      case 'rating_highest':
+        return b.supplierRating - a.supplierRating;
+      case 'received_latest':
+      default:
+        return 0;
+    }
+  });
+
   return (
     <div className="min-h-screen bg-slate-50 p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
@@ -124,10 +143,20 @@ export default function Bids() {
                   <SelectItem value="negotiating">Negotiating</SelectItem>
                 </SelectContent>
               </Select>
-              <Button variant="outline">
-                <Filter className="h-4 w-4 mr-2" />
-                More Filters
-              </Button>
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="received_latest">Latest First</SelectItem>
+                  <SelectItem value="received_oldest">Oldest First</SelectItem>
+                  <SelectItem value="price_lowest">Price: Low to High</SelectItem>
+                  <SelectItem value="price_highest">Price: High to Low</SelectItem>
+                  <SelectItem value="delivery_fastest">Delivery: Fastest</SelectItem>
+                  <SelectItem value="delivery_slowest">Delivery: Slowest</SelectItem>
+                  <SelectItem value="rating_highest">Rating: Highest</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </CardContent>
         </Card>
@@ -139,7 +168,7 @@ export default function Bids() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {bids.map((bid, index) => (
+              {sortedBids.map((bid, index) => (
                 <motion.div
                   key={bid.id}
                   initial={{ opacity: 0, y: 20 }}

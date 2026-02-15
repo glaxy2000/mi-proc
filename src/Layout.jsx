@@ -129,6 +129,8 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Payments', href: 'Wallet', icon: Wallet },
     { name: 'Suppliers', href: 'Suppliers', icon: Users },
     { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
+    { name: 'Team', href: 'TeamManagement', icon: Users },
+    { name: 'Historic Pricing', href: 'HistoricPricing', icon: LayoutDashboard },
   ];
 
   const navigation = userRole === 'admin' ? adminNavigation : 
