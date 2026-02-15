@@ -30,6 +30,7 @@ import BulkItemUpload from '../components/rfq/BulkItemUpload';
 
 export default function CreateRFQ() {
   const [step, setStep] = useState(1);
+  const [rfqType, setRfqType] = useState('goods'); // goods, services, mixed
   const [blindRFQ, setBlindRFQ] = useState(true);
   const [items, setItems] = useState([
     { id: 1, description: '', quantity: '', unit: 'units', specifications: '' }
@@ -124,7 +125,35 @@ export default function CreateRFQ() {
             Back to Dashboard
           </Link>
           <h1 className="text-3xl font-bold text-slate-900">Create RFQ / Blind RFQ</h1>
-          <p className="text-slate-500 mt-1">Post an anonymous request for quotation to verified suppliers</p>
+          <p className="text-slate-500 mt-1">Post a request for goods or services to verified suppliers</p>
+          
+          {/* RFQ Type Selector */}
+          <div className="flex gap-3 mt-4">
+            <Button
+              variant={rfqType === 'goods' ? 'default' : 'outline'}
+              onClick={() => setRfqType('goods')}
+              className="flex-1"
+            >
+              <Package className="h-4 w-4 mr-2" />
+              Goods RFQ
+            </Button>
+            <Button
+              variant={rfqType === 'services' ? 'default' : 'outline'}
+              onClick={() => setRfqType('services')}
+              className="flex-1"
+            >
+              <Building2 className="h-4 w-4 mr-2" />
+              Services RFQ
+            </Button>
+            <Button
+              variant={rfqType === 'mixed' ? 'default' : 'outline'}
+              onClick={() => setRfqType('mixed')}
+              className="flex-1"
+            >
+              <FileText className="h-4 w-4 mr-2" />
+              Mixed RFQ
+            </Button>
+          </div>
         </div>
 
         {/* Progress Steps */}
@@ -188,9 +217,24 @@ export default function CreateRFQ() {
                   <CardDescription>Provide basic information about your procurement request</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg mb-4">
+                    <p className="text-sm font-medium text-blue-900">
+                      Creating: <Badge className={rfqType === 'goods' ? 'bg-blue-600' : rfqType === 'services' ? 'bg-purple-600' : 'bg-indigo-600'}>
+                        {rfqType === 'goods' ? '📦 Goods RFQ' : rfqType === 'services' ? '🛠️ Services RFQ' : '📦🛠️ Mixed RFQ'}
+                      </Badge>
+                    </p>
+                  </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="title">RFQ Title *</Label>
-                    <Input id="title" placeholder="e.g., Construction Materials - Q1 2026 Project" />
+                    <Input 
+                      id="title" 
+                      placeholder={
+                        rfqType === 'goods' ? 'e.g., Construction Materials - Q1 2026 Project' :
+                        rfqType === 'services' ? 'e.g., IT Consulting Services - System Integration' :
+                        'e.g., Office Setup - Furniture & Installation Services'
+                      } 
+                    />
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
@@ -377,8 +421,14 @@ export default function CreateRFQ() {
             >
               <Card className="border-0 shadow-lg">
                 <CardHeader>
-                  <CardTitle>Line Items</CardTitle>
-                  <CardDescription>Add items you need to procure</CardDescription>
+                  <CardTitle>
+                    {rfqType === 'goods' ? 'Line Items' : rfqType === 'services' ? 'Service Requirements' : 'Items & Services'}
+                  </CardTitle>
+                  <CardDescription>
+                    {rfqType === 'goods' ? 'Add items you need to procure' : 
+                     rfqType === 'services' ? 'Add services you need' :
+                     'Add goods and services you need'}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <BulkItemUpload onItemsExtracted={handleBulkItemsExtracted} />

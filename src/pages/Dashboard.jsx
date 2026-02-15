@@ -27,7 +27,8 @@ export default function Dashboard() {
   const [user, setUser] = React.useState({
     full_name: 'Ahmed Al-Sayed',
     company: 'SME Corporation Ltd.',
-    role: 'buyer'
+    role: 'buyer',
+    business_type: 'both' // goods, services, both
   });
 
   const selectedRole = localStorage.getItem('selectedRole') || 'buyer';
@@ -38,13 +39,15 @@ export default function Dashboard() {
       setUser({
         full_name: 'Khalid Mohammed',
         company: 'ABC Steel Industries',
-        role: 'supplier'
+        role: 'supplier',
+        business_type: 'goods' // Supplier deals with goods only
       });
     } else {
       setUser({
         full_name: 'Ahmed Al-Sayed',
         company: 'SME Corporation Ltd.',
-        role: 'buyer'
+        role: 'buyer',
+        business_type: 'both' // Buyer deals with both goods and services
       });
     }
   }, [selectedRole]);
@@ -186,6 +189,11 @@ export default function Dashboard() {
               <div className="flex items-center gap-2 text-indigo-100">
                 <Building2 className="h-5 w-5" />
                 <span className="text-lg">{user.company}</span>
+                <Badge className="bg-white/20 text-white border-white/30">
+                  {user.business_type === 'goods' ? 'Goods' : 
+                   user.business_type === 'services' ? 'Services' : 
+                   'Goods & Services'}
+                </Badge>
               </div>
               <p className="text-indigo-100 mt-3">
                 {userRole === 'buyer' 

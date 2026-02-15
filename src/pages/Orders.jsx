@@ -20,9 +20,12 @@ import RatingModal from '../components/supplier/RatingModal';
 export default function Orders() {
   const [ratingModalOpen, setRatingModalOpen] = React.useState(false);
   const [selectedOrder, setSelectedOrder] = React.useState(null);
+  const [orderType, setOrderType] = React.useState('all'); // all, goods, services
+  
   const orders = [
     {
       id: 'ORD-2024-156',
+      type: 'goods',
       rfqTitle: 'Construction Materials - Steel Rebar',
       supplier: 'ABC Steel Co.',
       supplier_email: 'supplier1@example.com',
@@ -35,18 +38,25 @@ export default function Orders() {
     },
     {
       id: 'ORD-2024-155',
-      rfqTitle: 'Office Equipment - IT Hardware',
-      supplier: 'TechSupply Ltd.',
+      type: 'services',
+      rfqTitle: 'IT Consulting Services - System Integration',
+      supplier: 'TechConsult Ltd.',
       supplier_email: 'supplier2@example.com',
       orderDate: 'Jan 8, 2026',
       totalAmount: 'SAR 45,000',
-      status: 'awaiting_shipment',
+      status: 'in_progress',
       progress: 30,
-      trackingNumber: 'Pending',
-      estimatedDelivery: 'Jan 16, 2026'
+      trackingNumber: 'N/A',
+      estimatedDelivery: 'Feb 28, 2026',
+      milestones: [
+        { name: 'Requirements Analysis', status: 'completed' },
+        { name: 'System Design', status: 'in_progress' },
+        { name: 'Implementation', status: 'pending' }
+      ]
     },
     {
       id: 'ORD-2024-154',
+      type: 'goods',
       rfqTitle: 'Medical Supplies - PPE',
       supplier: 'MedSupply International',
       supplier_email: 'supplier3@example.com',
@@ -58,6 +68,10 @@ export default function Orders() {
       estimatedDelivery: 'Delivered'
     }
   ];
+
+  const filteredOrders = orders.filter(order => 
+    orderType === 'all' || order.type === orderType
+  );
 
   const statusConfig = {
     awaiting_shipment: {
@@ -71,6 +85,12 @@ export default function Orders() {
       text: 'text-indigo-700',
       label: 'In Transit',
       icon: Truck
+    },
+    in_progress: {
+      bg: 'bg-purple-100',
+      text: 'text-purple-700',
+      label: 'In Progress',
+      icon: Clock
     },
     delivered: {
       bg: 'bg-emerald-100',
@@ -92,7 +112,34 @@ export default function Orders() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Order Management</h1>
-          <p className="text-slate-600">Track active and completed orders</p>
+          <p className="text-slate-600">Track active and completed orders (Goods & Services)</p>
+          
+          {/* Order Type Tabs */}
+          <div className="flex gap-2 mt-4">
+            <Button
+              variant={orderType === 'all' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setOrderType('all')}
+            >
+              All Orders
+            </Button>
+            <Button
+              variant={orderType === 'goods' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setOrderType('goods')}
+            >
+              <Package className="h-4 w-4 mr-2" />
+              Goods Orders
+            </Button>
+            <Button
+              variant={orderType === 'services' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setOrderType('services')}
+            >
+              <Building2 className="h-4 w-4 mr-2" />
+              Services Orders
+            </Button>
+          </div>
         </div>
 
         {/* Summary Cards */}
@@ -128,7 +175,7 @@ export default function Orders() {
 
         {/* Orders List */}
         <div className="space-y-6">
-          {orders.map((order, index) => (
+          {filteredOrders.map((order, index) => (
             <motion.div
               key={order.id}
               initial={{ opacity: 0, y: 20 }}
@@ -148,6 +195,10 @@ export default function Orders() {
                         <p className="text-sm text-slate-500">Supplier</p>
                         <p className="font-semibold text-slate-900">{order.supplier}</p>
                       </div>
+                      <div className="h-8 w-px bg-slate-200" />
+                      <Badge variant="outline" className={order.type === 'goods' ? 'bg-blue-50 text-blue-700' : 'bg-purple-50 text-purple-700'}>
+                        {order.type === 'goods' ? '📦 Goods' : '🛠️ Services'}
+                      </Badge>
                     </div>
                     <div className="flex items-center gap-4">
                       <Badge className={`${statusConfig[order.status].bg} ${statusConfig[order.status].text}`}>
@@ -194,10 +245,16 @@ export default function Orders() {
                       <Eye className="h-4 w-4 mr-2" />
                       View Details
                     </Button>
-                    {order.status === 'in_transit' && (
+                    {order.type === 'goods' && order.status === 'in_transit' && (
                       <Button size="sm" variant="outline">
                         <Truck className="h-4 w-4 mr-2" />
                         Track Shipment
+                      </Button>
+                    )}
+                    {order.type === 'services' && order.status === 'in_progress' && (
+                      <Button size="sm" variant="outline" className="text-purple-600">
+                        <CheckCircle2 className="h-4 w-4 mr-2" />
+                        View Milestones
                       </Button>
                     )}
                     {order.status === 'delivered' && (
