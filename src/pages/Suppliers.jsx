@@ -14,7 +14,8 @@ import {
   Award,
   ThumbsUp,
   Ban,
-  AlertCircle
+  AlertCircle,
+  Heart
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent } from '@/components/ui/card';
@@ -38,6 +39,7 @@ import { toast } from 'sonner';
 export default function Suppliers() {
   const [searchQuery, setSearchQuery] = useState('');
   const [blacklist, setBlacklist] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [user, setUser] = useState(null);
   const [showBlockDialog, setShowBlockDialog] = useState(false);
   const [selectedSupplier, setSelectedSupplier] = useState(null);
@@ -57,6 +59,11 @@ export default function Suppliers() {
         buyer_email: currentUser.email 
       });
       setBlacklist(blacklistData);
+
+      const favoritesData = await base44.entities.FavoriteSupplier.filter({ 
+        buyer_email: currentUser.email 
+      });
+      setFavorites(favoritesData);
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -64,6 +71,35 @@ export default function Suppliers() {
 
   const isBlacklisted = (supplierEmail) => {
     return blacklist.some(b => b.supplier_email === supplierEmail);
+  };
+
+  const isFavorite = (supplierEmail) => {
+    return favorites.some(f => f.supplier_email === supplierEmail);
+  };
+
+  const handleToggleFavorite = async (supplier) => {
+    setLoading(true);
+    try {
+      if (isFavorite(supplier.email)) {
+        const favoriteEntry = favorites.find(f => f.supplier_email === supplier.email);
+        await base44.entities.FavoriteSupplier.delete(favoriteEntry.id);
+        toast.success(`${supplier.name} removed from favorites`);
+      } else {
+        await base44.entities.FavoriteSupplier.create({
+          buyer_email: user.email,
+          supplier_email: supplier.email,
+          supplier_name: supplier.name,
+          added_date: new Date().toISOString()
+        });
+        toast.success(`${supplier.name} added to favorites`);
+      }
+      await loadUserAndBlacklist();
+    } catch (error) {
+      toast.error('Failed to update favorites');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleBlockSupplier = (supplier) => {
@@ -408,25 +444,38 @@ export default function Suppliers() {
                       View Profile
                     </Button>
                     {user && user.role === 'buyer' && (
-                      isBlacklisted(supplier.email) ? (
+                      <>
                         <Button 
                           variant="outline" 
-                          className="border-emerald-200 text-emerald-600 hover:bg-emerald-50"
-                          onClick={() => handleUnblock(supplier)}
+                          className={isFavorite(supplier.email) ? 
+                            "border-pink-200 text-pink-600 hover:bg-pink-50" : 
+                            "border-slate-200 text-slate-600 hover:bg-slate-50"
+                          }
+                          onClick={() => handleToggleFavorite(supplier)}
                           disabled={loading}
                         >
-                          <CheckCircle2 className="h-4 w-4" />
+                          <Heart className={`h-4 w-4 ${isFavorite(supplier.email) ? 'fill-pink-600' : ''}`} />
                         </Button>
-                      ) : (
-                        <Button 
-                          variant="outline" 
-                          className="border-red-200 text-red-600 hover:bg-red-50"
-                          onClick={() => handleBlockSupplier(supplier)}
-                          disabled={loading}
-                        >
-                          <Ban className="h-4 w-4" />
-                        </Button>
-                      )
+                        {isBlacklisted(supplier.email) ? (
+                          <Button 
+                            variant="outline" 
+                            className="border-emerald-200 text-emerald-600 hover:bg-emerald-50"
+                            onClick={() => handleUnblock(supplier)}
+                            disabled={loading}
+                          >
+                            <CheckCircle2 className="h-4 w-4" />
+                          </Button>
+                        ) : (
+                          <Button 
+                            variant="outline" 
+                            className="border-red-200 text-red-600 hover:bg-red-50"
+                            onClick={() => handleBlockSupplier(supplier)}
+                            disabled={loading}
+                          >
+                            <Ban className="h-4 w-4" />
+                          </Button>
+                        )}
+                      </>
                     )}
                   </div>
                   {isBlacklisted(supplier.email) && (

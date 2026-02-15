@@ -24,6 +24,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 export default function Bids() {
   const [selectedRFQ, setSelectedRFQ] = useState('all');
   const [sortBy, setSortBy] = useState('received_latest');
+  const [itemFilter, setItemFilter] = useState('all');
 
   const bids = [
     {
@@ -41,7 +42,8 @@ export default function Bids() {
       receivedDate: '2 hours ago',
       supplierRating: 4.8,
       performanceScore: 92,
-      onTimeRate: 95
+      onTimeRate: 95,
+      itemsBidOn: ['Steel Rebar', 'Structural Steel']
     },
     {
       id: 'BID-002',
@@ -58,7 +60,8 @@ export default function Bids() {
       receivedDate: '5 hours ago',
       supplierRating: 4.6,
       performanceScore: 85,
-      onTimeRate: 87
+      onTimeRate: 87,
+      itemsBidOn: ['Steel Rebar']
     },
     {
       id: 'BID-003',
@@ -75,7 +78,8 @@ export default function Bids() {
       receivedDate: '1 day ago',
       supplierRating: 4.7,
       performanceScore: 88,
-      onTimeRate: 90
+      onTimeRate: 90,
+      itemsBidOn: ['Laptops', 'Printer Cartridges']
     }
   ];
 
@@ -87,7 +91,14 @@ export default function Bids() {
     rejected: { bg: 'bg-red-100', text: 'text-red-700', label: 'Rejected' }
   };
 
-  const sortedBids = [...bids].sort((a, b) => {
+  const allItems = [...new Set(bids.flatMap(bid => bid.itemsBidOn || []))];
+
+  const filteredAndSortedBids = bids
+    .filter(bid => {
+      if (itemFilter === 'all') return true;
+      return bid.itemsBidOn?.includes(itemFilter);
+    })
+    .sort((a, b) => {
     switch (sortBy) {
       case 'price_lowest':
         return parseFloat(a.totalPrice.replace(/[^0-9]/g, '')) - parseFloat(b.totalPrice.replace(/[^0-9]/g, ''));
@@ -117,7 +128,7 @@ export default function Bids() {
         {/* Filters */}
         <Card className="border-0 shadow-lg mb-6">
           <CardContent className="p-6">
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid md:grid-cols-5 gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <Input placeholder="Search bids..." className="pl-10" />
@@ -157,6 +168,17 @@ export default function Bids() {
                   <SelectItem value="rating_highest">Rating: Highest</SelectItem>
                 </SelectContent>
               </Select>
+              <Select value={itemFilter} onValueChange={setItemFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Filter by item" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Items</SelectItem>
+                  {allItems.map(item => (
+                    <SelectItem key={item} value={item}>{item}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </CardContent>
         </Card>
@@ -168,7 +190,7 @@ export default function Bids() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {sortedBids.map((bid, index) => (
+              {filteredAndSortedBids.map((bid, index) => (
                 <motion.div
                   key={bid.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -208,6 +230,19 @@ export default function Bids() {
                       {statusColors[bid.status].label}
                     </Badge>
                   </div>
+
+                  {bid.itemsBidOn && bid.itemsBidOn.length > 0 && (
+                    <div className="mb-3">
+                      <p className="text-xs text-slate-500 mb-2">Bidding on items:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {bid.itemsBidOn.map((item, i) => (
+                          <Badge key={i} variant="outline" className="text-xs bg-indigo-50 text-indigo-700">
+                            {item}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   <div className="grid md:grid-cols-5 gap-6 mb-4">
                     <div>
