@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Search,
@@ -12,20 +12,114 @@ import {
   TrendingUp,
   Clock,
   Award,
-  ThumbsUp
+  ThumbsUp,
+  Ban,
+  AlertCircle
 } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from 'sonner';
 
 export default function Suppliers() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [blacklist, setBlacklist] = useState([]);
+  const [user, setUser] = useState(null);
+  const [showBlockDialog, setShowBlockDialog] = useState(false);
+  const [selectedSupplier, setSelectedSupplier] = useState(null);
+  const [blockReason, setBlockReason] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    loadUserAndBlacklist();
+  }, []);
+
+  const loadUserAndBlacklist = async () => {
+    try {
+      const currentUser = await base44.auth.me();
+      setUser(currentUser);
+      
+      const blacklistData = await base44.entities.Blacklist.filter({ 
+        buyer_email: currentUser.email 
+      });
+      setBlacklist(blacklistData);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    }
+  };
+
+  const isBlacklisted = (supplierEmail) => {
+    return blacklist.some(b => b.supplier_email === supplierEmail);
+  };
+
+  const handleBlockSupplier = (supplier) => {
+    setSelectedSupplier(supplier);
+    setShowBlockDialog(true);
+  };
+
+  const confirmBlock = async () => {
+    if (!blockReason.trim()) {
+      toast.error('Please provide a reason for blacklisting');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await base44.entities.Blacklist.create({
+        buyer_email: user.email,
+        supplier_email: selectedSupplier.email,
+        reason: blockReason,
+        blacklisted_date: new Date().toISOString()
+      });
+
+      toast.success(`${selectedSupplier.name} has been blacklisted`);
+      await loadUserAndBlacklist();
+      setShowBlockDialog(false);
+      setBlockReason('');
+      setSelectedSupplier(null);
+    } catch (error) {
+      toast.error('Failed to blacklist supplier');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUnblock = async (supplier) => {
+    setLoading(true);
+    try {
+      const blacklistEntry = blacklist.find(b => b.supplier_email === supplier.email);
+      if (blacklistEntry) {
+        await base44.entities.Blacklist.delete(blacklistEntry.id);
+        toast.success(`${supplier.name} has been removed from blacklist`);
+        await loadUserAndBlacklist();
+      }
+    } catch (error) {
+      toast.error('Failed to unblock supplier');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const suppliers = [
     {
       id: 1,
+      email: 'abc.steel@example.com',
       name: 'ABC Steel Industries',
       category: 'Construction Materials',
       location: 'Riyadh',
@@ -43,6 +137,7 @@ export default function Suppliers() {
     },
     {
       id: 2,
+      email: 'medsupply@example.com',
       name: 'MedSupply Arabia',
       category: 'Medical Supplies',
       location: 'Jeddah',
@@ -60,6 +155,7 @@ export default function Suppliers() {
     },
     {
       id: 3,
+      email: 'techparts@example.com',
       name: 'TechParts Global',
       category: 'IT & Hardware',
       location: 'Dammam',
@@ -77,6 +173,7 @@ export default function Suppliers() {
     },
     {
       id: 4,
+      email: 'industrial@example.com',
       name: 'Industrial Components Co.',
       category: 'Manufacturing',
       location: 'Riyadh',
@@ -94,6 +191,7 @@ export default function Suppliers() {
     },
     {
       id: 5,
+      email: 'packpro@example.com',
       name: 'PackPro Solutions',
       category: 'Packaging',
       location: 'Jeddah',
@@ -111,6 +209,7 @@ export default function Suppliers() {
     },
     {
       id: 6,
+      email: 'officeessentials@example.com',
       name: 'Office Essentials KSA',
       category: 'Office Supplies',
       location: 'Riyadh',
@@ -304,9 +403,38 @@ export default function Suppliers() {
                     </div>
                   </div>
 
-                  <Button className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700">
-                    View Profile
-                  </Button>
+                  <div className="flex gap-2 mt-4">
+                    <Button className="flex-1 bg-indigo-600 hover:bg-indigo-700">
+                      View Profile
+                    </Button>
+                    {user && user.role === 'buyer' && (
+                      isBlacklisted(supplier.email) ? (
+                        <Button 
+                          variant="outline" 
+                          className="border-emerald-200 text-emerald-600 hover:bg-emerald-50"
+                          onClick={() => handleUnblock(supplier)}
+                          disabled={loading}
+                        >
+                          <CheckCircle2 className="h-4 w-4" />
+                        </Button>
+                      ) : (
+                        <Button 
+                          variant="outline" 
+                          className="border-red-200 text-red-600 hover:bg-red-50"
+                          onClick={() => handleBlockSupplier(supplier)}
+                          disabled={loading}
+                        >
+                          <Ban className="h-4 w-4" />
+                        </Button>
+                      )
+                    )}
+                  </div>
+                  {isBlacklisted(supplier.email) && (
+                    <div className="mt-2 flex items-center gap-2 text-xs text-red-600 bg-red-50 px-3 py-2 rounded-lg">
+                      <AlertCircle className="h-3 w-3" />
+                      <span>Blacklisted - Cannot bid on your RFQs</span>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>
@@ -334,6 +462,45 @@ export default function Suppliers() {
           </div>
         </div>
       </div>
+
+      {/* Block Supplier Dialog */}
+      <AlertDialog open={showBlockDialog} onOpenChange={setShowBlockDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Blacklist Supplier</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to blacklist <strong>{selectedSupplier?.name}</strong>? 
+              This supplier will not be able to bid on any of your RFQs.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="my-4">
+            <label className="text-sm font-medium text-slate-700 mb-2 block">
+              Reason for blacklisting *
+            </label>
+            <Textarea
+              placeholder="e.g., Poor quality, Late deliveries, Unprofessional behavior..."
+              value={blockReason}
+              onChange={(e) => setBlockReason(e.target.value)}
+              className="min-h-[100px]"
+            />
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => {
+              setBlockReason('');
+              setSelectedSupplier(null);
+            }}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmBlock}
+              disabled={loading || !blockReason.trim()}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              {loading ? 'Blacklisting...' : 'Blacklist Supplier'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
