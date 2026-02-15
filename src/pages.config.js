@@ -85,6 +85,7 @@ import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
 import FavoriteSuppliers from './pages/FavoriteSuppliers';
+import BlacklistSuppliers from './pages/BlacklistSuppliers';
 import __Layout from './Layout.jsx';
 
 
@@ -127,6 +128,7 @@ export const PAGES = {
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
     "FavoriteSuppliers": FavoriteSuppliers,
+    "BlacklistSuppliers": BlacklistSuppliers,
 }
 
 export const pagesConfig = {
