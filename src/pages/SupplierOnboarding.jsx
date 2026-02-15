@@ -323,6 +323,14 @@ export default function SupplierOnboarding() {
                           />
                         </div>
                       </div>
+                      <div className="space-y-2">
+                        <Label>National Address</Label>
+                        <Input
+                          value={formData.nationalAddress || ''}
+                          onChange={(e) => setFormData({ ...formData, nationalAddress: e.target.value })}
+                          placeholder="National Address (e.g., AAAA1234 / 1234 / 12345)"
+                        />
+                      </div>
                     </div>
                   </div>
 
