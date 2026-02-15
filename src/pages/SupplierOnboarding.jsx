@@ -11,7 +11,9 @@ import {
   X,
   AlertCircle,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ShieldCheck,
+  XCircle
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -32,8 +34,17 @@ import ContactPersonForm from '../components/contacts/ContactPersonForm';
 
 export default function SupplierOnboarding() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [validationStatus, setValidationStatus] = useState({
+    isValidating: false,
+    isValid: null,
+    message: '',
+    zatcaData: null
+  });
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [formData, setFormData] = useState({
     contacts: [],
+    vatNumber: '',
+    zatcaCertificate: null,
     // Step 2: Business Information
     businessNameArabic: '',
     businessNameEnglish: '',
@@ -68,11 +79,18 @@ export default function SupplierOnboarding() {
     confirmAccuracy: false
   });
 
+  const businessCategories = [
+    'Construction Materials', 'Medical Supplies', 'IT & Hardware', 'Manufacturing',
+    'Packaging', 'Office Supplies', 'Electronics', 'Furniture', 'Raw Materials',
+    'Industrial Equipment', 'Consulting', 'IT Services', 'Marketing', 'Legal Services'
+  ];
+
   const steps = [
     { number: 1, title: 'Email Verified', icon: CheckCircle2, completed: true },
     { number: 2, title: 'Business Information', icon: Building2, completed: currentStep > 2 },
-    { number: 3, title: 'Document Verification', icon: FileText, completed: currentStep > 3 },
-    { number: 4, title: 'Bank Account', icon: Wallet, completed: currentStep > 4 }
+    { number: 3, title: 'Trade Validation', icon: ShieldCheck, completed: currentStep > 3 },
+    { number: 4, title: 'Document Verification', icon: FileText, completed: currentStep > 4 },
+    { number: 5, title: 'Bank Account', icon: Wallet, completed: currentStep > 5 }
   ];
 
   const handleFileUpload = (docType, file) => {
@@ -91,8 +109,60 @@ export default function SupplierOnboarding() {
     });
   };
 
+  const handleZatcaValidation = async () => {
+    if (!formData.vatNumber || !formData.zatcaCertificate || selectedCategories.length === 0) {
+      setValidationStatus({
+        isValidating: false,
+        isValid: false,
+        message: 'Please provide VAT number, upload Zatca certificate, and select categories.',
+        zatcaData: null
+      });
+      return;
+    }
+
+    setValidationStatus({ ...validationStatus, isValidating: true });
+
+    // Simulate Zatca validation
+    setTimeout(() => {
+      // In production, call actual Zatca API
+      const mockZatcaData = {
+        businessName: formData.businessNameEnglish,
+        vatNumber: formData.vatNumber,
+        registeredCategories: ['Construction Materials', 'Raw Materials', 'Industrial Equipment'],
+        licenseStatus: 'active',
+        validUntil: '2027-12-31'
+      };
+
+      const selectedCategoriesLower = selectedCategories.map(c => c.toLowerCase());
+      const registeredCategoriesLower = mockZatcaData.registeredCategories.map(c => c.toLowerCase());
+      
+      const isValid = selectedCategoriesLower.every(category => 
+        registeredCategoriesLower.some(registered => 
+          registered.includes(category.toLowerCase()) || category.toLowerCase().includes(registered)
+        )
+      );
+
+      setValidationStatus({
+        isValidating: false,
+        isValid: isValid,
+        message: isValid 
+          ? 'Trade validation successful! Your business categories match Zatca records.'
+          : 'Validation failed: Selected categories do not match your Zatca certificate registration.',
+        zatcaData: mockZatcaData
+      });
+    }, 2000);
+  };
+
+  const toggleCategory = (category) => {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories(selectedCategories.filter(c => c !== category));
+    } else {
+      setSelectedCategories([...selectedCategories, category]);
+    }
+  };
+
   const handleNext = () => {
-    if (currentStep < 4) setCurrentStep(currentStep + 1);
+    if (currentStep < 5) setCurrentStep(currentStep + 1);
   };
 
   const handleBack = () => {
@@ -104,7 +174,7 @@ export default function SupplierOnboarding() {
     window.location.href = createPageUrl('Dashboard');
   };
 
-  const progress = (currentStep / 4) * 100;
+  const progress = (currentStep / 5) * 100;
 
   return (
     <div className="min-h-screen bg-slate-50 py-8">
@@ -643,8 +713,12 @@ export default function SupplierOnboarding() {
             Back
           </Button>
 
-          {currentStep < 4 ? (
-            <Button onClick={handleNext} className="bg-indigo-600 hover:bg-indigo-700 gap-2">
+          {currentStep < 5 ? (
+            <Button 
+              onClick={handleNext} 
+              disabled={currentStep === 3 && !validationStatus.isValid}
+              className="bg-indigo-600 hover:bg-indigo-700 gap-2"
+            >
               Continue
               <ChevronRight className="h-4 w-4" />
             </Button>
