@@ -84,6 +84,7 @@ import TopUpWallet from './pages/TopUpWallet';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
+import FavoriteSuppliers from './pages/FavoriteSuppliers';
 import __Layout from './Layout.jsx';
 
 
@@ -125,6 +126,7 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
+    "FavoriteSuppliers": FavoriteSuppliers,
 }
 
 export const pagesConfig = {

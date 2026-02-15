@@ -12,7 +12,8 @@ import {
   Menu,
   X,
   Bell,
-  ChevronDown
+  ChevronDown,
+  Heart
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -117,6 +118,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Escrow', href: 'Escrow', icon: Shield },
     { name: 'Payments', href: 'Wallet', icon: Wallet },
     { name: 'Suppliers', href: 'Suppliers', icon: Users },
+    { name: 'Favorites', href: 'FavoriteSuppliers', icon: Heart },
     { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
   ];
 
