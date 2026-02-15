@@ -38,6 +38,7 @@ export default function FavoriteSuppliers() {
   const [showNotesDialog, setShowNotesDialog] = useState(false);
   const [editingFavorite, setEditingFavorite] = useState(null);
   const [notes, setNotes] = useState('');
+  const [activeTab, setActiveTab] = useState('my-favorites');
 
   useEffect(() => {
     loadData();
@@ -288,7 +289,7 @@ export default function FavoriteSuppliers() {
         </div>
 
         {/* Tabs */}
-        <Tabs defaultValue="my-favorites" className="space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="my-favorites">
               My Favorites ({favorites.length})
@@ -310,7 +311,7 @@ export default function FavoriteSuppliers() {
                   <p className="text-slate-500 mb-4">
                     Add suppliers to your favorites for quick access and exclusive RFQ targeting
                   </p>
-                  <Button onClick={() => document.querySelector('[value="add-suppliers"]').click()}>
+                  <Button onClick={() => setActiveTab('add-suppliers')}>
                     <Plus className="h-4 w-4 mr-2" />
                     Add Suppliers
                   </Button>
