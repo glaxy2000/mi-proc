@@ -16,13 +16,36 @@ import {
   Eye,
   FileText,
   Building2,
-  DollarSign
+  DollarSign,
+  AlertCircle
 } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 
 export default function BrowseRFQs() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [activeTab, setActiveTab] = React.useState('all');
   const [selectedRegion, setSelectedRegion] = React.useState('all');
+  const [user, setUser] = React.useState(null);
+  const [blacklistedBy, setBlacklistedBy] = React.useState([]);
+
+  React.useEffect(() => {
+    loadUserAndBlacklist();
+  }, []);
+
+  const loadUserAndBlacklist = async () => {
+    try {
+      const currentUser = await base44.auth.me();
+      setUser(currentUser);
+      
+      // Get list of buyers who blacklisted this supplier
+      const blacklistData = await base44.entities.Blacklist.filter({ 
+        supplier_email: currentUser.email 
+      });
+      setBlacklistedBy(blacklistData.map(b => b.buyer_email));
+    } catch (error) {
+      console.error('Error loading data:', error);
+    }
+  };
 
   const rfqs = [
     {
@@ -35,6 +58,7 @@ export default function BrowseRFQs() {
       estimatedValue: 'SAR 45,000',
       location: 'Riyadh',
       buyer: 'Anonymous',
+      buyerEmail: 'buyer@example.com',
       description: 'Looking for quality office supplies including paper, pens, folders, and desk accessories.',
       isBlind: true
     },
@@ -48,6 +72,7 @@ export default function BrowseRFQs() {
       estimatedValue: 'SAR 125,000',
       location: 'Dammam',
       buyer: 'Industrial Corp',
+      buyerEmail: 'industrial@example.com',
       description: 'Spare parts for industrial machinery and equipment maintenance.',
       isBlind: false
     },
@@ -105,6 +130,11 @@ export default function BrowseRFQs() {
   ];
 
   const filteredRFQs = rfqs.filter(rfq => {
+    // Filter out RFQs from buyers who blacklisted this supplier
+    if (user && blacklistedBy.includes(rfq.buyerEmail)) {
+      return false;
+    }
+
     // Filter by tab
     if (activeTab === 'blind' && !rfq.isBlind) return false;
     if (activeTab === 'closing_soon') {
@@ -128,6 +158,10 @@ export default function BrowseRFQs() {
     
     return true;
   });
+
+  const isBlacklistedByBuyer = (buyerEmail) => {
+    return blacklistedBy.includes(buyerEmail);
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 p-6">
@@ -254,9 +288,30 @@ export default function BrowseRFQs() {
           ))}
         </div>
 
+        {/* Blacklist Notice */}
+        {user && blacklistedBy.length > 0 && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-medium text-red-900 mb-1">Blacklist Notice</p>
+              <p className="text-sm text-red-700">
+                You have been blacklisted by {blacklistedBy.length} buyer{blacklistedBy.length > 1 ? 's' : ''}. 
+                Their RFQs will not be visible to you and you cannot bid on them.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* RFQ List */}
         <div className="space-y-4">
-          {filteredRFQs.map((rfq) => (
+          {filteredRFQs.length === 0 ? (
+            <Card>
+              <CardContent className="p-12 text-center">
+                <p className="text-slate-500">No RFQs available at the moment</p>
+              </CardContent>
+            </Card>
+          ) : (
+            filteredRFQs.map((rfq) => (
             <Card key={rfq.id} className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
@@ -316,7 +371,8 @@ export default function BrowseRFQs() {
                 </div>
               </CardContent>
             </Card>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

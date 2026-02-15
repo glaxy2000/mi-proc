@@ -280,6 +280,17 @@ export default function Suppliers() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900">Suppliers</h1>
           <p className="text-slate-500 mt-1">Browse our network of suppliers (including new suppliers)</p>
+          {user && user.role === 'buyer' && blacklist.length > 0 && (
+            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-medium text-red-900 mb-1">Blacklisted Suppliers: {blacklist.length}</p>
+                <p className="text-sm text-red-700">
+                  These suppliers cannot see or bid on your RFQs. Click the checkmark icon to remove from blacklist.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Search & Filters */}

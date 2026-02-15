@@ -62,6 +62,7 @@ import Contact from './pages/Contact';
 import CreateRFQ from './pages/CreateRFQ';
 import Dashboard from './pages/Dashboard';
 import Escrow from './pages/Escrow';
+import HistoricPricing from './pages/HistoricPricing';
 import Home from './pages/Home';
 import Negotiations from './pages/Negotiations';
 import Orders from './pages/Orders';
@@ -78,12 +79,11 @@ import SupplierOnboarding from './pages/SupplierOnboarding';
 import SupplierSignin from './pages/SupplierSignin';
 import SupplierSignup from './pages/SupplierSignup';
 import Suppliers from './pages/Suppliers';
+import TeamManagement from './pages/TeamManagement';
 import TopUpWallet from './pages/TopUpWallet';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import TeamManagement from './pages/TeamManagement';
-import HistoricPricing from './pages/HistoricPricing';
 import __Layout from './Layout.jsx';
 
 
@@ -103,6 +103,7 @@ export const PAGES = {
     "CreateRFQ": CreateRFQ,
     "Dashboard": Dashboard,
     "Escrow": Escrow,
+    "HistoricPricing": HistoricPricing,
     "Home": Home,
     "Negotiations": Negotiations,
     "Orders": Orders,
@@ -119,12 +120,11 @@ export const PAGES = {
     "SupplierSignin": SupplierSignin,
     "SupplierSignup": SupplierSignup,
     "Suppliers": Suppliers,
+    "TeamManagement": TeamManagement,
     "TopUpWallet": TopUpWallet,
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "TeamManagement": TeamManagement,
-    "HistoricPricing": HistoricPricing,
 }
 
 export const pagesConfig = {
