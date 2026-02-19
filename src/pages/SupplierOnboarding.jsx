@@ -88,9 +88,8 @@ export default function SupplierOnboarding() {
   const steps = [
     { number: 1, title: 'Email Verified', icon: CheckCircle2, completed: true },
     { number: 2, title: 'Business Information', icon: Building2, completed: currentStep > 2 },
-    { number: 3, title: 'Trade Validation', icon: ShieldCheck, completed: currentStep > 3 },
-    { number: 4, title: 'Document Verification', icon: FileText, completed: currentStep > 4 },
-    { number: 5, title: 'Bank Account', icon: Wallet, completed: currentStep > 5 }
+    { number: 3, title: 'Document Verification', icon: FileText, completed: currentStep > 3 },
+    { number: 4, title: 'Bank Account', icon: Wallet, completed: currentStep > 4 }
   ];
 
   const handleFileUpload = (docType, file) => {
@@ -162,7 +161,7 @@ export default function SupplierOnboarding() {
   };
 
   const handleNext = () => {
-    if (currentStep < 5) setCurrentStep(currentStep + 1);
+    if (currentStep < 4) setCurrentStep(currentStep + 1);
   };
 
   const handleBack = () => {
@@ -174,7 +173,7 @@ export default function SupplierOnboarding() {
     window.location.href = createPageUrl('Dashboard');
   };
 
-  const progress = (currentStep / 5) * 100;
+  const progress = (currentStep / 4) * 100;
 
   return (
     <div className="min-h-screen bg-slate-50 py-8">
@@ -452,168 +451,6 @@ export default function SupplierOnboarding() {
 
           {currentStep === 3 && (
             <motion.div
-              key="step3"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-            >
-              <Card className="border-0 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-indigo-50 to-teal-50 border-b">
-                  <CardTitle>Step 3: Trade Validation (Zatca)</CardTitle>
-                  <p className="text-sm text-slate-600 mt-1">Validate your business trade using Zatca certificate</p>
-                </CardHeader>
-                <CardContent className="p-6 space-y-6">
-                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                    <div className="flex items-start gap-3">
-                      <ShieldCheck className="h-5 w-5 text-amber-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-amber-900 mb-1">Trade Validation Required</p>
-                        <p className="text-sm text-amber-700">
-                          We validate your business trade using your Zatca certificate to ensure you deal with the 
-                          categories you're registering for. This protects buyers and maintains platform integrity.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>VAT Number (TIN) *</Label>
-                    <Input
-                      value={formData.vatNumber}
-                      onChange={(e) => setFormData({ ...formData, vatNumber: e.target.value })}
-                      placeholder="e.g., 300000000000003"
-                      maxLength={15}
-                    />
-                    <p className="text-xs text-slate-500">Enter your 15-digit VAT registration number</p>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Upload Zatca Certificate *</Label>
-                    <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-indigo-400 transition-colors">
-                      {!formData.zatcaCertificate ? (
-                        <>
-                          <Upload className="h-10 w-10 text-slate-400 mx-auto mb-3" />
-                          <p className="text-sm text-slate-600 mb-3">Upload your Zatca tax certificate</p>
-                          <Input
-                            type="file"
-                            accept=".pdf,.jpg,.jpeg,.png"
-                            onChange={(e) => setFormData({ ...formData, zatcaCertificate: e.target.files[0] })}
-                            className="max-w-xs mx-auto"
-                          />
-                        </>
-                      ) : (
-                        <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <CheckCircle2 className="h-5 w-5 text-green-600" />
-                            <div>
-                              <p className="font-medium text-green-900">{formData.zatcaCertificate.name}</p>
-                              <p className="text-sm text-green-700">
-                                {(formData.zatcaCertificate.size / 1024 / 1024).toFixed(2)} MB
-                              </p>
-                            </div>
-                          </div>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setFormData({ ...formData, zatcaCertificate: null })}
-                            className="text-red-600"
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Label>Select Business Categories You Deal With *</Label>
-                    <p className="text-sm text-slate-500">
-                      Select all categories that apply to your business. These will be validated against your Zatca certificate.
-                    </p>
-                    <div className="grid md:grid-cols-2 gap-3">
-                      {businessCategories.map((category) => (
-                        <div
-                          key={category}
-                          onClick={() => toggleCategory(category)}
-                          className={`p-3 border rounded-lg cursor-pointer transition-all ${
-                            selectedCategories.includes(category)
-                              ? 'border-indigo-500 bg-indigo-50'
-                              : 'border-slate-200 hover:border-indigo-300'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <Checkbox
-                              checked={selectedCategories.includes(category)}
-                              onCheckedChange={() => toggleCategory(category)}
-                            />
-                            <span className="text-sm font-medium">{category}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <Button
-                    onClick={handleZatcaValidation}
-                    disabled={validationStatus.isValidating || !formData.vatNumber || !formData.zatcaCertificate || selectedCategories.length === 0}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700"
-                  >
-                    {validationStatus.isValidating ? (
-                      <>Validating with Zatca...</>
-                    ) : (
-                      <>
-                        <ShieldCheck className="h-4 w-4 mr-2" />
-                        Validate Trade
-                      </>
-                    )}
-                  </Button>
-
-                  {validationStatus.message && (
-                    <div className={`border rounded-lg p-4 ${
-                      validationStatus.isValid 
-                        ? 'bg-green-50 border-green-200' 
-                        : 'bg-red-50 border-red-200'
-                    }`}>
-                      <div className="flex items-start gap-3">
-                        {validationStatus.isValid ? (
-                          <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
-                        ) : (
-                          <XCircle className="h-5 w-5 text-red-600 mt-0.5" />
-                        )}
-                        <div className="flex-1">
-                          <p className={`font-medium mb-1 ${
-                            validationStatus.isValid ? 'text-green-900' : 'text-red-900'
-                          }`}>
-                            {validationStatus.isValid ? 'Validation Successful' : 'Validation Failed'}
-                          </p>
-                          <p className={`text-sm ${
-                            validationStatus.isValid ? 'text-green-700' : 'text-red-700'
-                          }`}>
-                            {validationStatus.message}
-                          </p>
-                          {validationStatus.zatcaData && (
-                            <div className="mt-3 text-sm space-y-1">
-                              <p className="text-slate-700">
-                                <span className="font-medium">Registered Categories:</span>{' '}
-                                {validationStatus.zatcaData.registeredCategories.join(', ')}
-                              </p>
-                              <p className="text-slate-700">
-                                <span className="font-medium">License Valid Until:</span>{' '}
-                                {validationStatus.zatcaData.validUntil}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </motion.div>
-          )}
-
-          {currentStep === 4 && (
-            <motion.div
               key="step4"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -621,7 +458,7 @@ export default function SupplierOnboarding() {
             >
               <Card className="border-0 shadow-xl">
                 <CardHeader className="bg-gradient-to-r from-indigo-50 to-teal-50 border-b">
-                  <CardTitle>Step 4: Document Verification (KYB)</CardTitle>
+                  <CardTitle>Step 3: Document Verification (KYB)</CardTitle>
                   <CardDescription>Upload required business documents (Max 10MB each)</CardDescription>
                 </CardHeader>
                 <CardContent className="p-6 space-y-6">
@@ -699,16 +536,16 @@ export default function SupplierOnboarding() {
             </motion.div>
           )}
 
-          {currentStep === 5 && (
+          {currentStep === 4 && (
             <motion.div
-              key="step5"
+              key="step4"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
               <Card className="border-0 shadow-xl">
                 <CardHeader className="bg-gradient-to-r from-indigo-50 to-teal-50 border-b">
-                  <CardTitle>Step 5: Bank Account Linking</CardTitle>
+                  <CardTitle>Step 4: Bank Account Linking</CardTitle>
                   <p className="text-sm text-slate-600 mt-1">Link your bank account for fund disbursements</p>
                 </CardHeader>
                 <CardContent className="p-6 space-y-6">
@@ -875,10 +712,9 @@ export default function SupplierOnboarding() {
             Back
           </Button>
 
-          {currentStep < 5 ? (
+          {currentStep < 4 ? (
             <Button 
               onClick={handleNext} 
-              disabled={currentStep === 3 && !validationStatus.isValid}
               className="bg-indigo-600 hover:bg-indigo-700 gap-2"
             >
               Continue
