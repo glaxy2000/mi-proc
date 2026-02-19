@@ -14,7 +14,8 @@ import {
   Bell,
   ChevronDown,
   Heart,
-  Ban
+  Ban,
+  Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -26,6 +27,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import ChatWidget from '@/components/chat/ChatWidget';
 
 export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
@@ -218,6 +220,9 @@ export default function Layout({ children, currentPageName }) {
         </aside>
       )}
 
+      {/* Chat Widget */}
+      {!hidesidebar && <ChatWidget />}
+
       {/* Main content */}
       <div className={hidesidebar ? '' : 'lg:pl-64'}>
         {/* Top bar */}
@@ -303,7 +308,13 @@ export default function Layout({ children, currentPageName }) {
                     <Link to={createPageUrl('Profile')}>Profile</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('Settings')}>Settings</Link>
+                    <Link to={createPageUrl('Settings')}>Account Settings</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('NotificationSettings')}>
+                      <Bell className="mr-2 h-4 w-4" />
+                      Notification Preferences
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
 

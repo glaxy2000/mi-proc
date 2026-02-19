@@ -88,6 +88,7 @@ import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
+import NotificationSettings from './pages/NotificationSettings';
 import __Layout from './Layout.jsx';
 
 
@@ -133,6 +134,7 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
+    "NotificationSettings": NotificationSettings,
 }
 
 export const pagesConfig = {
