@@ -103,24 +103,27 @@ export default function Suppliers() {
         if (favoriteEntry && favoriteEntry.id) {
           await base44.entities.FavoriteSupplier.delete(favoriteEntry.id);
           toast.success(`${supplier.name} removed from favorites`);
+          await loadUserAndBlacklist();
         } else {
           toast.error('Favorite entry not found');
+          setLoading(false);
           return;
         }
       } else {
-        const newFavorite = await base44.entities.FavoriteSupplier.create({
+        const payload = {
           buyer_email: user.email,
           supplier_email: supplier.email,
-          supplier_name: supplier.name,
-          added_date: new Date().toISOString()
-        });
-        console.log('Favorite created:', newFavorite);
+          supplier_name: supplier.name || 'Unknown'
+        };
+        console.log('Creating favorite with payload:', payload);
+        const newFavorite = await base44.entities.FavoriteSupplier.create(payload);
+        console.log('Favorite created successfully:', newFavorite);
         toast.success(`${supplier.name} added to favorites`);
+        await loadUserAndBlacklist();
       }
-      await loadUserAndBlacklist();
     } catch (error) {
-      console.error('Toggle favorite error:', error);
-      toast.error(`Failed to update favorites: ${error.message || 'Unknown error'}`);
+      console.error('Toggle favorite error details:', error);
+      toast.error(`Failed: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -149,22 +152,23 @@ export default function Suppliers() {
 
     setLoading(true);
     try {
-      const newBlacklist = await base44.entities.Blacklist.create({
+      const payload = {
         buyer_email: user.email,
         supplier_email: selectedSupplier.email,
-        reason: blockReason,
-        blacklisted_date: new Date().toISOString()
-      });
-      console.log('Blacklist created:', newBlacklist);
+        reason: blockReason.trim()
+      };
+      console.log('Creating blacklist with payload:', payload);
+      const newBlacklist = await base44.entities.Blacklist.create(payload);
+      console.log('Blacklist created successfully:', newBlacklist);
 
       toast.success(`${selectedSupplier.name} has been blacklisted`);
-      await loadUserAndBlacklist();
       setShowBlockDialog(false);
       setBlockReason('');
       setSelectedSupplier(null);
+      await loadUserAndBlacklist();
     } catch (error) {
-      console.error('Blacklist error:', error);
-      toast.error(`Failed to blacklist supplier: ${error.message || 'Unknown error'}`);
+      console.error('Blacklist error details:', error);
+      toast.error(`Failed: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }

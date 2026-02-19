@@ -179,27 +179,40 @@ export default function BlacklistSuppliers() {
     }
 
     setLoading(true);
+    const results = { success: 0, failed: 0 };
     try {
       const newBlacklist = selectedSuppliers.filter(email => !isBlacklisted(email));
       
       for (const supplierEmail of newBlacklist) {
-        const created = await base44.entities.Blacklist.create({
-          buyer_email: user.email,
-          supplier_email: supplierEmail,
-          reason: blockReason,
-          blacklisted_date: new Date().toISOString()
-        });
-        console.log('Blacklist created:', created);
+        try {
+          const payload = {
+            buyer_email: user.email,
+            supplier_email: supplierEmail,
+            reason: blockReason.trim()
+          };
+          console.log('Creating blacklist:', payload);
+          const created = await base44.entities.Blacklist.create(payload);
+          console.log('Blacklist created:', created);
+          results.success++;
+        } catch (err) {
+          console.error(`Failed to blacklist ${supplierEmail}:`, err);
+          results.failed++;
+        }
       }
 
-      toast.success(`${newBlacklist.length} supplier(s) blacklisted`);
+      if (results.success > 0) {
+        toast.success(`${results.success} supplier(s) blacklisted`);
+      }
+      if (results.failed > 0) {
+        toast.error(`${results.failed} failed to blacklist`);
+      }
       setSelectedSuppliers([]);
       setBlockReason('');
       setShowBlockDialog(false);
       await loadData();
     } catch (error) {
       console.error('Blacklist error:', error);
-      toast.error(`Failed to blacklist suppliers: ${error.message || 'Unknown error'}`);
+      toast.error(`Failed: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }

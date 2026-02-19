@@ -173,28 +173,41 @@ export default function FavoriteSuppliers() {
     }
 
     setLoading(true);
+    const results = { success: 0, failed: 0 };
     try {
       const newFavorites = selectedSuppliers.filter(email => !isFavorite(email));
       
       for (const supplierEmail of newFavorites) {
         const supplier = allSuppliers.find(s => s.email === supplierEmail);
         if (supplier) {
-          const created = await base44.entities.FavoriteSupplier.create({
-            buyer_email: user.email,
-            supplier_email: supplierEmail,
-            supplier_name: supplier.name,
-            added_date: new Date().toISOString()
-          });
-          console.log('Favorite created:', created);
+          try {
+            const payload = {
+              buyer_email: user.email,
+              supplier_email: supplierEmail,
+              supplier_name: supplier.name || 'Unknown'
+            };
+            console.log('Creating favorite:', payload);
+            const created = await base44.entities.FavoriteSupplier.create(payload);
+            console.log('Favorite created:', created);
+            results.success++;
+          } catch (err) {
+            console.error(`Failed to add ${supplier.name}:`, err);
+            results.failed++;
+          }
         }
       }
 
-      toast.success(`${newFavorites.length} supplier(s) added to favorites`);
+      if (results.success > 0) {
+        toast.success(`${results.success} supplier(s) added to favorites`);
+      }
+      if (results.failed > 0) {
+        toast.error(`${results.failed} failed to add`);
+      }
       setSelectedSuppliers([]);
       await loadData();
     } catch (error) {
       console.error('Add favorites error:', error);
-      toast.error(`Failed to add favorites: ${error.message || 'Unknown error'}`);
+      toast.error(`Failed: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
