@@ -173,17 +173,23 @@ export default function BlacklistSuppliers() {
       return;
     }
 
+    if (!user || !user.email) {
+      toast.error('User not authenticated');
+      return;
+    }
+
     setLoading(true);
     try {
       const newBlacklist = selectedSuppliers.filter(email => !isBlacklisted(email));
       
       for (const supplierEmail of newBlacklist) {
-        await base44.entities.Blacklist.create({
+        const created = await base44.entities.Blacklist.create({
           buyer_email: user.email,
           supplier_email: supplierEmail,
           reason: blockReason,
           blacklisted_date: new Date().toISOString()
         });
+        console.log('Blacklist created:', created);
       }
 
       toast.success(`${newBlacklist.length} supplier(s) blacklisted`);
@@ -192,7 +198,8 @@ export default function BlacklistSuppliers() {
       setShowBlockDialog(false);
       await loadData();
     } catch (error) {
-      toast.error('Failed to blacklist suppliers');
+      console.error('Blacklist error:', error);
+      toast.error(`Failed to blacklist suppliers: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }

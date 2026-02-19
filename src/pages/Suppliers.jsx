@@ -57,19 +57,28 @@ export default function Suppliers() {
   const loadUserAndBlacklist = async () => {
     try {
       const currentUser = await base44.auth.me();
+      console.log('Current user:', currentUser);
       setUser(currentUser);
       
+      if (!currentUser || !currentUser.email) {
+        console.error('No user email found');
+        return;
+      }
+
       const blacklistData = await base44.entities.Blacklist.filter({ 
         buyer_email: currentUser.email 
       });
+      console.log('Blacklist data loaded:', blacklistData);
       setBlacklist(blacklistData);
 
       const favoritesData = await base44.entities.FavoriteSupplier.filter({ 
         buyer_email: currentUser.email 
       });
+      console.log('Favorites data loaded:', favoritesData);
       setFavorites(favoritesData);
     } catch (error) {
       console.error('Error loading data:', error);
+      toast.error('Failed to load user data');
     }
   };
 
@@ -82,25 +91,36 @@ export default function Suppliers() {
   };
 
   const handleToggleFavorite = async (supplier) => {
+    if (!user || !user.email) {
+      toast.error('User not authenticated');
+      return;
+    }
+
     setLoading(true);
     try {
       if (isFavorite(supplier.email)) {
         const favoriteEntry = favorites.find(f => f.supplier_email === supplier.email);
-        await base44.entities.FavoriteSupplier.delete(favoriteEntry.id);
-        toast.success(`${supplier.name} removed from favorites`);
+        if (favoriteEntry && favoriteEntry.id) {
+          await base44.entities.FavoriteSupplier.delete(favoriteEntry.id);
+          toast.success(`${supplier.name} removed from favorites`);
+        } else {
+          toast.error('Favorite entry not found');
+          return;
+        }
       } else {
-        await base44.entities.FavoriteSupplier.create({
+        const newFavorite = await base44.entities.FavoriteSupplier.create({
           buyer_email: user.email,
           supplier_email: supplier.email,
           supplier_name: supplier.name,
           added_date: new Date().toISOString()
         });
+        console.log('Favorite created:', newFavorite);
         toast.success(`${supplier.name} added to favorites`);
       }
       await loadUserAndBlacklist();
     } catch (error) {
-      toast.error('Failed to update favorites');
-      console.error(error);
+      console.error('Toggle favorite error:', error);
+      toast.error(`Failed to update favorites: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -117,14 +137,25 @@ export default function Suppliers() {
       return;
     }
 
+    if (!user || !user.email) {
+      toast.error('User not authenticated');
+      return;
+    }
+
+    if (!selectedSupplier || !selectedSupplier.email) {
+      toast.error('Invalid supplier selection');
+      return;
+    }
+
     setLoading(true);
     try {
-      await base44.entities.Blacklist.create({
+      const newBlacklist = await base44.entities.Blacklist.create({
         buyer_email: user.email,
         supplier_email: selectedSupplier.email,
         reason: blockReason,
         blacklisted_date: new Date().toISOString()
       });
+      console.log('Blacklist created:', newBlacklist);
 
       toast.success(`${selectedSupplier.name} has been blacklisted`);
       await loadUserAndBlacklist();
@@ -132,8 +163,8 @@ export default function Suppliers() {
       setBlockReason('');
       setSelectedSupplier(null);
     } catch (error) {
-      toast.error('Failed to blacklist supplier');
-      console.error(error);
+      console.error('Blacklist error:', error);
+      toast.error(`Failed to blacklist supplier: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }

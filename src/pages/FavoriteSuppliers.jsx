@@ -167,25 +167,34 @@ export default function FavoriteSuppliers() {
       return;
     }
 
+    if (!user || !user.email) {
+      toast.error('User not authenticated');
+      return;
+    }
+
     setLoading(true);
     try {
       const newFavorites = selectedSuppliers.filter(email => !isFavorite(email));
       
       for (const supplierEmail of newFavorites) {
         const supplier = allSuppliers.find(s => s.email === supplierEmail);
-        await base44.entities.FavoriteSupplier.create({
-          buyer_email: user.email,
-          supplier_email: supplierEmail,
-          supplier_name: supplier.name,
-          added_date: new Date().toISOString()
-        });
+        if (supplier) {
+          const created = await base44.entities.FavoriteSupplier.create({
+            buyer_email: user.email,
+            supplier_email: supplierEmail,
+            supplier_name: supplier.name,
+            added_date: new Date().toISOString()
+          });
+          console.log('Favorite created:', created);
+        }
       }
 
       toast.success(`${newFavorites.length} supplier(s) added to favorites`);
       setSelectedSuppliers([]);
       await loadData();
     } catch (error) {
-      toast.error('Failed to add favorites');
+      console.error('Add favorites error:', error);
+      toast.error(`Failed to add favorites: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
