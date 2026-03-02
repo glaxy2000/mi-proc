@@ -227,10 +227,19 @@ Provide a helpful, concise response. If the question is about how to use a featu
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Ask me anything..."
+                placeholder={isListening ? 'Listening...' : 'Ask me anything...'}
                 disabled={isLoading}
                 className="flex-1"
               />
+              <Button
+                onClick={startVoiceInput}
+                variant="outline"
+                size="icon"
+                title="Speak with voice assistant"
+                className={isListening ? 'border-red-400 text-red-600 bg-red-50 animate-pulse' : 'border-indigo-200 text-indigo-600 hover:bg-indigo-50'}
+              >
+                {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+              </Button>
               <Button
                 onClick={handleSendMessage}
                 disabled={!inputMessage.trim() || isLoading}
@@ -240,8 +249,9 @@ Provide a helpful, concise response. If the question is about how to use a featu
                 <Send className="h-4 w-4" />
               </Button>
             </div>
-            <p className="text-xs text-slate-400 mt-2 text-center">
-              AI-powered support for Mi-Proc
+            <p className="text-xs text-slate-400 mt-2 text-center leading-tight">
+              This system is powered by AI and may provide incomplete information.<br />
+              Please verify important details with the Mi-Proc team.
             </p>
           </div>
         </Card>
