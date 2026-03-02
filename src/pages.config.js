@@ -67,6 +67,7 @@ import FavoriteSuppliers from './pages/FavoriteSuppliers';
 import HistoricPricing from './pages/HistoricPricing';
 import Home from './pages/Home';
 import Negotiations from './pages/Negotiations';
+import NotificationSettings from './pages/NotificationSettings';
 import OrderDetails from './pages/OrderDetails';
 import Orders from './pages/Orders';
 import PayWallet from './pages/PayWallet';
@@ -88,7 +89,6 @@ import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import NotificationSettings from './pages/NotificationSettings';
 import __Layout from './Layout.jsx';
 
 
@@ -113,6 +113,7 @@ export const PAGES = {
     "HistoricPricing": HistoricPricing,
     "Home": Home,
     "Negotiations": Negotiations,
+    "NotificationSettings": NotificationSettings,
     "OrderDetails": OrderDetails,
     "Orders": Orders,
     "PayWallet": PayWallet,
@@ -134,7 +135,6 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "NotificationSettings": NotificationSettings,
 }
 
 export const pagesConfig = {

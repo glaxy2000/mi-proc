@@ -221,7 +221,7 @@ export default function Layout({ children, currentPageName }) {
       )}
 
       {/* Chat Widget */}
-      {!hidesidebar && <ChatWidget />}
+      <ChatWidget />
 
       {/* Main content */}
       <div className={hidesidebar ? '' : 'lg:pl-64'}>
