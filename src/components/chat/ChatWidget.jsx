@@ -124,7 +124,7 @@ Provide a helpful, concise response. If the question is about how to use a featu
             className="flex items-center gap-2 bg-white border border-indigo-200 text-indigo-700 text-sm font-medium px-4 py-2 rounded-full shadow-lg hover:bg-indigo-50 transition-all"
           >
             <Mic className="h-4 w-4 text-indigo-600" />
-            Speak with our voice assistant
+            Speak with our AI Voice Assistant
           </button>
           <Button
             onClick={() => setIsOpen(true)}
