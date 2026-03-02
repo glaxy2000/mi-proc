@@ -96,6 +96,7 @@ Provide a helpful, concise response. If the question is about how to use a featu
       });
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      speakText(response);
     } catch (error) {
       setMessages(prev => [...prev, { 
         role: 'assistant', 
