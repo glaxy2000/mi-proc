@@ -140,18 +140,36 @@ Provide a helpful, concise response. If the question is about how to use a featu
                 <Sparkles className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-semibold">Mi-Proc Assistant</h3>
-                <p className="text-xs text-indigo-100">Always here to help</p>
+                <h3 className="font-semibold">Mi-Proc AI Assistant</h3>
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                  <p className="text-xs text-indigo-100">
+                    {isSpeaking ? 'Speaking...' : isListening ? 'Listening...' : 'Online'}
+                  </p>
+                </div>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20"
-            >
-              <X className="h-5 w-5" />
-            </Button>
+            <div className="flex items-center gap-1">
+              {isSpeaking && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => { window.speechSynthesis.cancel(); setIsSpeaking(false); }}
+                  className="text-white hover:bg-white/20 h-8 w-8"
+                  title="Stop speaking"
+                >
+                  <Volume2 className="h-4 w-4" />
+                </Button>
+              )}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsOpen(false)}
+                className="text-white hover:bg-white/20"
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
 
           {/* Messages Area */}
