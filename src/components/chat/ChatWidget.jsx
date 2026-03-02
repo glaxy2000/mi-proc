@@ -11,12 +11,15 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hi! I\'m your Mi-Proc assistant. I can help you with RFQ creation, bidding, orders, or any questions about the platform. How can I assist you today?'
+      content: 'Hi! I\'m your Mi-Proc AI assistant. I can help you with RFQ creation, bidding, orders, or any questions about the platform. How can I assist you today?'
     }
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
