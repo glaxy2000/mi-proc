@@ -118,16 +118,25 @@ Provide a helpful, concise response. If the question is about how to use a featu
     <>
       {/* Floating Chat Button */}
       {!isOpen && (
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 z-50"
-          size="icon"
-        >
-          <MessageCircle className="h-6 w-6" />
-          <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 rounded-full flex items-center justify-center">
-            <Sparkles className="h-3 w-3 text-white" />
-          </span>
-        </Button>
+        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+          <button
+            onClick={() => { setIsOpen(true); setTimeout(() => startVoiceInput(), 400); }}
+            className="flex items-center gap-2 bg-white border border-indigo-200 text-indigo-700 text-sm font-medium px-4 py-2 rounded-full shadow-lg hover:bg-indigo-50 transition-all"
+          >
+            <Mic className="h-4 w-4 text-indigo-600" />
+            Speak with our voice assistant
+          </button>
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="h-14 w-14 rounded-full shadow-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+            size="icon"
+          >
+            <MessageCircle className="h-6 w-6" />
+            <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 rounded-full flex items-center justify-center">
+              <Sparkles className="h-3 w-3 text-white" />
+            </span>
+          </Button>
+        </div>
       )}
 
       {/* Chat Window */}
