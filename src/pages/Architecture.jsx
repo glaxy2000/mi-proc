@@ -591,17 +591,35 @@ export default function Architecture() {
                 <Badge className="bg-emerald-400/30 text-white border-emerald-300/30">SAMA Compliant</Badge>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-4 text-center">
-              {[
-                { label: 'Target Users', value: '30K+' },
-                { label: 'Uptime SLA', value: '99.99%' },
-                { label: 'Regions', value: '2+' },
-              ].map((s) => (
-                <div key={s.label} className="bg-white/10 rounded-xl p-3 min-w-[80px]">
-                  <p className="text-2xl font-bold">{s.value}</p>
-                  <p className="text-xs text-indigo-200">{s.label}</p>
-                </div>
-              ))}
+            <div className="flex flex-col gap-3 items-end">
+              <div className="grid grid-cols-3 gap-3 text-center">
+                {[
+                  { label: 'Target Users', value: '30K+' },
+                  { label: 'Uptime SLA', value: '99.99%' },
+                  { label: 'Regions', value: '2+' },
+                ].map((s) => (
+                  <div key={s.label} className="bg-white/10 rounded-xl p-3 min-w-[80px]">
+                    <p className="text-2xl font-bold">{s.value}</p>
+                    <p className="text-xs text-indigo-200">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-2 mt-1">
+                <button
+                  onClick={downloadPDF}
+                  className="flex items-center gap-2 bg-white text-indigo-700 font-semibold text-sm px-4 py-2 rounded-lg shadow hover:bg-indigo-50 transition-all"
+                >
+                  <FileText className="h-4 w-4" />
+                  Download PDF
+                </button>
+                <button
+                  onClick={downloadPPT}
+                  className="flex items-center gap-2 bg-white/20 border border-white/30 text-white font-semibold text-sm px-4 py-2 rounded-lg hover:bg-white/30 transition-all"
+                >
+                  <Download className="h-4 w-4" />
+                  Download PPT (HTML)
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>
