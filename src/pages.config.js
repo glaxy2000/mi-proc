@@ -50,6 +50,7 @@
 import AdminDashboard from './pages/AdminDashboard';
 import AdminSignin from './pages/AdminSignin';
 import Analytics from './pages/Analytics';
+import Architecture from './pages/Architecture';
 import AuthBuyer from './pages/AuthBuyer';
 import AuthSupplier from './pages/AuthSupplier';
 import Bids from './pages/Bids';
@@ -89,7 +90,10 @@ import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import Architecture from './pages/Architecture';
+import PurchaseRequests from './pages/PurchaseRequests';
+import BudgetManagement from './pages/BudgetManagement';
+import InvoiceManagement from './pages/InvoiceManagement';
+import GoodsReceipt from './pages/GoodsReceipt';
 import __Layout from './Layout.jsx';
 
 
@@ -97,6 +101,7 @@ export const PAGES = {
     "AdminDashboard": AdminDashboard,
     "AdminSignin": AdminSignin,
     "Analytics": Analytics,
+    "Architecture": Architecture,
     "AuthBuyer": AuthBuyer,
     "AuthSupplier": AuthSupplier,
     "Bids": Bids,
@@ -136,7 +141,10 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "Architecture": Architecture,
+    "PurchaseRequests": PurchaseRequests,
+    "BudgetManagement": BudgetManagement,
+    "InvoiceManagement": InvoiceManagement,
+    "GoodsReceipt": GoodsReceipt,
 }
 
 export const pagesConfig = {
