@@ -3,12 +3,13 @@ import { motion } from 'framer-motion';
 import {
   Server, Database, Shield, Globe, Users, Zap, Cloud, Lock,
   ArrowRight, ArrowDown, Layers, Activity, TrendingUp, AlertCircle,
-  CheckCircle2, Cpu, HardDrive, Network, BarChart3
+  CheckCircle2, Cpu, HardDrive, Network, BarChart3, Download, FileText, Presentation
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
+import { jsPDF } from 'jspdf';
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend
