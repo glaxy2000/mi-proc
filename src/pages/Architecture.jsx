@@ -110,6 +110,467 @@ function Arrow({ direction = 'right' }) {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
+function downloadPDF() {
+  const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+  const W = 297; const H = 210;
+  const indigo = [99, 102, 241]; const purple = [139, 92, 246]; const teal = [20, 184, 166];
+  const slate = [71, 85, 105]; const light = [248, 250, 252];
+
+  const addHeader = (title, subtitle) => {
+    doc.setFillColor(...indigo);
+    doc.rect(0, 0, W, 28, 'F');
+    doc.setFillColor(...purple);
+    doc.rect(W - 60, 0, 60, 28, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(16); doc.setFont('helvetica', 'bold');
+    doc.text('Mi-Proc Platform', 12, 11);
+    doc.setFontSize(11); doc.setFont('helvetica', 'normal');
+    doc.text(title, 12, 19);
+    doc.setFontSize(9);
+    doc.text('Confidential | Architecture & Capacity', W - 58, 16);
+    doc.setTextColor(...slate);
+    doc.setFontSize(13); doc.setFont('helvetica', 'bold');
+    doc.text(subtitle, 12, 40);
+    doc.setDrawColor(...indigo); doc.setLineWidth(0.5);
+    doc.line(12, 43, W - 12, 43);
+  };
+
+  const box = (x, y, w, h, label, sublabel, r, g, b) => {
+    doc.setFillColor(r, g, b); doc.roundedRect(x, y, w, h, 3, 3, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+    doc.text(label, x + w / 2, y + h / 2 - 1, { align: 'center' });
+    if (sublabel) { doc.setFontSize(6); doc.setFont('helvetica', 'normal'); doc.text(sublabel, x + w / 2, y + h / 2 + 4, { align: 'center' }); }
+    doc.setTextColor(...slate);
+  };
+
+  // ── Slide 1: Architecture ──────────────────────────────────────────────────
+  addHeader('High-Level System Design & Capacity Planning', 'System Architecture — Layered Diagram');
+
+  const layers = [
+    { label: 'CLIENT LAYER', items: ['Web App (React/Vite)', 'Mobile (PWA)', 'API Clients'], color: [59, 130, 246] },
+    { label: 'EDGE / SECURITY', items: ['Cloudflare CDN / WAF', 'Auth Gateway (JWT)', 'Rate Limiter'], color: [249, 115, 22] },
+    { label: 'APPLICATION LAYER (Base44 BaaS)', items: ['RFQ Service', 'Bid Engine', 'Escrow Service', 'AI Assistant', 'User Service'], color: [...indigo] },
+    { label: 'DATA LAYER', items: ['PostgreSQL (Primary)', 'Redis Cache', 'File Storage', 'Analytics DB'], color: [...teal] },
+    { label: 'EXTERNAL INTEGRATIONS', items: ['ZATCA', 'SAMA', 'SASO', 'Email/SMS', 'AI / LLM APIs'], color: [100, 116, 139] },
+  ];
+
+  let ly = 48;
+  layers.forEach((layer, li) => {
+    doc.setFontSize(7); doc.setFont('helvetica', 'bold'); doc.setTextColor(...slate);
+    doc.text(layer.label, 12, ly + 5);
+    const bw = Math.min(42, (W - 24 - (layer.items.length - 1) * 4) / layer.items.length);
+    const totalW = layer.items.length * bw + (layer.items.length - 1) * 4;
+    let bx = (W - totalW) / 2;
+    layer.items.forEach(item => {
+      box(bx, ly + 7, bw, 14, item, '', ...layer.color);
+      bx += bw + 4;
+    });
+    ly += 26;
+    if (li < layers.length - 1) {
+      doc.setDrawColor(180, 180, 200); doc.setLineWidth(0.4);
+      doc.line(W / 2, ly - 5, W / 2, ly - 1);
+      doc.setFillColor(180, 180, 200);
+      doc.triangle(W / 2 - 2, ly - 2, W / 2 + 2, ly - 2, W / 2, ly, 'F');
+    }
+  });
+
+  // Tech stack sidebar
+  doc.setFillColor(240, 240, 255);
+  doc.roundedRect(225, 46, 60, 140, 3, 3, 'F');
+  doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(...indigo);
+  doc.text('Technology Stack', 255, 54, { align: 'center' });
+  doc.setDrawColor(...indigo); doc.line(228, 56, 282, 56);
+  const stack = ['Frontend: React 18 + Vite', 'CDN: Cloudflare WAF', 'API: REST + Rate Limiting', 'BaaS: Base44 Platform', 'DB: PostgreSQL + Redis', 'Storage: Supabase', 'AI: Base44 LLM + Voice', 'Payments: SAMA Escrow'];
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...slate);
+  stack.forEach((s, i) => doc.text('• ' + s, 229, 63 + i * 10));
+
+  doc.setFontSize(8); doc.setTextColor(150, 150, 160);
+  doc.text('Page 1 of 4', W / 2, H - 5, { align: 'center' });
+
+  // ── Slide 2: Capacity Planning ─────────────────────────────────────────────
+  doc.addPage();
+  addHeader('High-Level System Design & Capacity Planning', 'Capacity Planning — Tier Table & Resource Utilization');
+
+  const tiers = [
+    { tier: 'Launch (MVP)', period: 'Q1–Q2 2025', users: '< 2,000', conc: '200', rps: '500', db: '50 GB', infra: 'Single Region (Riyadh)', sla: '99.5%' },
+    { tier: 'Growth', period: 'Q3 2025–Q2 2026', users: '2,000–15,000', conc: '1,500', rps: '3,000', db: '500 GB', infra: 'Multi-AZ (KSA)', sla: '99.9%' },
+    { tier: 'Scale', period: 'Q3 2026+', users: '15,000–50,000', conc: '5,000', rps: '10,000', db: '2 TB+', infra: 'Multi-Region (KSA+UAE)', sla: '99.99%' },
+  ];
+  const headers = ['Tier', 'Period', 'Total Users', 'Concurrent', 'Req/sec', 'DB Size', 'Infrastructure', 'SLA'];
+  const cols = [12, 42, 75, 108, 132, 156, 178, 240];
+  const tierColors = [[16, 185, 129], [...indigo], [...purple]];
+
+  doc.setFillColor(240, 240, 255); doc.rect(12, 47, W - 24, 9, 'F');
+  doc.setFontSize(7.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...indigo);
+  headers.forEach((h, i) => doc.text(h, cols[i] + 1, 53));
+
+  tiers.forEach((t, i) => {
+    const rowY = 60 + i * 18;
+    if (i % 2 === 0) { doc.setFillColor(...light); doc.rect(12, rowY - 4, W - 24, 18, 'F'); }
+    doc.setFillColor(...tierColors[i]); doc.roundedRect(cols[0], rowY - 2, 26, 10, 2, 2, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(7); doc.setFont('helvetica', 'bold');
+    doc.text(t.tier, cols[0] + 13, rowY + 4, { align: 'center' });
+    doc.setTextColor(...slate); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
+    [t.period, t.users, t.conc, t.rps, t.db, t.infra].forEach((v, j) => doc.text(v, cols[j + 1] + 1, rowY + 4));
+    doc.setTextColor(16, 185, 129); doc.setFont('helvetica', 'bold');
+    doc.text(t.sla, cols[7] + 1, rowY + 4);
+    doc.setTextColor(...slate);
+  });
+
+  // Resource utilization bars
+  doc.setFontSize(11); doc.setFont('helvetica', 'bold'); doc.setTextColor(...slate);
+  doc.text('Resource Utilization Targets', 12, 108);
+  doc.setDrawColor(...indigo); doc.line(12, 111, W - 12, 111);
+
+  const metrics = [
+    { label: 'CPU Utilization Target', val: 70, color: [...indigo] },
+    { label: 'Memory Utilization Target', val: 75, color: [...purple] },
+    { label: 'DB Connection Pool', val: 60, color: [...teal] },
+    { label: 'Cache Hit Rate Target', val: 85, color: [16, 185, 129] },
+    { label: 'CDN Offload Rate', val: 80, color: [245, 158, 11] },
+  ];
+  metrics.forEach((m, i) => {
+    const mx = 12 + (i % 3) * 90; const my = 118 + Math.floor(i / 3) * 26;
+    doc.setFontSize(7.5); doc.setFont('helvetica', 'normal'); doc.setTextColor(...slate);
+    doc.text(m.label, mx, my);
+    doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(...m.color);
+    doc.text(m.val + '%', mx + 72, my, { align: 'right' });
+    doc.setFillColor(220, 220, 235); doc.roundedRect(mx, my + 2, 78, 5, 2, 2, 'F');
+    doc.setFillColor(...m.color); doc.roundedRect(mx, my + 2, 78 * m.val / 100, 5, 2, 2, 'F');
+    doc.setTextColor(...slate);
+  });
+
+  doc.setFontSize(8); doc.setTextColor(150, 150, 160);
+  doc.text('Page 2 of 4', W / 2, H - 5, { align: 'center' });
+
+  // ── Slide 3: User Load ─────────────────────────────────────────────────────
+  doc.addPage();
+  addHeader('High-Level System Design & Capacity Planning', 'User Load — Projected Growth & Quarterly Milestones');
+
+  const growth = [
+    { month: 'Q1 25', buyers: 500, suppliers: 300, total: 800 },
+    { month: 'Q2 25', buyers: 1200, suppliers: 700, total: 1900 },
+    { month: 'Q3 25', buyers: 2500, suppliers: 1400, total: 3900 },
+    { month: 'Q4 25', buyers: 4200, suppliers: 2300, total: 6500 },
+    { month: 'Q1 26', buyers: 6800, suppliers: 3600, total: 10400 },
+    { month: 'Q2 26', buyers: 10000, suppliers: 5200, total: 15200 },
+    { month: 'Q3 26', buyers: 14000, suppliers: 7000, total: 21000 },
+    { month: 'Q4 26', buyers: 20000, suppliers: 10000, total: 30000 },
+  ];
+
+  // KPI cards
+  const kpis = [
+    { label: 'Target Buyers\n(EOY 2026)', value: '20,000', color: [...indigo] },
+    { label: 'Target Suppliers\n(EOY 2026)', value: '10,000', color: [...teal] },
+    { label: 'Peak Concurrent\nUsers', value: '5,000', color: [...purple] },
+    { label: 'Daily Active\nUsers (DAU)', value: '8,000+', color: [245, 158, 11] },
+  ];
+  kpis.forEach((k, i) => {
+    const kx = 12 + i * 68; const ky = 47;
+    doc.setFillColor(240, 240, 255); doc.roundedRect(kx, ky, 64, 24, 3, 3, 'F');
+    doc.setFillColor(...k.color); doc.roundedRect(kx, ky, 64, 8, 3, 3, 'F');
+    doc.rect(kx, ky + 5, 64, 3, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+    doc.text(k.value, kx + 32, ky + 20, { align: 'center' });
+    doc.setTextColor(...slate); doc.setFontSize(6.5); doc.setFont('helvetica', 'normal');
+    k.label.split('\n').forEach((line, li) => doc.text(line, kx + 32, ky + 28 + li * 5, { align: 'center' }));
+  });
+
+  // Bar chart
+  const chartX = 12; const chartY = 85; const chartW = 180; const chartH = 80;
+  const maxVal = 30000; const barW = chartW / growth.length - 4;
+  doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(...slate);
+  doc.text('Quarterly Total User Milestones', chartX, chartY - 3);
+  doc.setFillColor(245, 247, 250); doc.rect(chartX, chartY, chartW, chartH, 'F');
+  doc.setDrawColor(210, 214, 220); doc.setLineWidth(0.2);
+  [0, 0.25, 0.5, 0.75, 1].forEach(p => {
+    const gy = chartY + chartH - chartH * p;
+    doc.line(chartX, gy, chartX + chartW, gy);
+    doc.setFontSize(6); doc.setTextColor(150, 150, 160);
+    doc.text((maxVal * p / 1000).toFixed(0) + 'K', chartX - 8, gy + 1);
+  });
+  growth.forEach((d, i) => {
+    const bx = chartX + i * (barW + 4) + 2;
+    const bh = (d.total / maxVal) * chartH;
+    const by = chartY + chartH - bh;
+    const [r, g, b] = i < 4 ? indigo : purple;
+    doc.setFillColor(r, g, b); doc.roundedRect(bx, by, barW, bh, 1, 1, 'F');
+    doc.setFontSize(5.5); doc.setTextColor(...slate);
+    doc.text(d.month, bx + barW / 2, chartY + chartH + 5, { align: 'center' });
+    doc.setTextColor(r, g, b); doc.setFontSize(5);
+    doc.text((d.total >= 1000 ? (d.total / 1000).toFixed(0) + 'K' : d.total + ''), bx + barW / 2, by - 1, { align: 'center' });
+  });
+
+  // Stacked area chart (buyers vs suppliers)
+  const chart2X = 200; const chart2Y = 85; const chart2W = 85; const chart2H = 80;
+  doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(...slate);
+  doc.text('Buyers vs Suppliers', chart2X, chart2Y - 3);
+  doc.setFillColor(245, 247, 250); doc.rect(chart2X, chart2Y, chart2W, chart2H, 'F');
+  const maxB = 20000;
+  growth.forEach((d, i) => {
+    const px = chart2X + (i / (growth.length - 1)) * chart2W;
+    if (i > 0) {
+      const ppx = chart2X + ((i - 1) / (growth.length - 1)) * chart2W;
+      const pby = chart2Y + chart2H - (growth[i - 1].buyers / maxB) * chart2H;
+      const psy = chart2Y + chart2H - (growth[i - 1].suppliers / maxB) * chart2H;
+      const cby = chart2Y + chart2H - (d.buyers / maxB) * chart2H;
+      const csy = chart2Y + chart2H - (d.suppliers / maxB) * chart2H;
+      doc.setDrawColor(...indigo); doc.setLineWidth(1.2); doc.line(ppx, pby, px, cby);
+      doc.setDrawColor(...teal); doc.line(ppx, psy, px, csy);
+    }
+  });
+  doc.setFillColor(...indigo); doc.circle(chart2X + chart2W - 20, chart2Y + chart2H + 8, 1.5, 'F');
+  doc.setFontSize(6); doc.setTextColor(...slate); doc.text('Buyers', chart2X + chart2W - 16, chart2Y + chart2H + 9);
+  doc.setFillColor(...teal); doc.circle(chart2X + chart2W - 20, chart2Y + chart2H + 14, 1.5, 'F');
+  doc.text('Suppliers', chart2X + chart2W - 16, chart2Y + chart2H + 15);
+
+  doc.setFontSize(8); doc.setTextColor(150, 150, 160);
+  doc.text('Page 3 of 4', W / 2, H - 5, { align: 'center' });
+
+  // ── Slide 4: Security & Compliance ────────────────────────────────────────
+  doc.addPage();
+  addHeader('High-Level System Design & Capacity Planning', 'Security & Compliance — SAMA/ZATCA/SASO, SLA & Disaster Recovery');
+
+  const secGroups = [
+    { name: 'Identity & Access', items: ['OAuth 2.0 / JWT Auth', 'Role-Based Access Control', 'MFA Support', 'Session Management'] },
+    { name: 'Data Security', items: ['AES-256 Encryption at Rest', 'TLS 1.3 in Transit', 'Field-level Encryption (PII)', 'Secure File Upload'] },
+    { name: 'Compliance', items: ['SAMA Regulations', 'ZATCA Integration', 'SASO Standards', 'NDA Workflow'] },
+    { name: 'Infrastructure', items: ['WAF & DDoS Protection', 'IP Allowlisting', 'Audit Logs', 'Vulnerability Scanning'] },
+  ];
+  secGroups.forEach((g, i) => {
+    const gx = 12 + (i % 2) * 135; const gy = 47 + Math.floor(i / 2) * 50;
+    doc.setFillColor(240, 240, 255); doc.roundedRect(gx, gy, 128, 42, 3, 3, 'F');
+    doc.setFillColor(...indigo); doc.roundedRect(gx, gy, 128, 9, 3, 3, 'F');
+    doc.rect(gx, gy + 6, 128, 3, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+    doc.text(g.name, gx + 64, gy + 6, { align: 'center' });
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor(...slate);
+    g.items.forEach((item, ii) => {
+      doc.setFillColor(16, 185, 129); doc.circle(gx + 6, gy + 16 + ii * 8, 1.5, 'F');
+      doc.text(item, gx + 10, gy + 17 + ii * 8);
+    });
+  });
+
+  // SLA grid
+  doc.setFontSize(10); doc.setFont('helvetica', 'bold'); doc.setTextColor(...slate);
+  doc.text('SLA & Availability Targets', 12, 152);
+  doc.setDrawColor(...indigo); doc.line(12, 154, W - 12, 154);
+
+  const slas = [
+    { label: 'API p95 Response', val: '< 300ms', ok: true },
+    { label: 'API p99 Response', val: '< 1s', ok: true },
+    { label: 'Uptime (Scale)', val: '99.99%', ok: true },
+    { label: 'RTO', val: '< 1 hour', ok: false },
+    { label: 'RPO', val: '< 15 min', ok: false },
+    { label: 'Backup Frequency', val: 'Every 6h', ok: true },
+    { label: 'Max Downtime/Year', val: '~52 min', ok: true },
+    { label: 'CDN Cache TTL', val: '24 hours', ok: true },
+    { label: 'Incident Response', val: '< 30 min', ok: false },
+  ];
+  slas.forEach((s, i) => {
+    const sx = 12 + (i % 3) * 94; const sy = 159 + Math.floor(i / 3) * 16;
+    const c = s.ok ? [209, 250, 229] : [254, 243, 199];
+    const tc = s.ok ? [6, 95, 70] : [92, 45, 5];
+    doc.setFillColor(...c); doc.roundedRect(sx, sy, 90, 12, 2, 2, 'F');
+    doc.setFontSize(6.5); doc.setFont('helvetica', 'normal'); doc.setTextColor(100, 100, 120);
+    doc.text(s.label, sx + 4, sy + 5);
+    doc.setFontSize(8.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...tc);
+    doc.text(s.val, sx + 4, sy + 10);
+  });
+
+  // DR cards
+  const drItems = [
+    { title: 'Multi-AZ Deployment', desc: 'Active-Active across 2+ AZs in KSA. Zero single point of failure.' },
+    { title: 'Database Replication', desc: 'Synchronous replication to standby. Automated failover < 60s.' },
+    { title: 'Cross-Region Backup', desc: 'Daily snapshots replicated to UAE for geo-redundancy.' },
+  ];
+  doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(...indigo);
+  doc.text('Disaster Recovery & Business Continuity', 12, H - 28);
+  drItems.forEach((d, i) => {
+    const dx = 12 + i * 94; const dy = H - 24;
+    doc.setFillColor(238, 242, 255); doc.roundedRect(dx, dy, 90, 16, 2, 2, 'F');
+    doc.setFontSize(7); doc.setFont('helvetica', 'bold'); doc.setTextColor(...indigo);
+    doc.text(d.title, dx + 4, dy + 6);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(...slate); doc.setFontSize(6);
+    const lines = doc.splitTextToSize(d.desc, 82);
+    doc.text(lines, dx + 4, dy + 11);
+  });
+
+  doc.setFontSize(8); doc.setTextColor(150, 150, 160);
+  doc.text('Page 4 of 4', W / 2, H - 5, { align: 'center' });
+
+  doc.save('MiProc-Architecture-Capacity.pdf');
+}
+
+function downloadPPT() {
+  // Generate a PowerPoint-like HTML file that opens well and can be saved as PPTX via browser print/export
+  const slides = [
+    {
+      title: 'System Architecture',
+      subtitle: 'Layered Diagram: Client → Edge → App → Data → Integrations',
+      bg: 'linear-gradient(135deg,#6366f1,#8b5cf6)',
+      content: `
+        <div style="display:flex;gap:16px;flex-direction:column;margin-top:8px">
+          ${[
+            { label: 'CLIENT LAYER', items: ['Web App (React/Vite)', 'Mobile (PWA)', 'API Clients (B2B)'], color: '#3b82f6' },
+            { label: 'EDGE / SECURITY', items: ['Cloudflare CDN/WAF', 'Auth Gateway (JWT/OAuth2)', 'Rate Limiter'], color: '#f97316' },
+            { label: 'APPLICATION LAYER (Base44 BaaS)', items: ['RFQ Service', 'Bid Engine', 'Escrow Service', 'AI Assistant', 'User Service'], color: '#6366f1' },
+            { label: 'DATA LAYER', items: ['PostgreSQL', 'Redis Cache', 'File Storage', 'Analytics DB'], color: '#14b8a6' },
+            { label: 'EXTERNAL INTEGRATIONS', items: ['ZATCA', 'SAMA', 'SASO', 'Email/SMS', 'AI/LLM APIs'], color: '#64748b' },
+          ].map(l => `
+            <div>
+              <div style="font-size:9px;font-weight:bold;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">${l.label}</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                ${l.items.map(i => `<div style="background:${l.color};color:#fff;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600">${i}</div>`).join('')}
+              </div>
+            </div>
+          `).join('<div style="text-align:center;color:#aaa;font-size:16px">▼</div>')}
+        </div>
+        <div style="margin-top:16px;background:#f1f5ff;border-radius:10px;padding:12px">
+          <div style="font-weight:bold;color:#6366f1;margin-bottom:6px;font-size:12px">Technology Stack</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10px;color:#475569">
+            ${['Frontend: React 18, Vite, Tailwind CSS','CDN: Cloudflare WAF + DDoS','API Gateway: REST + Rate Limiting','BaaS: Base44 Platform (Deno)','DB: PostgreSQL + Redis Cache','Storage: Supabase (Docs/KYB)','AI/LLM: Base44 AI + Voice','Payments: SAMA-Compliant Escrow'].map(s=>`<div>• ${s}</div>`).join('')}
+          </div>
+        </div>`
+    },
+    {
+      title: 'Capacity Planning',
+      subtitle: 'Infrastructure Tiers & Resource Utilization Targets',
+      bg: 'linear-gradient(135deg,#0f172a,#1e3a5f)',
+      content: `
+        <table style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:16px">
+          <tr style="background:#6366f1;color:#fff">
+            ${['Tier','Period','Total Users','Concurrent','Req/sec','DB Size','Infrastructure','SLA'].map(h=>`<th style="padding:8px 6px;text-align:left">${h}</th>`).join('')}
+          </tr>
+          ${[
+            ['Launch (MVP)','Q1–Q2 2025','< 2,000','200','500','50 GB','Single Region (Riyadh)','99.5%','#10b981'],
+            ['Growth','Q3 2025–Q2 2026','2,000–15,000','1,500','3,000','500 GB','Multi-AZ (KSA)','99.9%','#6366f1'],
+            ['Scale','Q3 2026+','15,000–50,000','5,000','10,000','2 TB+','Multi-Region (KSA+UAE)','99.99%','#8b5cf6'],
+          ].map((t,i)=>`<tr style="background:${i%2?'#f8fafc':'#fff'}">
+            <td style="padding:7px 6px"><span style="background:${t[8]};color:#fff;padding:2px 8px;border-radius:12px;font-weight:bold;font-size:10px">${t[0]}</span></td>
+            ${t.slice(1,7).map(v=>`<td style="padding:7px 6px;color:#475569">${v}</td>`).join('')}
+            <td style="padding:7px 6px;font-weight:bold;color:#10b981">${t[7]}</td>
+          </tr>`).join('')}
+        </table>
+        <div style="font-weight:bold;color:#475569;margin-bottom:8px;font-size:13px">Resource Utilization Targets</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          ${[['CPU Utilization',70,'#6366f1'],['Memory',75,'#8b5cf6'],['DB Connection Pool',60,'#14b8a6'],['Cache Hit Rate',85,'#10b981'],['CDN Offload',80,'#f59e0b']].map(m=>`
+            <div style="background:#f8fafc;border-radius:8px;padding:8px">
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-bottom:4px"><span>${m[0]}</span><strong style="color:${m[2]}">${m[1]}%</strong></div>
+              <div style="background:#e2e8f0;border-radius:4px;height:6px"><div style="background:${m[2]};width:${m[1]}%;height:6px;border-radius:4px"></div></div>
+            </div>`).join('')}
+        </div>`
+    },
+    {
+      title: 'User Load Projections',
+      subtitle: 'Buyers + Suppliers Growth to 30,000 Users by EOY 2026',
+      bg: 'linear-gradient(135deg,#0f766e,#14b8a6)',
+      content: `
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
+          ${[['20,000','Target Buyers\n(EOY 2026)','#6366f1'],['10,000','Target Suppliers\n(EOY 2026)','#14b8a6'],['5,000','Peak Concurrent\nUsers','#8b5cf6'],['8,000+','Daily Active\nUsers (DAU)','#f59e0b']].map(k=>`
+            <div style="background:#f1f5ff;border-radius:10px;padding:12px;text-align:center;border-top:4px solid ${k[2]}">
+              <div style="font-size:22px;font-weight:900;color:${k[2]}">${k[0]}</div>
+              <div style="font-size:10px;color:#64748b;margin-top:4px">${k[1].replace('\n','<br>')}</div>
+            </div>`).join('')}
+        </div>
+        <div style="font-weight:bold;color:#475569;margin-bottom:8px;font-size:12px">Quarterly User Growth (Total Users)</div>
+        <div style="display:flex;align-items:flex-end;gap:4px;height:80px;background:#f8fafc;border-radius:8px;padding:8px;border-bottom:2px solid #e2e8f0">
+          ${[800,1900,3900,6500,10400,15200,21000,30000].map((v,i)=>{
+            const labels=['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26','Q2 26','Q3 26','Q4 26'];
+            const h=Math.round((v/30000)*64);
+            const c=i<4?'#6366f1':'#8b5cf6';
+            return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+              <div style="font-size:7px;color:${c};font-weight:bold">${v>=1000?(v/1000).toFixed(0)+'K':v}</div>
+              <div style="background:${c};width:100%;height:${h}px;border-radius:3px 3px 0 0"></div>
+              <div style="font-size:7px;color:#94a3b8;white-space:nowrap">${labels[i]}</div>
+            </div>`;}).join('')}
+        </div>`
+    },
+    {
+      title: 'Security & Compliance',
+      subtitle: 'SAMA · ZATCA · SASO Compliance | SLA Targets | Disaster Recovery',
+      bg: 'linear-gradient(135deg,#1e1b4b,#312e81)',
+      content: `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+          ${[
+            {name:'Identity & Access',items:['OAuth 2.0 / JWT Auth','Role-Based Access Control','MFA Support','Session Management']},
+            {name:'Data Security',items:['AES-256 Encryption at Rest','TLS 1.3 in Transit','Field-level Encryption (PII)','Secure File Upload']},
+            {name:'Compliance',items:['SAMA Regulations','ZATCA Integration','SASO Standards','NDA Workflow']},
+            {name:'Infrastructure',items:['WAF & DDoS Protection','IP Allowlisting','Audit Logs','Vulnerability Scanning']},
+          ].map(g=>`
+            <div style="background:#f1f5ff;border-radius:10px;padding:10px;border-left:4px solid #6366f1">
+              <div style="font-weight:bold;color:#4338ca;margin-bottom:6px;font-size:11px">${g.name}</div>
+              ${g.items.map(i=>`<div style="font-size:10px;color:#475569;margin-bottom:3px">✅ ${i}</div>`).join('')}
+            </div>`).join('')}
+        </div>
+        <div style="font-weight:bold;color:#475569;font-size:11px;margin-bottom:6px">SLA Targets</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:10px">
+          ${[['API p95','< 300ms',true],['API p99','< 1s',true],['Uptime (Scale)','99.99%',true],['RTO','< 1 hour',false],['RPO','< 15 min',false],['Backup','Every 6h',true],['Downtime/Yr','~52 min',true],['CDN TTL','24 hours',true],['Incident','< 30 min',false]].map(s=>`
+            <div style="background:${s[2]?'#d1fae5':'#fef3c7'};border-radius:6px;padding:6px 8px">
+              <div style="font-size:9px;color:#94a3b8">${s[0]}</div>
+              <div style="font-size:12px;font-weight:bold;color:${s[2]?'#065f46':'#78350f'}">${s[1]}</div>
+            </div>`).join('')}
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+          ${[['Multi-AZ Deployment','Active-Active across 2+ AZs in KSA for zero single point of failure.'],['Database Replication','Synchronous replication to standby with automated failover < 60 seconds.'],['Cross-Region Backup','Daily snapshots replicated to UAE region for geo-redundancy.']].map(d=>`
+            <div style="background:#eef2ff;border-radius:8px;padding:8px">
+              <div style="font-size:10px;font-weight:bold;color:#4338ca;margin-bottom:4px">${d[0]}</div>
+              <div style="font-size:9px;color:#64748b">${d[1]}</div>
+            </div>`).join('')}
+        </div>`
+    }
+  ];
+
+  const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mi-Proc Platform Architecture & Capacity Planning</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background:#1e1b4b; display:flex; flex-direction:column; align-items:center; padding:20px; gap:20px; }
+  .slide { width:960px; min-height:540px; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.4); }
+  .slide-header { padding:28px 32px 20px; color:#fff; }
+  .slide-header h1 { font-size:24px; font-weight:900; margin-bottom:4px; }
+  .slide-header p { font-size:13px; opacity:0.85; }
+  .slide-body { padding:16px 28px 20px; }
+  .slide-num { font-size:11px; color:#94a3b8; text-align:center; margin-top:8px; }
+  .top-bar { background:#111827; padding:12px 20px; display:flex; justify-content:space-between; align-items:center; }
+  .top-bar img { height:28px; }
+  .top-bar span { color:#94a3b8; font-size:12px; }
+  @media print { body { background:#fff; padding:0; } .slide { box-shadow:none; page-break-after:always; border-radius:0; width:100%; } }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span style="color:#fff;font-weight:bold;font-size:16px">🔷 Mi-Proc Platform</span>
+  <span>Architecture & Capacity Planning — Confidential</span>
+</div>
+${slides.map((s, i) => `
+<div class="slide">
+  <div class="slide-header" style="background:${s.bg}">
+    <div style="font-size:11px;opacity:0.7;margin-bottom:4px">SLIDE ${i + 1} OF ${slides.length}</div>
+    <h1>${s.title}</h1>
+    <p>${s.subtitle}</p>
+  </div>
+  <div class="slide-body">${s.content}</div>
+  <div class="slide-num">Mi-Proc Platform Architecture v1.0 | KSA B2B Procurement | Confidential</div>
+</div>`).join('')}
+<div style="color:#94a3b8;font-size:12px;text-align:center;padding:12px">To save as PDF or PPTX: File → Print → Save as PDF, or open in PowerPoint via Insert → Object</div>
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'MiProc-Architecture-Capacity.html';
+  document.body.appendChild(a);
+  a.click();
+  URL.revokeObjectURL(url);
+  a.remove();
+}
+
 export default function Architecture() {
   const [activeTab, setActiveTab] = useState('architecture');
 
