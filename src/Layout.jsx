@@ -115,9 +115,13 @@ export default function Layout({ children, currentPageName }) {
 
   const buyerNavigation = [
     { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
+    { name: 'Purchase Requests', href: 'PurchaseRequests', icon: FileText },
     { name: 'RFQs', href: 'RFQList', icon: FileText },
     { name: 'Bids', href: 'Bids', icon: MessageSquare },
     { name: 'Orders', href: 'Orders', icon: Shield },
+    { name: 'Goods Receipt (GRN)', href: 'GoodsReceipt', icon: Shield },
+    { name: 'Invoices', href: 'InvoiceManagement', icon: FileText },
+    { name: 'Budget Management', href: 'BudgetManagement', icon: Wallet },
     { name: 'Escrow', href: 'Escrow', icon: Shield },
     { name: 'Payments', href: 'Wallet', icon: Wallet },
     { name: 'Suppliers', href: 'Suppliers', icon: Users },
