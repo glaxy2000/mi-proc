@@ -112,9 +112,7 @@ export default function Products() {
             <Link to={createPageUrl('Home')} className="text-slate-600 hover:text-slate-900">Home</Link>
             <Link to={createPageUrl('Products')} className="text-indigo-600">Products</Link>
             <Link to={createPageUrl('Solutions')} className="text-slate-600 hover:text-slate-900">Solutions</Link>
-            <span className="text-slate-600 cursor-pointer hover:text-slate-900">How It Works</span>
-            <span className="text-slate-600 cursor-pointer hover:text-slate-900">Features</span>
-            <span className="text-slate-600 cursor-pointer hover:text-slate-900">Security</span>
+            <Link to={createPageUrl('ProcurementServices')} className="text-slate-600 hover:text-slate-900">Procurement Services</Link>
             <Link to={createPageUrl('Contact')} className="text-slate-600 hover:text-slate-900">Contact</Link>
           </div>
           <div className="flex gap-2">
