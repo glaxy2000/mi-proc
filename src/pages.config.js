@@ -108,6 +108,7 @@ import SupplierComparison from './pages/SupplierComparison';
 import WorkflowConfiguration from './pages/WorkflowConfiguration';
 import SupplierMetricsDashboard from './pages/SupplierMetricsDashboard';
 import PurchaseOrderManagement from './pages/PurchaseOrderManagement';
+import DocumentManagement from './pages/DocumentManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -173,6 +174,7 @@ export const PAGES = {
     "WorkflowConfiguration": WorkflowConfiguration,
     "SupplierMetricsDashboard": SupplierMetricsDashboard,
     "PurchaseOrderManagement": PurchaseOrderManagement,
+    "DocumentManagement": DocumentManagement,
 }
 
 export const pagesConfig = {
