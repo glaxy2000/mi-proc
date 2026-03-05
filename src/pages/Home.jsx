@@ -167,87 +167,79 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="home" className="relative overflow-hidden bg-gradient-to-br from-[#5b4fb8] via-[#4a8fb9] to-[#2bb3b3]">
+        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-10 lg:pt-28 lg:pb-14">
+          {/* Top: headline + sub */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-10"
+          >
+            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-4">
+              Transform Your B2B
+              <span className="block mt-2">Procurement & Payments</span>
+            </h1>
+            <p className="text-lg lg:text-xl text-white/90 max-w-2xl mx-auto mb-1">
+              Discover competitive suppliers, negotiate securely, and settle instantly with Mi-Proc.
+            </p>
+            <p className="text-base text-white/70 max-w-xl mx-auto">
+              Global Business Solutions For Best Strategies
+            </p>
+          </motion.div>
 
-        <div className="relative max-w-7xl mx-auto px-6 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Transform Your B2B
-                <span className="block mt-2">Procurement & Payments</span>
-              </h1>
-              <p className="text-lg lg:text-xl text-white/90 mb-8 max-w-xl">
-                Discover competitive suppliers, negotiate securely, and settle instantly with Mi-Proc.
-              </p>
-              <p className="text-base text-white/80 mb-8 max-w-xl">
-                Global Business Solutions For Best Strategies
-              </p>
+          {/* Full-width Service Slider */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-10"
+          >
             <ServiceSlider />
-            <div className="flex flex-col sm:flex-row gap-4 mt-6">
-            <Link to={createPageUrl('Register')}>
-                <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white">
-                  Get Started - Sign Up
-                </Button>
-              </Link>
-              <Link to={createPageUrl('Signin')}>
-                <Button size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/50 text-white hover:bg-white/20 hover:border-white shadow-lg">
-                  Sign In
-                </Button>
-              </Link>
-            </div>
-            </motion.div>
+          </motion.div>
 
-            {/* Hero Image/Illustration */}
-            <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative hidden lg:block"
-            >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-indigo-500/20 blur-3xl rounded-full" />
-              <div className="relative grid grid-cols-2 gap-4">
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="space-y-4"
-                >
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                    <FileText className="w-12 h-12 text-teal-400 mb-3" />
-                    <h3 className="text-white font-semibold mb-1">RFQ Management</h3>
-                    <p className="text-slate-300 text-sm">Create & track requests</p>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                    <Shield className="w-12 h-12 text-indigo-400 mb-3" />
-                    <h3 className="text-white font-semibold mb-1">Secure Escrow</h3>
-                    <p className="text-slate-300 text-sm">Protected payments</p>
-                  </div>
-                </motion.div>
-                <motion.div
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="space-y-4 pt-12"
-                >
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                    <MessageSquare className="w-12 h-12 text-purple-400 mb-3" />
-                    <h3 className="text-white font-semibold mb-1">Negotiations</h3>
-                    <p className="text-slate-300 text-sm">Secure messaging</p>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                    <Zap className="w-12 h-12 text-teal-400 mb-3" />
-                    <h3 className="text-white font-semibold mb-1">Instant Settlement</h3>
-                    <p className="text-slate-300 text-sm">Fast payments</p>
-                  </div>
-                </motion.div>
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Link to={createPageUrl('Register')}>
+              <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white px-10">
+                Get Started - Sign Up
+              </Button>
+            </Link>
+            <Link to={createPageUrl('Signin')}>
+              <Button size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/50 text-white hover:bg-white/20 hover:border-white shadow-lg px-10">
+                Sign In
+              </Button>
+            </Link>
+          </motion.div>
+
+          {/* Floating cards row */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12"
+          >
+            {[
+              { icon: FileText, label: 'RFQ Management', sub: 'Create & track requests', color: 'text-teal-400' },
+              { icon: Shield, label: 'Secure Escrow', sub: 'Protected payments', color: 'text-indigo-400' },
+              { icon: MessageSquare, label: 'Negotiations', sub: 'Secure messaging', color: 'text-purple-400' },
+              { icon: Zap, label: 'Instant Settlement', sub: 'Fast payments', color: 'text-teal-400' },
+            ].map((card, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20 flex items-center gap-3">
+                <card.icon className={`w-8 h-8 flex-shrink-0 ${card.color}`} />
+                <div>
+                  <p className="text-white font-semibold text-sm">{card.label}</p>
+                  <p className="text-slate-300 text-xs">{card.sub}</p>
+                </div>
               </div>
-            </div>
-            </motion.div>
-            </div>
-            </div>
-            </section>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
       {/* Value Proposition Section */}
       <section id="features" className="py-20 bg-slate-50">
