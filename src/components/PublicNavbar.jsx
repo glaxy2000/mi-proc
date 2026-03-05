@@ -34,7 +34,7 @@ export default function PublicNavbar({ activePage }) {
           {/* Solutions Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger className={`flex items-center gap-1 outline-none font-semibold text-sm ${
-              ['Solutions', 'ProcurementServices', 'Automation', 'DigitalTransformation', 'CostOptimisation'].includes(activePage)
+              ['Solutions', 'ProcurementServices', 'Automation', 'DigitalTransformation', 'CostOptimisation', 'RiskManagement'].includes(activePage)
                 ? 'text-indigo-600'
                 : 'text-slate-600 hover:text-slate-900'
             }`}>
