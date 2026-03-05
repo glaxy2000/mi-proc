@@ -140,15 +140,21 @@ export default function Solutions() {
       </nav>
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#5b4fb8] via-[#4a8fb9] to-[#2bb3b3] py-20 text-white">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+      <section className="bg-gradient-to-br from-[#5b4fb8] via-[#4a8fb9] to-[#2bb3b3] pt-20 pb-12 text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
             <Badge className="bg-teal-400/20 text-teal-200 mb-4">Solutions</Badge>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">Procurement Solutions<br /><span className="text-teal-300">Built for Your Needs</span></h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-2">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4">Procurement Solutions<br /><span className="text-teal-300">Built for Your Needs</span></h1>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
               Whether you're a manufacturer, healthcare provider, or government entity — Mi-Proc adapts to your industry's unique procurement challenges.
             </p>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <ServiceSlider />
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex gap-4 justify-center mt-8 flex-wrap">
+            <Link to={createPageUrl('Register')}><Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white px-10">Get Started</Button></Link>
+            <Link to={createPageUrl('Contact')}><Button size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/50 text-white hover:bg-white/20 hover:border-white shadow-lg px-10">Request a Demo</Button></Link>
           </motion.div>
         </div>
       </section>
