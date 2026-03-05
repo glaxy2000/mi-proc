@@ -8,6 +8,7 @@ import {
   BarChart3, Cpu, Lock, ChevronRight, TrendingDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ServiceSlider from '@/components/home/ServiceSlider';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
