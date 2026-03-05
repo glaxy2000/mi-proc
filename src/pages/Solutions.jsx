@@ -277,7 +277,7 @@ export default function Solutions() {
       <ServicesSlider />
 
       {/* CTA */}
-      <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-700">
+      <section className="py-20 bg-gradient-to-br from-[#0f1729] to-indigo-900">
         <div className="max-w-3xl mx-auto px-6 text-center text-white">
           <h2 className="text-3xl font-bold mb-4">Find Your Solution Today</h2>
           <p className="text-indigo-100 mb-8 text-lg">Talk to our procurement experts and discover how Mi-Proc fits your industry.</p>
