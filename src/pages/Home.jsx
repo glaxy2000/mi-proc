@@ -129,60 +129,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-white border-b shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png" 
-                alt="MI Technologies" 
-                className="h-8"
-              />
-              <span className="font-bold text-slate-900">Mi-Proc</span>
-            </div>
-            
-            <div className="hidden md:flex items-center gap-8 text-sm font-semibold">
-              <button onClick={() => scrollToSection('home')} className="text-slate-600 hover:text-slate-900">Home</button>
-              <Link to={createPageUrl('Products')} className="text-slate-600 hover:text-slate-900">Products</Link>
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-slate-600 hover:text-slate-900 font-semibold text-sm outline-none">
-                  Solutions <ChevronDown className="h-4 w-4" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-56">
-                  <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('Solutions')} className="cursor-pointer">Solutions Overview</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('ProcurementServices')} className="cursor-pointer">Procurement Services</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('Automation')} className="cursor-pointer">Automation</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('DigitalTransformation')} className="cursor-pointer">Digital Transformation</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to={createPageUrl('CostOptimisation')} className="cursor-pointer">Cost Optimisation</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <Link to={createPageUrl('Contact')} className="text-slate-600 hover:text-slate-900">Contact</Link>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Link to={createPageUrl('Signin')}>
-                <Button variant="outline">Sign In</Button>
-              </Link>
-              <Link to={createPageUrl('Register')}>
-                <Button className="bg-indigo-600 hover:bg-indigo-700">
-                  Get Started
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PublicNavbar activePage="Home" />
 
       {/* Hero Section */}
       <section id="home" className="relative overflow-hidden bg-gradient-to-br from-[#5b4fb8] via-[#4a8fb9] to-[#2bb3b3]">
