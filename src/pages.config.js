@@ -75,7 +75,6 @@ import NotificationSettings from './pages/NotificationSettings';
 import OrderDetails from './pages/OrderDetails';
 import Orders from './pages/Orders';
 import PayWallet from './pages/PayWallet';
-import Products from './pages/Products';
 import Profile from './pages/Profile';
 import PurchaseRequests from './pages/PurchaseRequests';
 import RFQList from './pages/RFQList';
@@ -84,7 +83,6 @@ import Register from './pages/Register';
 import SendWallet from './pages/SendWallet';
 import Settings from './pages/Settings';
 import Signin from './pages/Signin';
-import Solutions from './pages/Solutions';
 import SupplierDashboard from './pages/SupplierDashboard';
 import SupplierOnboarding from './pages/SupplierOnboarding';
 import SupplierSignin from './pages/SupplierSignin';
@@ -96,6 +94,8 @@ import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
+import Products from './pages/Products';
+import Solutions from './pages/Solutions';
 import __Layout from './Layout.jsx';
 
 
@@ -128,7 +128,6 @@ export const PAGES = {
     "OrderDetails": OrderDetails,
     "Orders": Orders,
     "PayWallet": PayWallet,
-    "Products": Products,
     "Profile": Profile,
     "PurchaseRequests": PurchaseRequests,
     "RFQList": RFQList,
@@ -137,7 +136,6 @@ export const PAGES = {
     "SendWallet": SendWallet,
     "Settings": Settings,
     "Signin": Signin,
-    "Solutions": Solutions,
     "SupplierDashboard": SupplierDashboard,
     "SupplierOnboarding": SupplierOnboarding,
     "SupplierSignin": SupplierSignin,
@@ -149,6 +147,8 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
+    "Products": Products,
+    "Solutions": Solutions,
 }
 
 export const pagesConfig = {
