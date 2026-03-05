@@ -56,6 +56,7 @@ import AuthSupplier from './pages/AuthSupplier';
 import Bids from './pages/Bids';
 import BlacklistSuppliers from './pages/BlacklistSuppliers';
 import BrowseRFQs from './pages/BrowseRFQs';
+import BudgetManagement from './pages/BudgetManagement';
 import BuyerDashboard from './pages/BuyerDashboard';
 import BuyerOnboarding from './pages/BuyerOnboarding';
 import BuyerSignin from './pages/BuyerSignin';
@@ -65,14 +66,17 @@ import CreateRFQ from './pages/CreateRFQ';
 import Dashboard from './pages/Dashboard';
 import Escrow from './pages/Escrow';
 import FavoriteSuppliers from './pages/FavoriteSuppliers';
+import GoodsReceipt from './pages/GoodsReceipt';
 import HistoricPricing from './pages/HistoricPricing';
 import Home from './pages/Home';
+import InvoiceManagement from './pages/InvoiceManagement';
 import Negotiations from './pages/Negotiations';
 import NotificationSettings from './pages/NotificationSettings';
 import OrderDetails from './pages/OrderDetails';
 import Orders from './pages/Orders';
 import PayWallet from './pages/PayWallet';
 import Profile from './pages/Profile';
+import PurchaseRequests from './pages/PurchaseRequests';
 import RFQList from './pages/RFQList';
 import ReceiveWallet from './pages/ReceiveWallet';
 import Register from './pages/Register';
@@ -90,10 +94,6 @@ import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import PurchaseRequests from './pages/PurchaseRequests';
-import BudgetManagement from './pages/BudgetManagement';
-import InvoiceManagement from './pages/InvoiceManagement';
-import GoodsReceipt from './pages/GoodsReceipt';
 import __Layout from './Layout.jsx';
 
 
@@ -107,6 +107,7 @@ export const PAGES = {
     "Bids": Bids,
     "BlacklistSuppliers": BlacklistSuppliers,
     "BrowseRFQs": BrowseRFQs,
+    "BudgetManagement": BudgetManagement,
     "BuyerDashboard": BuyerDashboard,
     "BuyerOnboarding": BuyerOnboarding,
     "BuyerSignin": BuyerSignin,
@@ -116,14 +117,17 @@ export const PAGES = {
     "Dashboard": Dashboard,
     "Escrow": Escrow,
     "FavoriteSuppliers": FavoriteSuppliers,
+    "GoodsReceipt": GoodsReceipt,
     "HistoricPricing": HistoricPricing,
     "Home": Home,
+    "InvoiceManagement": InvoiceManagement,
     "Negotiations": Negotiations,
     "NotificationSettings": NotificationSettings,
     "OrderDetails": OrderDetails,
     "Orders": Orders,
     "PayWallet": PayWallet,
     "Profile": Profile,
+    "PurchaseRequests": PurchaseRequests,
     "RFQList": RFQList,
     "ReceiveWallet": ReceiveWallet,
     "Register": Register,
@@ -141,10 +145,6 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "PurchaseRequests": PurchaseRequests,
-    "BudgetManagement": BudgetManagement,
-    "InvoiceManagement": InvoiceManagement,
-    "GoodsReceipt": GoodsReceipt,
 }
 
 export const pagesConfig = {

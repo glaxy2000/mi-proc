@@ -31,6 +31,25 @@ import ChatWidget from '@/components/chat/ChatWidget';
 
 export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const removeBadge = () => {
+      const selectors = [
+        '[class*="base44"]',
+        '[id*="base44"]',
+        '[class*="powered-by"]',
+        '[id*="powered-by"]',
+        'a[href*="base44.com"]',
+      ];
+      selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => el.remove());
+      });
+    };
+    removeBadge();
+    const observer = new MutationObserver(removeBadge);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
   const [notificationsOpen, setNotificationsOpen] = React.useState(false);
   const [user, setUser] = React.useState(null);
   const [selectedRole, setSelectedRole] = React.useState(localStorage.getItem('selectedRole') || 'buyer');
