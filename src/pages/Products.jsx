@@ -108,10 +108,13 @@ export default function Products() {
             <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png" alt="MI Technologies" className="h-8" />
             <span className="font-bold text-slate-900">Mi-Proc</span>
           </Link>
-          <div className="hidden md:flex items-center gap-6 text-sm">
+          <div className="hidden md:flex items-center gap-8 text-sm font-semibold">
             <Link to={createPageUrl('Home')} className="text-slate-600 hover:text-slate-900">Home</Link>
-            <Link to={createPageUrl('Products')} className="text-indigo-600 font-semibold">Products</Link>
+            <Link to={createPageUrl('Products')} className="text-indigo-600">Products</Link>
             <Link to={createPageUrl('Solutions')} className="text-slate-600 hover:text-slate-900">Solutions</Link>
+            <span className="text-slate-600 cursor-pointer hover:text-slate-900">How It Works</span>
+            <span className="text-slate-600 cursor-pointer hover:text-slate-900">Features</span>
+            <span className="text-slate-600 cursor-pointer hover:text-slate-900">Security</span>
             <Link to={createPageUrl('Contact')} className="text-slate-600 hover:text-slate-900">Contact</Link>
           </div>
           <div className="flex gap-2">
