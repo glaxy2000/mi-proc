@@ -92,9 +92,7 @@ export default function PublicNavbar({ activePage }) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link to={createPageUrl('Contact')} className={activePage === 'Contact' ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}>
-            Contact
-          </Link>
+
         </div>
 
         <div className="flex gap-2">
