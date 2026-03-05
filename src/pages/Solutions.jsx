@@ -128,6 +128,7 @@ export default function Solutions() {
             <Link to={createPageUrl('Solutions')} className="text-indigo-600">Solutions</Link>
             <Link to={createPageUrl('ProcurementServices')} className="text-slate-600 hover:text-slate-900">Procurement Services</Link>
             <Link to={createPageUrl('Automation')} className="text-slate-600 hover:text-slate-900">Automation</Link>
+            <Link to={createPageUrl('DigitalTransformation')} className="text-slate-600 hover:text-slate-900">Digital Transformation</Link>
             <Link to={createPageUrl('Contact')} className="text-slate-600 hover:text-slate-900">Contact</Link>
           </div>
           <div className="flex gap-2">
