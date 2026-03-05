@@ -138,7 +138,7 @@ export default function Solutions() {
       </section>
 
       {/* Stats Banner */}
-      <section className="bg-indigo-600 py-10">
+      <section className="bg-indigo-600 py-10" style={{background: 'linear-gradient(90deg, #4338ca, #6366f1)'}}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-white text-center">
             {[
