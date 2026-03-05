@@ -96,6 +96,7 @@ import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
 import Home from './pages/Home';
 import Solutions from './pages/Solutions';
+import ProcurementServices from './pages/ProcurementServices';
 import __Layout from './Layout.jsx';
 
 
@@ -149,6 +150,7 @@ export const PAGES = {
     "WithdrawWallet": WithdrawWallet,
     "Home": Home,
     "Solutions": Solutions,
+    "ProcurementServices": ProcurementServices,
 }
 
 export const pagesConfig = {
