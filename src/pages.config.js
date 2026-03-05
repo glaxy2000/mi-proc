@@ -98,6 +98,7 @@ import Home from './pages/Home';
 import Solutions from './pages/Solutions';
 import ProcurementServices from './pages/ProcurementServices';
 import Automation from './pages/Automation';
+import DigitalTransformation from './pages/DigitalTransformation';
 import __Layout from './Layout.jsx';
 
 
@@ -153,6 +154,7 @@ export const PAGES = {
     "Solutions": Solutions,
     "ProcurementServices": ProcurementServices,
     "Automation": Automation,
+    "DigitalTransformation": DigitalTransformation,
 }
 
 export const pagesConfig = {
