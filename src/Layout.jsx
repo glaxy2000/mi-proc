@@ -168,7 +168,7 @@ export default function Layout({ children, currentPageName }) {
 
   const isActive = (pageName) => currentPageName === pageName;
   
-  const authPages = ['Home', 'Products', 'Solutions', 'BuyerSignin', 'BuyerSignup', 'SupplierSignin', 'SupplierSignup', 'AuthBuyer', 'AuthSupplier', 'AdminSignin', 'SupplierOnboarding', 'BuyerOnboarding', 'Contact', 'Signin', 'Register', 'ProcurementServices', 'Automation', 'DigitalTransformation', 'CostOptimisation', 'RiskManagement', 'BlogNews', 'Careers'];
+  const authPages = ['Home', 'Products', 'Solutions', 'About', 'BuyerSignin', 'BuyerSignup', 'SupplierSignin', 'SupplierSignup', 'AuthBuyer', 'AuthSupplier', 'AdminSignin', 'SupplierOnboarding', 'BuyerOnboarding', 'Contact', 'Signin', 'Register', 'ProcurementServices', 'Automation', 'DigitalTransformation', 'CostOptimisation', 'RiskManagement', 'BlogNews', 'Careers'];
   const hidesidebar = authPages.includes(currentPageName);
 
   return (
