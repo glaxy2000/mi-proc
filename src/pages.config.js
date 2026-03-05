@@ -47,6 +47,7 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import About from './pages/About';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminSignin from './pages/AdminSignin';
 import Analytics from './pages/Analytics';
@@ -56,12 +57,14 @@ import AuthSupplier from './pages/AuthSupplier';
 import Automation from './pages/Automation';
 import Bids from './pages/Bids';
 import BlacklistSuppliers from './pages/BlacklistSuppliers';
+import BlogNews from './pages/BlogNews';
 import BrowseRFQs from './pages/BrowseRFQs';
 import BudgetManagement from './pages/BudgetManagement';
 import BuyerDashboard from './pages/BuyerDashboard';
 import BuyerOnboarding from './pages/BuyerOnboarding';
 import BuyerSignin from './pages/BuyerSignin';
 import BuyerSignup from './pages/BuyerSignup';
+import Careers from './pages/Careers';
 import Contact from './pages/Contact';
 import CostOptimisation from './pages/CostOptimisation';
 import CreateRFQ from './pages/CreateRFQ';
@@ -85,6 +88,7 @@ import PurchaseRequests from './pages/PurchaseRequests';
 import RFQList from './pages/RFQList';
 import ReceiveWallet from './pages/ReceiveWallet';
 import Register from './pages/Register';
+import RiskManagement from './pages/RiskManagement';
 import SendWallet from './pages/SendWallet';
 import Settings from './pages/Settings';
 import Signin from './pages/Signin';
@@ -100,14 +104,12 @@ import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import About from './pages/About';
-import Careers from './pages/Careers';
-import BlogNews from './pages/BlogNews';
-import RiskManagement from './pages/RiskManagement';
+import SupplierComparison from './pages/SupplierComparison';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "About": About,
     "AdminDashboard": AdminDashboard,
     "AdminSignin": AdminSignin,
     "Analytics": Analytics,
@@ -117,12 +119,14 @@ export const PAGES = {
     "Automation": Automation,
     "Bids": Bids,
     "BlacklistSuppliers": BlacklistSuppliers,
+    "BlogNews": BlogNews,
     "BrowseRFQs": BrowseRFQs,
     "BudgetManagement": BudgetManagement,
     "BuyerDashboard": BuyerDashboard,
     "BuyerOnboarding": BuyerOnboarding,
     "BuyerSignin": BuyerSignin,
     "BuyerSignup": BuyerSignup,
+    "Careers": Careers,
     "Contact": Contact,
     "CostOptimisation": CostOptimisation,
     "CreateRFQ": CreateRFQ,
@@ -146,6 +150,7 @@ export const PAGES = {
     "RFQList": RFQList,
     "ReceiveWallet": ReceiveWallet,
     "Register": Register,
+    "RiskManagement": RiskManagement,
     "SendWallet": SendWallet,
     "Settings": Settings,
     "Signin": Signin,
@@ -161,10 +166,7 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "About": About,
-    "Careers": Careers,
-    "BlogNews": BlogNews,
-    "RiskManagement": RiskManagement,
+    "SupplierComparison": SupplierComparison,
 }
 
 export const pagesConfig = {
