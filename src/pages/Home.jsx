@@ -248,6 +248,9 @@ export default function Home() {
             </div>
             </section>
 
+      {/* Services Slider */}
+      <ServicesSlider />
+
       {/* Value Proposition Section */}
       <section id="features" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
