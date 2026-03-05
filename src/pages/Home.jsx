@@ -308,6 +308,75 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Source-to-Pay Features Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-14">
+            <Badge className="bg-indigo-100 text-indigo-700 mb-4">Source-to-Pay Platform</Badge>
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+              One Intelligent Platform for <span className="text-indigo-600">Core Sourcing, Purchase & Finance</span>
+            </h2>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+              Procurement teams face fragmented workflows, manual processes, and unclear spend tracking. Mi-Proc replaces fragmented systems with one centralized procurement hub.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: ClipboardList, title: 'Core Sourcing', color: 'bg-indigo-500', lightColor: 'bg-indigo-50',
+                features: [
+                  { name: 'Purchase Requests', desc: 'Structured forms with automated approval routing.' },
+                  { name: 'E-Sourcing / RFQ', desc: 'Run RFQs, RFPs and RFIs with side-by-side bid comparison.' },
+                  { name: 'POs & Awards', desc: 'Auto-generate purchase orders from approved requests.' },
+                  { name: 'Vendor Portal', desc: 'Centralize supplier data, onboarding and performance.' },
+                ]
+              },
+              {
+                icon: Package, title: 'Purchase', color: 'bg-teal-500', lightColor: 'bg-teal-50',
+                features: [
+                  { name: 'GRN / Receiving', desc: 'Confirm quantity & quality on delivery to prevent over-billing.' },
+                  { name: 'Billing Management', desc: 'Automate 3-way matching: Invoice ↔ PO ↔ GRN.' },
+                  { name: 'Payments', desc: 'SAMA-compliant payments with escrow protection and full visibility.' },
+                ]
+              },
+              {
+                icon: Receipt, title: 'Finance', color: 'bg-emerald-500', lightColor: 'bg-emerald-50',
+                features: [
+                  { name: 'Budget Management', desc: 'Live dashboards: committed, invoiced, and remaining per department.' },
+                  { name: 'Expense Accounts', desc: 'Actionable insights into spending patterns and savings opportunities.' },
+                ]
+              },
+            ].map((module, mi) => (
+              <motion.div key={mi} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: mi * 0.15 }}>
+                <Card className="h-full border-0 shadow-xl hover:shadow-2xl transition-shadow">
+                  <div className={`${module.color} rounded-t-xl p-6 text-white`}>
+                    <module.icon className="h-8 w-8 mb-3" />
+                    <h3 className="text-xl font-bold">{module.title}</h3>
+                  </div>
+                  <div className="p-6 space-y-4">
+                    {module.features.map((f, fi) => (
+                      <div key={fi} className="flex items-start gap-3">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold text-slate-900 text-sm">{f.name}</p>
+                          <p className="text-xs text-slate-500 mt-0.5">{f.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                    <Link to={createPageUrl('Products')}>
+                      <Button variant="outline" size="sm" className="w-full mt-2">
+                        Learn More <ArrowRight className="ml-2 h-3 w-3" />
+                      </Button>
+                    </Link>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* How It Works Section */}
       <section id="how-it-works" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
