@@ -112,10 +112,24 @@ const stats = [
 ];
 
 const team = [
-  { name: 'Ahmad Al-Mansouri', title: 'CEO & Co-founder', initials: 'AM' },
-  { name: 'Khalid Al-Rashid', title: 'CFO & COO', initials: 'KR' },
-  { name: 'Sara Al-Otaibi', title: 'CTO & Co-founder', initials: 'SO' },
-  { name: 'Faisal Al-Ghamdi', title: 'Head of Business Development', initials: 'FG' },
+  {
+    name: 'Ahmed Abdulazim',
+    title: 'CEO',
+    description: 'Visionary leader driving MI Technologies strategic direction and growth.',
+    image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6979fbad0136fef0100ea04f/5115e2f91_Ahmed.jpeg'
+  },
+  {
+    name: 'Hazem Sabry',
+    title: 'Chief Research & Strategy Officer',
+    description: 'Spearheading research initiatives and strategic planning for market leadership.',
+    image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6979fbad0136fef0100ea04f/e25ab2bbd_Hazem.png'
+  },
+  {
+    name: 'Mohammad Farooqui',
+    title: 'Chief Technology Officer',
+    description: 'Architecting scalable, secure technology infrastructure for next-gen fintech.',
+    image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6979fbad0136fef0100ea04f/a7bcc890b_Faroogui.jpeg'
+  },
 ];
 
 export default function About() {
