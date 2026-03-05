@@ -69,6 +69,18 @@ export default function PublicNavbar({ activePage }) {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Contact Us Button */}
+          <Link
+            to={createPageUrl('Contact')}
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+              activePage === 'Contact'
+                ? 'bg-slate-700 text-white'
+                : 'bg-slate-900 text-white hover:bg-slate-700'
+            }`}
+          >
+            Contact Us
+          </Link>
+
           {/* About Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger className={`flex items-center gap-1 outline-none font-semibold text-sm ${
@@ -107,7 +119,6 @@ export default function PublicNavbar({ activePage }) {
 
         <div className="flex gap-2">
           <Link to={createPageUrl('Signin')}><Button variant="outline" size="sm">Sign In</Button></Link>
-          <Link to={createPageUrl('Contact')}><Button size="sm" className="bg-slate-900 hover:bg-slate-700 text-white">Contact Us</Button></Link>
           <Link to={createPageUrl('Contact')}><Button variant="outline" size="sm">Request a Demo</Button></Link>
           <Link to={createPageUrl('Register')}><Button size="sm" className="bg-indigo-600 hover:bg-indigo-700">Get Started</Button></Link>
         </div>
