@@ -279,8 +279,8 @@ export default function Solutions() {
       {/* CTA */}
       <section className="py-20 bg-gradient-to-br from-[#0f1729] to-indigo-900">
         <div className="max-w-3xl mx-auto px-6 text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">Find Your Solution Today</h2>
-          <p className="text-indigo-100 mb-8 text-lg">Talk to our procurement experts and discover how Mi-Proc fits your industry.</p>
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Find Your Solution Today</h2>
+          <p className="text-indigo-200 text-lg mb-8">Talk to our procurement experts and discover how Mi-Proc fits your industry.</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link to={createPageUrl('Register')}><Button size="lg" className="bg-white text-indigo-700 hover:bg-white/90 font-semibold">Start Free Trial</Button></Link>
             <Link to={createPageUrl('Contact')}><Button size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/50 text-white hover:bg-white/20 hover:border-white shadow-lg">Talk to an Expert</Button></Link>
