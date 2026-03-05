@@ -66,6 +66,11 @@ export default function PublicNavbar({ activePage }) {
                   Cost Optimisation
                 </Link>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to={createPageUrl('RiskManagement')} className={`cursor-pointer ${activePage === 'RiskManagement' ? 'text-indigo-600 font-semibold' : ''}`}>
+                  Supplier Risk Management
+                </Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
