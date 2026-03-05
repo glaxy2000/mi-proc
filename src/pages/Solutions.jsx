@@ -294,7 +294,7 @@ export default function Solutions() {
           <p className="text-indigo-100 mb-8 text-lg">Talk to our procurement experts and discover how Mi-Proc fits your industry.</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link to={createPageUrl('Register')}><Button size="lg" className="bg-white text-indigo-700 hover:bg-white/90 font-semibold">Start Free Trial</Button></Link>
-            <Link to={createPageUrl('Contact')}><Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10">Talk to an Expert</Button></Link>
+            <Link to={createPageUrl('Contact')}><Button size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/50 text-white hover:bg-white/20 hover:border-white shadow-lg">Talk to an Expert</Button></Link>
           </div>
         </div>
       </section>
