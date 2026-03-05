@@ -1,197 +1,202 @@
 import React, { useState } from 'react';
+import { base44 } from '@/api/base44Client';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import {
-  DollarSign, TrendingUp, TrendingDown, AlertCircle, Plus,
-  BarChart3, PieChart as PieIcon, CheckCircle2, Clock, Edit2
-} from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Plus, Edit2, Trash2, AlertTriangle, TrendingDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell, Legend
-} from 'recharts';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import BudgetForm from '@/components/budget/BudgetForm';
+import BudgetList from '@/components/budget/BudgetList';
 
-const budgets = [
-  { id: 'BDG-001', name: 'IT & Technology', department: 'IT', total: 500000, committed: 280000, invoiced: 180000, spent: 180000, currency: 'SAR', period: 'FY 2024', color: '#6366f1' },
-  { id: 'BDG-002', name: 'Operations & Facilities', department: 'Operations', total: 350000, committed: 120000, invoiced: 95000, spent: 95000, currency: 'SAR', period: 'FY 2024', color: '#14b8a6' },
-  { id: 'BDG-003', name: 'HR & Consulting', department: 'HR', total: 200000, committed: 95000, invoiced: 45000, spent: 45000, currency: 'SAR', period: 'FY 2024', color: '#8b5cf6' },
-  { id: 'BDG-004', name: 'Marketing & Events', department: 'Marketing', total: 150000, committed: 140000, invoiced: 130000, spent: 130000, currency: 'SAR', period: 'FY 2024', color: '#f59e0b' },
-  { id: 'BDG-005', name: 'Security & Safety', department: 'Security', total: 180000, committed: 50000, invoiced: 30000, spent: 30000, currency: 'SAR', period: 'FY 2024', color: '#10b981' },
-];
-
-const monthlySpend = [
-  { month: 'Jan', budget: 120, actual: 85 },
-  { month: 'Feb', budget: 120, actual: 110 },
-  { month: 'Mar', budget: 120, actual: 95 },
-  { month: 'Apr', budget: 120, actual: 130 },
-  { month: 'May', budget: 120, actual: 105 },
-  { month: 'Jun', budget: 120, actual: 118 },
-  { month: 'Jul', budget: 120, actual: 90 },
-  { month: 'Aug', budget: 120, actual: 125 },
-  { month: 'Sep', budget: 120, actual: 115 },
-  { month: 'Oct', budget: 120, actual: 98 },
-  { month: 'Nov', budget: 120, actual: 0 },
-  { month: 'Dec', budget: 120, actual: 0 },
-];
+const currentYear = new Date().getFullYear().toString();
 
 export default function BudgetManagement() {
-  const [selectedBudget, setSelectedBudget] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [editingBudget, setEditingBudget] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const queryClient = useQueryClient();
 
-  const totalBudget = budgets.reduce((s, b) => s + b.total, 0);
-  const totalSpent = budgets.reduce((s, b) => s + b.spent, 0);
-  const totalCommitted = budgets.reduce((s, b) => s + b.committed, 0);
-  const totalRemaining = totalBudget - totalCommitted;
-  const overBudget = budgets.filter(b => b.committed > b.total);
+  const { data: budgets = [] } = useQuery({
+    queryKey: ['budgets', selectedYear],
+    queryFn: () => base44.entities.Budget.filter({ fiscal_year: selectedYear }),
+  });
 
-  const pieData = budgets.map(b => ({ name: b.name, value: b.total, color: b.color }));
+  const { data: orders = [] } = useQuery({
+    queryKey: ['goodsOrders'],
+    queryFn: () => base44.entities.GoodsOrder.list(),
+  });
+
+  const deleteBudget = useMutation({
+    mutationFn: (id) => base44.entities.Budget.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['budgets'] });
+    },
+  });
+
+  const handleEdit = (budget) => {
+    setEditingBudget(budget);
+    setShowForm(true);
+  };
+
+  const handleClose = () => {
+    setShowForm(false);
+    setEditingBudget(null);
+  };
+
+  // Calculate budget metrics
+  const totalAllocated = budgets.reduce((sum, b) => sum + (b.allocated_amount || 0), 0);
+  const totalSpent = budgets.reduce((sum, b) => sum + (b.spent_amount || 0), 0);
+  const totalPending = budgets.reduce((sum, b) => sum + (b.pending_amount || 0), 0);
+  const utilizationRate = totalAllocated > 0 ? Math.round(((totalSpent + totalPending) / totalAllocated) * 100) : 0;
+
+  const alertBudgets = budgets.filter(budget => {
+    const used = (budget.spent_amount || 0) + (budget.pending_amount || 0);
+    const percentage = budget.allocated_amount > 0 ? (used / budget.allocated_amount) * 100 : 0;
+    return percentage >= (budget.threshold_percentage || 80);
+  });
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
-
-        {/* Header */}
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
-          className="mb-8 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 text-white shadow-xl">
-          <div className="flex items-center justify-between flex-wrap gap-4">
+    <div className="min-h-screen bg-slate-50">
+      {/* Header */}
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Budget Management</h1>
-              <p className="text-emerald-100">Real-time spend visibility — committed, invoiced, and remaining funds across all departments.</p>
+              <h1 className="text-3xl font-bold text-slate-900">Budget Management</h1>
+              <p className="text-slate-600 mt-1">Set spending limits and monitor budget utilization</p>
             </div>
-            {overBudget.length > 0 && (
-              <div className="bg-red-500/20 border border-red-300/30 rounded-xl px-4 py-3 flex items-center gap-2">
-                <AlertCircle className="h-5 w-5 text-red-200" />
-                <span className="text-white text-sm font-medium">{overBudget.length} budget(s) near limit</span>
-              </div>
-            )}
+            <Button
+              onClick={() => setShowForm(true)}
+              className="bg-indigo-600 hover:bg-indigo-700"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              New Budget
+            </Button>
           </div>
-        </motion.div>
-
-        {/* KPIs */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {[
-            { label: 'Total Budget', value: `SAR ${(totalBudget / 1000000).toFixed(2)}M`, sub: 'FY 2024', icon: DollarSign, color: 'bg-indigo-500' },
-            { label: 'Total Spent', value: `SAR ${(totalSpent / 1000).toFixed(0)}K`, sub: `${((totalSpent / totalBudget) * 100).toFixed(0)}% of budget`, icon: TrendingUp, color: 'bg-emerald-500' },
-            { label: 'Committed', value: `SAR ${(totalCommitted / 1000).toFixed(0)}K`, sub: 'POs & approved PRs', icon: Clock, color: 'bg-amber-500' },
-            { label: 'Remaining', value: `SAR ${(totalRemaining / 1000).toFixed(0)}K`, sub: 'Available to spend', icon: CheckCircle2, color: 'bg-purple-500' },
-          ].map((s, i) => (
-            <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-              <Card className="border-0 shadow-lg">
-                <CardContent className="p-5 flex items-center gap-4">
-                  <div className={`p-3 rounded-xl ${s.color}`}><s.icon className="h-5 w-5 text-white" /></div>
-                  <div>
-                    <p className="text-lg font-bold text-slate-900">{s.value}</p>
-                    <p className="text-xs text-slate-500">{s.label}</p>
-                    <p className="text-xs text-slate-400">{s.sub}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
         </div>
+      </div>
 
-        <div className="grid lg:grid-cols-3 gap-6 mb-8">
-          {/* Monthly Spend Chart */}
-          <div className="lg:col-span-2">
-            <Card className="border-0 shadow-lg h-full">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <BarChart3 className="h-4 w-4 text-indigo-600" />
-                  Monthly Spend vs Budget (SAR '000)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={monthlySpend}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                      <XAxis dataKey="month" tick={{ fontSize: 11 }} />
-                      <YAxis tick={{ fontSize: 11 }} />
-                      <Tooltip formatter={(v) => `SAR ${v}K`} />
-                      <Legend />
-                      <Bar dataKey="budget" name="Budget" fill="#e0e7ff" radius={[4, 4, 0, 0]} />
-                      <Bar dataKey="actual" name="Actual Spend" fill="#6366f1" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {showForm ? (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <BudgetForm
+              budget={editingBudget}
+              onClose={handleClose}
+              onSuccess={() => {
+                queryClient.invalidateQueries({ queryKey: ['budgets'] });
+                handleClose();
+              }}
+            />
+          </motion.div>
+        ) : (
+          <>
+            {/* Year Filter */}
+            <Card className="mb-8 border-0 shadow-md">
+              <CardContent className="p-6">
+                <div className="flex items-end gap-4">
+                  <div className="flex-1 max-w-xs">
+                    <label className="text-sm font-medium text-slate-700 block mb-2">Fiscal Year</label>
+                    <Select value={selectedYear} onValueChange={setSelectedYear}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[2024, 2025, 2026, 2027].map(year => (
+                          <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </CardContent>
             </Card>
-          </div>
 
-          {/* Pie chart */}
-          <Card className="border-0 shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <PieIcon className="h-4 w-4 text-indigo-600" />
-                Budget Allocation
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie data={pieData} cx="50%" cy="45%" outerRadius={80} dataKey="value">
-                      {pieData.map((e, i) => <Cell key={i} fill={e.color} />)}
-                    </Pie>
-                    <Tooltip formatter={(v) => `SAR ${(v / 1000).toFixed(0)}K`} />
-                    <Legend iconSize={8} wrapperStyle={{ fontSize: '10px' }} />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+            {/* Summary Metrics */}
+            <div className="grid md:grid-cols-4 gap-4 mb-8">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                <Card className="border-0 shadow-md bg-gradient-to-br from-indigo-50 to-blue-50">
+                  <CardContent className="p-6">
+                    <p className="text-sm text-slate-600 mb-1">Total Allocated</p>
+                    <p className="text-3xl font-bold text-indigo-600">SAR {(totalAllocated / 1000).toFixed(0)}K</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
-        {/* Budget Table */}
-        <Card className="border-0 shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <DollarSign className="h-5 w-5 text-emerald-600" />
-              Department Budgets — Live Status
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {budgets.map((b, i) => {
-                const spentPct = (b.spent / b.total) * 100;
-                const committedPct = (b.committed / b.total) * 100;
-                const remaining = b.total - b.committed;
-                const isWarning = committedPct > 80;
-                const isOver = committedPct > 100;
-                return (
-                  <motion.div key={b.id} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
-                    className={`p-4 rounded-xl border ${isOver ? 'border-red-200 bg-red-50' : isWarning ? 'border-amber-200 bg-amber-50' : 'border-slate-100 bg-white'} hover:shadow-md transition-shadow`}>
-                    <div className="flex items-start justify-between gap-4 mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full" style={{ background: b.color }} />
-                        <div>
-                          <p className="font-semibold text-slate-900">{b.name}</p>
-                          <p className="text-xs text-slate-500">{b.department} · {b.period}</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        {isOver ? <Badge className="bg-red-100 text-red-700">Over Budget</Badge> :
-                          isWarning ? <Badge className="bg-amber-100 text-amber-700">Near Limit</Badge> :
-                            <Badge className="bg-emerald-100 text-emerald-700">On Track</Badge>}
-                      </div>
-                    </div>
-                    <div className="relative h-3 bg-slate-200 rounded-full overflow-hidden mb-2">
-                      <div className="absolute left-0 h-full rounded-full opacity-40" style={{ width: `${Math.min(committedPct, 100)}%`, background: b.color }} />
-                      <div className="absolute left-0 h-full rounded-full" style={{ width: `${Math.min(spentPct, 100)}%`, background: b.color }} />
-                    </div>
-                    <div className="grid grid-cols-4 gap-2 text-xs">
-                      <div><p className="text-slate-400">Total Budget</p><p className="font-semibold text-slate-700">SAR {(b.total / 1000).toFixed(0)}K</p></div>
-                      <div><p className="text-slate-400">Committed</p><p className="font-semibold text-amber-600">SAR {(b.committed / 1000).toFixed(0)}K</p></div>
-                      <div><p className="text-slate-400">Invoiced</p><p className="font-semibold text-indigo-600">SAR {(b.invoiced / 1000).toFixed(0)}K</p></div>
-                      <div><p className="text-slate-400">Remaining</p><p className={`font-semibold ${remaining < 0 ? 'text-red-600' : 'text-emerald-600'}`}>SAR {(remaining / 1000).toFixed(0)}K</p></div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                <Card className="border-0 shadow-md bg-gradient-to-br from-emerald-50 to-teal-50">
+                  <CardContent className="p-6">
+                    <p className="text-sm text-slate-600 mb-1">Total Spent</p>
+                    <p className="text-3xl font-bold text-emerald-600">SAR {(totalSpent / 1000).toFixed(0)}K</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                <Card className="border-0 shadow-md bg-gradient-to-br from-amber-50 to-orange-100">
+                  <CardContent className="p-6">
+                    <p className="text-sm text-slate-600 mb-1">Pending Approval</p>
+                    <p className="text-3xl font-bold text-amber-600">SAR {(totalPending / 1000).toFixed(0)}K</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                <Card className={`border-0 shadow-md ${utilizationRate >= 80 ? 'bg-gradient-to-br from-red-50 to-pink-100' : 'bg-gradient-to-br from-slate-50 to-slate-100'}`}>
+                  <CardContent className="p-6">
+                    <p className="text-sm text-slate-600 mb-1">Utilization Rate</p>
+                    <p className={`text-3xl font-bold ${utilizationRate >= 80 ? 'text-red-600' : 'text-slate-900'}`}>
+                      {utilizationRate}%
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
-          </CardContent>
-        </Card>
+
+            {/* Alerts */}
+            {alertBudgets.length > 0 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-8">
+                <Card className="border-l-4 border-red-500 bg-red-50 border-0 shadow-md">
+                  <CardHeader>
+                    <CardTitle className="text-base text-red-900 flex items-center gap-2">
+                      <AlertTriangle className="h-5 w-5" />
+                      Budget Alerts ({alertBudgets.length})
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      {alertBudgets.map((budget) => {
+                        const used = (budget.spent_amount || 0) + (budget.pending_amount || 0);
+                        const percentage = Math.round((used / budget.allocated_amount) * 100);
+                        const remaining = budget.allocated_amount - used;
+                        return (
+                          <div key={budget.id} className="text-sm text-red-800">
+                            <span className="font-semibold">{budget.name}</span> - {percentage}% utilized 
+                            (SAR {remaining.toLocaleString()} remaining)
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {/* Budget List */}
+            <BudgetList
+              budgets={budgets}
+              onEdit={handleEdit}
+              onDelete={(id) => deleteBudget.mutate(id)}
+            />
+          </>
+        )}
       </div>
     </div>
   );
