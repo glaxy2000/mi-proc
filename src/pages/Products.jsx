@@ -211,7 +211,7 @@ export default function Products() {
           <p className="text-white/80 mb-8 text-lg">Join thousands of enterprises using Mi-Proc to drive efficiency and real-time budget visibility.</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link to={createPageUrl('Register')}><Button size="lg" className="bg-white text-indigo-700 hover:bg-white/90 font-semibold">Get Started Free</Button></Link>
-            <Link to={createPageUrl('Contact')}><Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10">Request a Demo</Button></Link>
+            <Link to={createPageUrl('Contact')}><Button size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/50 text-white hover:bg-white/20 hover:border-white shadow-lg">Request a Demo</Button></Link>
           </div>
         </div>
       </section>
