@@ -106,6 +106,7 @@ import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
 import SupplierComparison from './pages/SupplierComparison';
 import WorkflowConfiguration from './pages/WorkflowConfiguration';
+import SupplierMetricsDashboard from './pages/SupplierMetricsDashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -169,6 +170,7 @@ export const PAGES = {
     "WithdrawWallet": WithdrawWallet,
     "SupplierComparison": SupplierComparison,
     "WorkflowConfiguration": WorkflowConfiguration,
+    "SupplierMetricsDashboard": SupplierMetricsDashboard,
 }
 
 export const pagesConfig = {
