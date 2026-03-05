@@ -126,7 +126,7 @@ export default function Products() {
       </nav>
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#1e1b4b] via-[#312e81] to-[#4338ca] py-20 text-white">
+      <section className="bg-gradient-to-br from-[#5b4fb8] via-[#4a8fb9] to-[#2bb3b3] py-20 text-white">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
             <Badge className="bg-white/20 text-white mb-4">Mi-Proc Products</Badge>
