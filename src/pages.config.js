@@ -53,6 +53,7 @@ import Analytics from './pages/Analytics';
 import Architecture from './pages/Architecture';
 import AuthBuyer from './pages/AuthBuyer';
 import AuthSupplier from './pages/AuthSupplier';
+import Automation from './pages/Automation';
 import Bids from './pages/Bids';
 import BlacklistSuppliers from './pages/BlacklistSuppliers';
 import BrowseRFQs from './pages/BrowseRFQs';
@@ -62,18 +63,22 @@ import BuyerOnboarding from './pages/BuyerOnboarding';
 import BuyerSignin from './pages/BuyerSignin';
 import BuyerSignup from './pages/BuyerSignup';
 import Contact from './pages/Contact';
+import CostOptimisation from './pages/CostOptimisation';
 import CreateRFQ from './pages/CreateRFQ';
 import Dashboard from './pages/Dashboard';
+import DigitalTransformation from './pages/DigitalTransformation';
 import Escrow from './pages/Escrow';
 import FavoriteSuppliers from './pages/FavoriteSuppliers';
 import GoodsReceipt from './pages/GoodsReceipt';
 import HistoricPricing from './pages/HistoricPricing';
+import Home from './pages/Home';
 import InvoiceManagement from './pages/InvoiceManagement';
 import Negotiations from './pages/Negotiations';
 import NotificationSettings from './pages/NotificationSettings';
 import OrderDetails from './pages/OrderDetails';
 import Orders from './pages/Orders';
 import PayWallet from './pages/PayWallet';
+import ProcurementServices from './pages/ProcurementServices';
 import Products from './pages/Products';
 import Profile from './pages/Profile';
 import PurchaseRequests from './pages/PurchaseRequests';
@@ -83,6 +88,7 @@ import Register from './pages/Register';
 import SendWallet from './pages/SendWallet';
 import Settings from './pages/Settings';
 import Signin from './pages/Signin';
+import Solutions from './pages/Solutions';
 import SupplierDashboard from './pages/SupplierDashboard';
 import SupplierOnboarding from './pages/SupplierOnboarding';
 import SupplierSignin from './pages/SupplierSignin';
@@ -94,12 +100,7 @@ import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import Home from './pages/Home';
-import Solutions from './pages/Solutions';
-import ProcurementServices from './pages/ProcurementServices';
-import Automation from './pages/Automation';
-import DigitalTransformation from './pages/DigitalTransformation';
-import CostOptimisation from './pages/CostOptimisation';
+import About from './pages/About';
 import __Layout from './Layout.jsx';
 
 
@@ -110,6 +111,7 @@ export const PAGES = {
     "Architecture": Architecture,
     "AuthBuyer": AuthBuyer,
     "AuthSupplier": AuthSupplier,
+    "Automation": Automation,
     "Bids": Bids,
     "BlacklistSuppliers": BlacklistSuppliers,
     "BrowseRFQs": BrowseRFQs,
@@ -119,18 +121,22 @@ export const PAGES = {
     "BuyerSignin": BuyerSignin,
     "BuyerSignup": BuyerSignup,
     "Contact": Contact,
+    "CostOptimisation": CostOptimisation,
     "CreateRFQ": CreateRFQ,
     "Dashboard": Dashboard,
+    "DigitalTransformation": DigitalTransformation,
     "Escrow": Escrow,
     "FavoriteSuppliers": FavoriteSuppliers,
     "GoodsReceipt": GoodsReceipt,
     "HistoricPricing": HistoricPricing,
+    "Home": Home,
     "InvoiceManagement": InvoiceManagement,
     "Negotiations": Negotiations,
     "NotificationSettings": NotificationSettings,
     "OrderDetails": OrderDetails,
     "Orders": Orders,
     "PayWallet": PayWallet,
+    "ProcurementServices": ProcurementServices,
     "Products": Products,
     "Profile": Profile,
     "PurchaseRequests": PurchaseRequests,
@@ -140,6 +146,7 @@ export const PAGES = {
     "SendWallet": SendWallet,
     "Settings": Settings,
     "Signin": Signin,
+    "Solutions": Solutions,
     "SupplierDashboard": SupplierDashboard,
     "SupplierOnboarding": SupplierOnboarding,
     "SupplierSignin": SupplierSignin,
@@ -151,12 +158,7 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "Home": Home,
-    "Solutions": Solutions,
-    "ProcurementServices": ProcurementServices,
-    "Automation": Automation,
-    "DigitalTransformation": DigitalTransformation,
-    "CostOptimisation": CostOptimisation,
+    "About": About,
 }
 
 export const pagesConfig = {

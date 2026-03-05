@@ -69,6 +69,29 @@ export default function PublicNavbar({ activePage }) {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* About Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className={`flex items-center gap-1 outline-none font-semibold text-sm ${
+              ['About'].includes(activePage)
+                ? 'text-indigo-600'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}>
+              About <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-56">
+              <DropdownMenuItem asChild>
+                <Link to={createPageUrl('About')} className={`cursor-pointer ${activePage === 'About' ? 'text-indigo-600 font-semibold' : ''}`}>
+                  About Overview
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to={createPageUrl('Contact')} className={`cursor-pointer ${activePage === 'Contact' ? 'text-indigo-600 font-semibold' : ''}`}>
+                  Contact Us
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Link to={createPageUrl('Contact')} className={activePage === 'Contact' ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}>
             Contact
           </Link>
