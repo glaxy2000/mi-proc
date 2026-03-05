@@ -119,6 +119,7 @@ export default function Products() {
           </div>
           <div className="flex gap-2">
             <Link to={createPageUrl('Signin')}><Button variant="outline" size="sm">Sign In</Button></Link>
+            <Link to={createPageUrl('Contact')}><Button variant="outline" size="sm">Request a Demo</Button></Link>
             <Link to={createPageUrl('Register')}><Button size="sm" className="bg-indigo-600 hover:bg-indigo-700">Get Started</Button></Link>
           </div>
         </div>
