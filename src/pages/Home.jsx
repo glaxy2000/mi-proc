@@ -145,20 +145,8 @@ export default function Home() {
             <div className="hidden md:flex items-center gap-8 text-sm font-semibold">
               <button onClick={() => scrollToSection('home')} className="text-slate-600 hover:text-slate-900">Home</button>
               <Link to={createPageUrl('Products')} className="text-slate-600 hover:text-slate-900">Products</Link>
-              {/* Solutions dropdown */}
-              <div className="relative group">
-                <button className="flex items-center gap-1 text-slate-600 hover:text-slate-900">
-                  Solutions <ChevronDown className="h-3.5 w-3.5 mt-0.5" />
-                </button>
-                <div className="absolute top-full left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-2">
-                  <Link to={createPageUrl('Solutions')} className="flex items-center gap-2 px-4 py-2.5 text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
-                    <BarChart3 className="h-4 w-4" /> By Industry / Use Case
-                  </Link>
-                  <Link to={createPageUrl('ProcurementServices')} className="flex items-center gap-2 px-4 py-2.5 text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
-                    <Shield className="h-4 w-4" /> Procurement Services
-                  </Link>
-                </div>
-              </div>
+              <Link to={createPageUrl('Solutions')} className="text-slate-600 hover:text-slate-900">Solutions</Link>
+              <Link to={createPageUrl('ProcurementServices')} className="text-slate-600 hover:text-slate-900">Procurement Services</Link>
               <button onClick={() => scrollToSection('how-it-works')} className="text-slate-600 hover:text-slate-900">How It Works</button>
               <button onClick={() => scrollToSection('features')} className="text-slate-600 hover:text-slate-900">Features</button>
               <button onClick={() => scrollToSection('security')} className="text-slate-600 hover:text-slate-900">Security</button>
