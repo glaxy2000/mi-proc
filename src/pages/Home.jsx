@@ -41,12 +41,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import ServicesSlider from '@/components/ServicesSlider';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import PublicNavbar from '@/components/PublicNavbar';
 
 export default function Home() {
   const [activeTab, setActiveTab] = React.useState('buyer');
