@@ -71,6 +71,14 @@ export default function SupplierDashboard() {
     { task: 'Respond to negotiation for BID-043', deadline: 'Due tomorrow', priority: 'medium' },
   ];
 
+  const buyers = Array.from({ length: 500 }, (_, i) => ({
+    id: `BUYER-${String(i + 1).padStart(5, '0')}`,
+    company: `${['Saudi Aramco', 'Acme Corp', 'Tech Innovations', 'Build Co', 'Smart Systems', 'Future Tech', 'Energy Solutions', 'Global Traders'][i % 8]} ${Math.floor(i / 8) + 1}`,
+    contact: `buyer-${i + 1}@company.com`,
+    status: ['active', 'inactive', 'pending'][i % 3],
+    orders: Math.floor(Math.random() * 50) + 1
+  }));
+
   return (
     <div className="min-h-screen bg-slate-50 p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
@@ -310,13 +318,41 @@ export default function SupplierDashboard() {
         <TabsContent value="orders">
           <Card className="border-0 shadow-lg">
             <CardHeader>
-              <CardTitle>Purchase Orders</CardTitle>
+              <CardTitle>Buyer List (500 Buyers)</CardTitle>
             </CardHeader>
-            <CardContent className="py-12 text-center">
-              <p className="text-slate-600 mb-4">Manage and track all purchase orders</p>
-              <Link to={createPageUrl('PurchaseOrderManagement')}>
-                <Button className="bg-teal-600 hover:bg-teal-700">
-                  View Orders
+            <CardContent>
+              <div className="max-h-96 overflow-y-auto">
+                <div className="space-y-2">
+                  {buyers.map((buyer) => (
+                    <motion.div
+                      key={buyer.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
+                    >
+                      <div className="flex-1">
+                        <p className="font-medium text-slate-900">{buyer.company}</p>
+                        <p className="text-xs text-slate-500">{buyer.contact}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex items-center gap-2">
+                          <Badge className={
+                            buyer.status === 'active' ? 'bg-emerald-100 text-emerald-700' :
+                            buyer.status === 'inactive' ? 'bg-slate-100 text-slate-700' :
+                            'bg-amber-100 text-amber-700'
+                          }>
+                            {buyer.status}
+                          </Badge>
+                          <span className="text-xs text-slate-600 font-medium">{buyer.orders} orders</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+              <Link to={createPageUrl('Suppliers')}>
+                <Button className="w-full mt-4 bg-teal-600 hover:bg-teal-700">
+                  View All Buyers
                 </Button>
               </Link>
             </CardContent>
