@@ -355,16 +355,17 @@ export default function About() {
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Meet Our Team</h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">Experienced leaders driving innovation in Saudi fintech</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {team.map((member, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
                 <Card className="border-0 shadow-lg hover:shadow-xl transition-all text-center">
-                  <CardContent className="p-6">
-                    <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <span className="text-white text-xl font-bold">{member.initials}</span>
+                  <CardContent className="p-8">
+                    <div className="w-28 h-28 rounded-2xl overflow-hidden mx-auto mb-5 shadow-md">
+                      <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
                     </div>
-                    <h3 className="font-bold text-slate-900 mb-1">{member.name}</h3>
-                    <p className="text-sm text-indigo-600">{member.title}</p>
+                    <h3 className="font-bold text-slate-900 text-lg mb-1">{member.name}</h3>
+                    <p className="text-sm text-indigo-600 font-semibold mb-3">{member.title}</p>
+                    <p className="text-sm text-slate-500 leading-relaxed">{member.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
