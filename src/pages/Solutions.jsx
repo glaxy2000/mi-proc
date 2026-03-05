@@ -119,17 +119,11 @@ export default function Solutions() {
       <PublicNavbar activePage="Solutions" />
 
       {/* Hero */}
-      <section className="bg-[#0f1729] min-h-[480px] flex items-center overflow-hidden relative">
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
-          backgroundSize: '32px 32px'
-        }} />
-        <div className="relative max-w-7xl mx-auto px-6 py-20 text-center w-full">
+      <section className="bg-gradient-to-br from-[#5b4fb8] via-[#4a8fb9] to-[#2bb3b3] py-20 text-white">
+        <div className="max-w-7xl mx-auto px-6 text-center">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-            <Badge className="bg-indigo-500/20 text-indigo-300 mb-4 uppercase tracking-wide">Solutions</Badge>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              Procurement Solutions<br /><span className="text-indigo-400">Built for Your Needs</span>
-            </h1>
+            <Badge className="bg-teal-400/20 text-teal-200 mb-4">Solutions</Badge>
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6">Procurement Solutions<br /><span className="text-teal-300">Built for Your Needs</span></h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
               Whether you're a manufacturer, healthcare provider, or government entity — Mi-Proc adapts to your industry's unique procurement challenges.
             </p>
@@ -138,7 +132,7 @@ export default function Solutions() {
       </section>
 
       {/* Stats Banner */}
-      <section className="bg-indigo-600 py-10" style={{background: 'linear-gradient(90deg, #4338ca, #6366f1)'}}>
+      <section className="bg-indigo-600 py-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-white text-center">
             {[
@@ -277,10 +271,10 @@ export default function Solutions() {
       <ServicesSlider />
 
       {/* CTA */}
-      <section className="py-20 bg-gradient-to-br from-[#0f1729] to-indigo-900">
+      <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-700">
         <div className="max-w-3xl mx-auto px-6 text-center text-white">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Find Your Solution Today</h2>
-          <p className="text-indigo-200 text-lg mb-8">Talk to our procurement experts and discover how Mi-Proc fits your industry.</p>
+          <h2 className="text-3xl font-bold mb-4">Find Your Solution Today</h2>
+          <p className="text-indigo-100 mb-8 text-lg">Talk to our procurement experts and discover how Mi-Proc fits your industry.</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link to={createPageUrl('Register')}><Button size="lg" className="bg-white text-indigo-700 hover:bg-white/90 font-semibold">Start Free Trial</Button></Link>
             <Link to={createPageUrl('Contact')}><Button size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/50 text-white hover:bg-white/20 hover:border-white shadow-lg">Talk to an Expert</Button></Link>
