@@ -88,6 +88,14 @@ export default function BuyerDashboard() {
     pending: 'bg-slate-100 text-slate-700'
   };
 
+  const suppliers = Array.from({ length: 200 }, (_, i) => ({
+    id: `SUP-${String(i + 1).padStart(5, '0')}`,
+    name: `${['Al-Noor', 'Al-Amal', 'Al-Rajhi', 'Global Trade', 'Prime Industries', 'Tech Solutions', 'Quality Materials', 'Express Logistics'][i % 8]} ${Math.floor(i / 8) + 1}`,
+    category: ['Manufacturing', 'Goods', 'Services', 'Materials'][i % 4],
+    rating: (3.5 + Math.random() * 1.5).toFixed(1),
+    reviews: Math.floor(Math.random() * 500) + 10
+  }));
+
   return (
     <div className="min-h-screen bg-slate-50 p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
@@ -341,13 +349,35 @@ export default function BuyerDashboard() {
         <TabsContent value="comparison">
           <Card className="border-0 shadow-lg">
             <CardHeader>
-              <CardTitle>Supplier Comparison</CardTitle>
+              <CardTitle>Supplier List (200 Suppliers)</CardTitle>
             </CardHeader>
-            <CardContent className="py-12 text-center">
-              <p className="text-slate-600 mb-4">Compare suppliers side-by-side for better decisions</p>
+            <CardContent>
+              <div className="max-h-96 overflow-y-auto">
+                <div className="space-y-2">
+                  {suppliers.map((supplier) => (
+                    <motion.div
+                      key={supplier.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
+                    >
+                      <div>
+                        <p className="font-medium text-slate-900">{supplier.name}</p>
+                        <p className="text-xs text-slate-500">{supplier.id} • {supplier.category}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex items-center gap-1 text-sm">
+                          <span className="font-semibold text-amber-600">★ {supplier.rating}</span>
+                        </div>
+                        <p className="text-xs text-slate-500">{supplier.reviews} reviews</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
               <Link to={createPageUrl('SupplierComparison')}>
-                <Button className="bg-indigo-600 hover:bg-indigo-700">
-                  Compare Suppliers
+                <Button className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700">
+                  View Full Comparison
                 </Button>
               </Link>
             </CardContent>
