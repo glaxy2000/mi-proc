@@ -119,11 +119,17 @@ export default function Solutions() {
       <PublicNavbar activePage="Solutions" />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#5b4fb8] via-[#4a8fb9] to-[#2bb3b3] py-20 text-white">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+      <section className="bg-[#0f1729] min-h-[480px] flex items-center overflow-hidden relative">
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
+          backgroundSize: '32px 32px'
+        }} />
+        <div className="relative max-w-7xl mx-auto px-6 py-20 text-center w-full">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-            <Badge className="bg-teal-400/20 text-teal-200 mb-4">Solutions</Badge>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">Procurement Solutions<br /><span className="text-teal-300">Built for Your Needs</span></h1>
+            <Badge className="bg-indigo-500/20 text-indigo-300 mb-4 uppercase tracking-wide">Solutions</Badge>
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              Procurement Solutions<br /><span className="text-indigo-400">Built for Your Needs</span>
+            </h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
               Whether you're a manufacturer, healthcare provider, or government entity — Mi-Proc adapts to your industry's unique procurement challenges.
             </p>
