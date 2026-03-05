@@ -147,9 +147,6 @@ export default function Home() {
               <Link to={createPageUrl('Products')} className="text-slate-600 hover:text-slate-900">Products</Link>
               <Link to={createPageUrl('Solutions')} className="text-slate-600 hover:text-slate-900">Solutions</Link>
               <Link to={createPageUrl('ProcurementServices')} className="text-slate-600 hover:text-slate-900">Procurement Services</Link>
-              <button onClick={() => scrollToSection('how-it-works')} className="text-slate-600 hover:text-slate-900">How It Works</button>
-              <button onClick={() => scrollToSection('features')} className="text-slate-600 hover:text-slate-900">Features</button>
-              <button onClick={() => scrollToSection('security')} className="text-slate-600 hover:text-slate-900">Security</button>
               <Link to={createPageUrl('Contact')} className="text-slate-600 hover:text-slate-900">Contact</Link>
             </div>
 
