@@ -23,10 +23,6 @@ import {
   Globe,
   Server,
   Eye,
-  ChevronDown,
-  CreditCard,
-  TrendingUp,
-  Handshake,
   Receipt,
   ClipboardList,
   BarChart3
