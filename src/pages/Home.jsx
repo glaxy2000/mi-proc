@@ -145,10 +145,28 @@ export default function Home() {
             <div className="hidden md:flex items-center gap-8 text-sm font-semibold">
               <button onClick={() => scrollToSection('home')} className="text-slate-600 hover:text-slate-900">Home</button>
               <Link to={createPageUrl('Products')} className="text-slate-600 hover:text-slate-900">Products</Link>
-              <Link to={createPageUrl('Solutions')} className="text-slate-600 hover:text-slate-900">Solutions</Link>
-              <Link to={createPageUrl('ProcurementServices')} className="text-slate-600 hover:text-slate-900">Procurement Services</Link>
-            <Link to={createPageUrl('Automation')} className="text-slate-600 hover:text-slate-900">Automation</Link>
-            <Link to={createPageUrl('DigitalTransformation')} className="text-slate-600 hover:text-slate-900">Digital Transformation</Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-slate-600 hover:text-slate-900 font-semibold text-sm outline-none">
+                  Solutions <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-56">
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('Solutions')} className="cursor-pointer">Solutions Overview</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('ProcurementServices')} className="cursor-pointer">Procurement Services</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('Automation')} className="cursor-pointer">Automation</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('DigitalTransformation')} className="cursor-pointer">Digital Transformation</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={createPageUrl('CostOptimisation')} className="cursor-pointer">Cost Optimisation</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <Link to={createPageUrl('Contact')} className="text-slate-600 hover:text-slate-900">Contact</Link>
             </div>
 
