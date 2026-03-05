@@ -69,18 +69,6 @@ export default function PublicNavbar({ activePage }) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Contact Us Button */}
-          <Link
-            to={createPageUrl('Contact')}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-              activePage === 'Contact'
-                ? 'bg-slate-700 text-white'
-                : 'bg-slate-900 text-white hover:bg-slate-700'
-            }`}
-          >
-            Contact Us
-          </Link>
-
           {/* About Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger className={`flex items-center gap-1 outline-none font-semibold text-sm ${
