@@ -191,7 +191,35 @@ export default function Suppliers() {
     }
   };
 
-  const suppliers = [
+  const supplierNames = [
+    'Al-Noor', 'Al-Amal', 'Al-Rajhi', 'Al-Safa', 'Global Trade', 'Prime Industries', 
+    'Tech Solutions', 'Quality Materials', 'Express Logistics', 'Precision Manufacturing', 
+    'Desert Supplies', 'Modern Engineering', 'Elite Consultants', 'Swift Delivery',
+    'Advanced Systems', 'ProSupply', 'TechHub', 'BuildRight', 'EcoSource', 'SmartLogistics'
+  ];
+
+  const categoryList = [
+    'Construction Materials', 'Medical Supplies', 'IT & Hardware', 'Manufacturing',
+    'Packaging', 'Office Supplies', 'Electronics', 'Furniture', 'Raw Materials',
+    'Industrial Equipment', 'Consulting', 'Logistics'
+  ];
+
+  const locationList = ['Riyadh', 'Jeddah', 'Dammam', 'Abha', 'Taif', 'Khobar'];
+
+  const specialtiesList = [
+    ['Steel Rebar', 'Structural Steel', 'Metal Sheets'],
+    ['PPE', 'Medical Equipment', 'Pharmaceuticals'],
+    ['Servers', 'Networking', 'Components'],
+    ['Motors', 'Bearings', 'Hydraulics'],
+    ['Boxes', 'Labels', 'Custom Packaging'],
+    ['Furniture', 'Stationery', 'Electronics'],
+    ['Transformers', 'Cables', 'Switches'],
+    ['Pipes', 'Fittings', 'Valves'],
+    ['Chemicals', 'Solvents', 'Compounds'],
+    ['Fabrics', 'Textiles', 'Materials']
+  ];
+
+  const baseSuppliers = [
     {
       id: 1,
       email: 'abc.steel@example.com',
@@ -312,6 +340,36 @@ export default function Suppliers() {
       onTimeRate: 83,
       recommendRate: 78
     }
+  ];
+
+  const suppliers = [
+    ...baseSuppliers,
+    ...Array.from({ length: 994 }, (_, i) => {
+      const idx = i + 7;
+      const nameBase = supplierNames[i % supplierNames.length];
+      const numSuffix = Math.floor(i / supplierNames.length) + 1;
+      
+      return {
+        id: idx,
+        email: `supplier-${idx}@example.com`,
+        name: `${nameBase} ${numSuffix}`,
+        category: categoryList[i % categoryList.length],
+        location: locationList[i % locationList.length],
+        rating: (3.5 + Math.random() * 1.4).toFixed(1),
+        reviews: Math.floor(Math.random() * 500) + 10,
+        verified: true,
+        gold: i % 5 === 0,
+        isNew: i % 20 === 0,
+        joinedDate: new Date(2023 + Math.floor(i / 500), Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toISOString().split('T')[0],
+        deliveryTime: `${Math.floor(Math.random() * 10) + 1}-${Math.floor(Math.random() * 10) + 11} days`,
+        responseRate: `${Math.floor(Math.random() * 20) + 80}%`,
+        completedDeals: Math.floor(Math.random() * 1000) + 50,
+        specialties: specialtiesList[i % specialtiesList.length],
+        performanceScore: Math.floor(Math.random() * 30) + 70,
+        onTimeRate: Math.floor(Math.random() * 30) + 70,
+        recommendRate: Math.floor(Math.random() * 30) + 65
+      };
+    })
   ];
 
   const categories = [
