@@ -99,6 +99,7 @@ import Solutions from './pages/Solutions';
 import ProcurementServices from './pages/ProcurementServices';
 import Automation from './pages/Automation';
 import DigitalTransformation from './pages/DigitalTransformation';
+import CostOptimisation from './pages/CostOptimisation';
 import __Layout from './Layout.jsx';
 
 
@@ -155,6 +156,7 @@ export const PAGES = {
     "ProcurementServices": ProcurementServices,
     "Automation": Automation,
     "DigitalTransformation": DigitalTransformation,
+    "CostOptimisation": CostOptimisation,
 }
 
 export const pagesConfig = {
