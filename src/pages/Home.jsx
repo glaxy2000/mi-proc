@@ -140,10 +140,10 @@ export default function Home() {
               <span className="font-bold text-slate-900">Mi-Proc</span>
             </div>
             
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-8 text-sm font-semibold">
               <button onClick={() => scrollToSection('home')} className="text-slate-600 hover:text-slate-900">Home</button>
-              <Link to={createPageUrl('Products')} className="text-slate-600 hover:text-slate-900 font-medium">Products</Link>
-              <Link to={createPageUrl('Solutions')} className="text-slate-600 hover:text-slate-900 font-medium">Solutions</Link>
+              <Link to={createPageUrl('Products')} className="text-slate-600 hover:text-slate-900">Products</Link>
+              <Link to={createPageUrl('Solutions')} className="text-slate-600 hover:text-slate-900">Solutions</Link>
               <button onClick={() => scrollToSection('how-it-works')} className="text-slate-600 hover:text-slate-900">How It Works</button>
               <button onClick={() => scrollToSection('features')} className="text-slate-600 hover:text-slate-900">Features</button>
               <button onClick={() => scrollToSection('security')} className="text-slate-600 hover:text-slate-900">Security</button>
