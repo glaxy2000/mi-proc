@@ -39,6 +39,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import ServicesSlider from '@/components/ServicesSlider';
 import {
   DropdownMenu,
   DropdownMenuContent,

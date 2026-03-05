@@ -68,13 +68,13 @@ import Escrow from './pages/Escrow';
 import FavoriteSuppliers from './pages/FavoriteSuppliers';
 import GoodsReceipt from './pages/GoodsReceipt';
 import HistoricPricing from './pages/HistoricPricing';
-import Home from './pages/Home';
 import InvoiceManagement from './pages/InvoiceManagement';
 import Negotiations from './pages/Negotiations';
 import NotificationSettings from './pages/NotificationSettings';
 import OrderDetails from './pages/OrderDetails';
 import Orders from './pages/Orders';
 import PayWallet from './pages/PayWallet';
+import Products from './pages/Products';
 import Profile from './pages/Profile';
 import PurchaseRequests from './pages/PurchaseRequests';
 import RFQList from './pages/RFQList';
@@ -94,7 +94,7 @@ import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import Products from './pages/Products';
+import Home from './pages/Home';
 import Solutions from './pages/Solutions';
 import __Layout from './Layout.jsx';
 
@@ -121,13 +121,13 @@ export const PAGES = {
     "FavoriteSuppliers": FavoriteSuppliers,
     "GoodsReceipt": GoodsReceipt,
     "HistoricPricing": HistoricPricing,
-    "Home": Home,
     "InvoiceManagement": InvoiceManagement,
     "Negotiations": Negotiations,
     "NotificationSettings": NotificationSettings,
     "OrderDetails": OrderDetails,
     "Orders": Orders,
     "PayWallet": PayWallet,
+    "Products": Products,
     "Profile": Profile,
     "PurchaseRequests": PurchaseRequests,
     "RFQList": RFQList,
@@ -147,7 +147,7 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "Products": Products,
+    "Home": Home,
     "Solutions": Solutions,
 }
 
