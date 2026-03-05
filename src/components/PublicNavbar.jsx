@@ -85,6 +85,11 @@ export default function PublicNavbar({ activePage }) {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
+                <Link to={createPageUrl('BlogNews')} className={`cursor-pointer ${activePage === 'BlogNews' ? 'text-indigo-600 font-semibold' : ''}`}>
+                  Blog / News
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link to={createPageUrl('Careers')} className={`cursor-pointer ${activePage === 'Careers' ? 'text-indigo-600 font-semibold' : ''}`}>
                   Careers
                 </Link>
