@@ -185,8 +185,9 @@ export default function Home() {
               <p className="text-base text-white/80 mb-8 max-w-xl">
                 Global Business Solutions For Best Strategies
               </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to={createPageUrl('Register')}>
+            <ServiceSlider />
+            <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <Link to={createPageUrl('Register')}>
                 <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white">
                   Get Started - Sign Up
                 </Button>

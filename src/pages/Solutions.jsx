@@ -145,9 +145,10 @@ export default function Solutions() {
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
             <Badge className="bg-teal-400/20 text-teal-200 mb-4">Solutions</Badge>
             <h1 className="text-4xl lg:text-5xl font-bold mb-6">Procurement Solutions<br /><span className="text-teal-300">Built for Your Needs</span></h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-2">
               Whether you're a manufacturer, healthcare provider, or government entity — Mi-Proc adapts to your industry's unique procurement challenges.
             </p>
+            <ServiceSlider />
           </motion.div>
         </div>
       </section>
