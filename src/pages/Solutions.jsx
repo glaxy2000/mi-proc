@@ -288,6 +288,9 @@ export default function Solutions() {
         </div>
       </section>
 
+      {/* Services Slider */}
+      <ServicesSlider />
+
       {/* CTA */}
       <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-700">
         <div className="max-w-3xl mx-auto px-6 text-center text-white">
