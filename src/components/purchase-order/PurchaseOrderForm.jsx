@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
+import BudgetAlert from '@/components/budget/BudgetAlert';
 
 export default function PurchaseOrderForm({ workflows, onClose }) {
   const [formData, setFormData] = useState({
@@ -31,6 +32,11 @@ export default function PurchaseOrderForm({ workflows, onClose }) {
   const { data: suppliers = [] } = useQuery({
     queryKey: ['suppliers'],
     queryFn: () => base44.entities.SupplierPerformance.list(),
+  });
+
+  const { data: budgets = [] } = useQuery({
+    queryKey: ['budgets'],
+    queryFn: () => base44.entities.Budget.filter({ active: true }),
   });
 
   const createOrder = useMutation({
@@ -75,6 +81,22 @@ export default function PurchaseOrderForm({ workflows, onClose }) {
   };
 
   const totalAmount = formData.items.reduce((sum, item) => sum + (item.quantity * item.unit_price), 0);
+
+  // Check budget constraints
+  const budgetAlert = budgets.find(b => {
+    const supplier = suppliers.find(s => s.supplier_email === formData.supplier_email);
+    if (!supplier || !b.department_or_project) return false;
+    const remaining = b.allocated_amount - (b.spent_amount || 0) - (b.pending_amount || 0);
+    return totalAmount > remaining;
+  });
+
+  const budgetWarning = budgets.find(b => {
+    const supplier = suppliers.find(s => s.supplier_email === formData.supplier_email);
+    if (!supplier || !b.department_or_project || budgetAlert?.id === b.id) return false;
+    const used = (b.spent_amount || 0) + (b.pending_amount || 0) + totalAmount;
+    const percentage = (used / b.allocated_amount) * 100;
+    return percentage >= (b.threshold_percentage || 80);
+  });
 
   return (
     <div className="space-y-6">
@@ -171,6 +193,26 @@ export default function PurchaseOrderForm({ workflows, onClose }) {
               </div>
             </CardContent>
           </Card>
+
+          {/* Budget Alerts */}
+          {(budgetAlert || budgetWarning) && (
+            <div className="space-y-3">
+              {budgetAlert && (
+                <BudgetAlert
+                  budget={budgetAlert}
+                  totalAmount={totalAmount}
+                  isDanger={true}
+                />
+              )}
+              {budgetWarning && (
+                <BudgetAlert
+                  budget={budgetWarning}
+                  totalAmount={totalAmount}
+                  isDanger={false}
+                />
+              )}
+            </div>
+          )}
 
           {/* Line Items */}
           <Card className="border-0 shadow-md">
