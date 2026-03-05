@@ -89,29 +89,7 @@ const transformationSteps = [
 export default function DigitalTransformation() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-white border-b shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to={createPageUrl('Home')} className="flex items-center gap-2">
-            <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png" alt="MI Technologies" className="h-8" />
-            <span className="font-bold text-slate-900">Mi-Proc</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-8 text-sm font-semibold">
-            <Link to={createPageUrl('Home')} className="text-slate-600 hover:text-slate-900">Home</Link>
-            <Link to={createPageUrl('Products')} className="text-slate-600 hover:text-slate-900">Products</Link>
-            <Link to={createPageUrl('Solutions')} className="text-slate-600 hover:text-slate-900">Solutions</Link>
-            <Link to={createPageUrl('ProcurementServices')} className="text-slate-600 hover:text-slate-900">Procurement Services</Link>
-            <Link to={createPageUrl('Automation')} className="text-slate-600 hover:text-slate-900">Automation</Link>
-            <Link to={createPageUrl('DigitalTransformation')} className="text-indigo-600">Digital Transformation</Link>
-            <Link to={createPageUrl('Contact')} className="text-slate-600 hover:text-slate-900">Contact</Link>
-          </div>
-          <div className="flex gap-2">
-            <Link to={createPageUrl('Signin')}><Button variant="outline" size="sm">Sign In</Button></Link>
-            <Link to={createPageUrl('Contact')}><Button variant="outline" size="sm">Request a Demo</Button></Link>
-            <Link to={createPageUrl('Register')}><Button size="sm" className="bg-indigo-600 hover:bg-indigo-700">Get Started</Button></Link>
-          </div>
-        </div>
-      </nav>
+      <PublicNavbar activePage="DigitalTransformation" />
 
       {/* Hero */}
       <section className="bg-[#0f1729] min-h-[580px] flex items-center overflow-hidden relative">
