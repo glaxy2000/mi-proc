@@ -139,7 +139,7 @@ export default function Solutions() {
       </nav>
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#0f172a] via-[#1e3a5f] to-[#1e4d6b] py-20 text-white">
+      <section className="bg-gradient-to-br from-[#5b4fb8] via-[#4a8fb9] to-[#2bb3b3] py-20 text-white">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
             <Badge className="bg-teal-400/20 text-teal-200 mb-4">Solutions</Badge>
