@@ -506,8 +506,8 @@ export default function Home() {
               </Button>
             </Link>
             <Link to={createPageUrl('Contact')}>
-              <Button size="lg" variant="outline" className="bg-white text-indigo-600 hover:bg-white/90 w-full sm:w-auto">
-                Contact Sales
+              <Button size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/50 text-white hover:bg-white/20 hover:border-white shadow-lg w-full sm:w-auto">
+                Talk to an Expert
               </Button>
             </Link>
           </div>
