@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {
   Building2, Factory, Stethoscope, ShoppingCart, Globe, Truck,
   CheckCircle2, ArrowRight, Shield, Zap, DollarSign, Users,
-  BarChart3, Cpu, Lock, ChevronRight, TrendingDown
+  BarChart3, Cpu, Lock, ChevronRight, TrendingDown, ChevronDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ServicesSlider from '@/components/ServicesSlider';
