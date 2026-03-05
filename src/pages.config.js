@@ -101,6 +101,7 @@ import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
 import About from './pages/About';
+import Careers from './pages/Careers';
 import __Layout from './Layout.jsx';
 
 
@@ -159,6 +160,7 @@ export const PAGES = {
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
     "About": About,
+    "Careers": Careers,
 }
 
 export const pagesConfig = {
