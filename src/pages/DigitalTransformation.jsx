@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion } from 'framer-motion';
+import PublicNavbar from '@/components/PublicNavbar';
 import {
   Layers, Workflow, Database, ArrowRight, CheckCircle2,
   Cpu, Globe, BarChart3, RefreshCw, Lock, Zap, GitMerge

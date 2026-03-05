@@ -5,12 +5,13 @@ import { motion } from 'framer-motion';
 import {
   Building2, Factory, Stethoscope, ShoppingCart, Globe, Truck,
   CheckCircle2, ArrowRight, Shield, Zap, DollarSign, Users,
-  BarChart3, Cpu, Lock, ChevronRight, TrendingDown, ChevronDown
+  BarChart3, Cpu, Lock, ChevronRight, TrendingDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ServicesSlider from '@/components/ServicesSlider';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import PublicNavbar from '@/components/PublicNavbar';
 
 const solutions = [
   {

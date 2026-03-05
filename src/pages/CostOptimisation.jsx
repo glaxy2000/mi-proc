@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion } from 'framer-motion';
+import PublicNavbar from '@/components/PublicNavbar';
 import {
   TrendingDown, Eye, Users, ArrowRight, CheckCircle2,
   DollarSign, BarChart3, ShoppingCart, Zap, Shield, PieChart, RefreshCw
