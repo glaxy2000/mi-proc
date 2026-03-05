@@ -69,14 +69,10 @@ export default function PublicNavbar({ activePage }) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link to={createPageUrl('BlogNews')} className={activePage === 'BlogNews' ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}>
-            Blog / News
-          </Link>
-
           {/* About Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger className={`flex items-center gap-1 outline-none font-semibold text-sm ${
-              ['About', 'Careers', 'Contact'].includes(activePage)
+              ['About', 'Careers', 'Contact', 'BlogNews'].includes(activePage)
                 ? 'text-indigo-600'
                 : 'text-slate-600 hover:text-slate-900'
             }`}>
