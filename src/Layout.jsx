@@ -135,7 +135,7 @@ export default function Layout({ children, currentPageName }) {
   ];
 
   const buyerNavigation = [
-    { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
+    { name: 'Buyer Dashboard', href: 'Dashboard', icon: LayoutDashboard },
     { name: 'Purchase Requests', href: 'PurchaseRequests', icon: FileText },
     { name: 'RFQs', href: 'RFQList', icon: FileText },
     { name: 'Bids', href: 'Bids', icon: MessageSquare },
