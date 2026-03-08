@@ -178,6 +178,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Documents', href: 'DocumentManagement', icon: FileText },
     { name: 'Workflows', href: 'WorkflowConfiguration', icon: LayoutDashboard },
     { name: 'Performance', href: 'SupplierMetricsDashboard', icon: LayoutDashboard },
+    { name: 'Contracts', href: 'ContractManagement', icon: FileText },
     { name: 'Escrow', href: 'Escrow', icon: Shield },
     { name: 'Payments', href: 'Wallet', icon: Wallet },
     { name: 'Team', href: 'TeamManagement', icon: Users },
