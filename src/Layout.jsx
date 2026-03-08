@@ -138,10 +138,6 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Purchase Requests', href: 'PurchaseRequests', icon: FileText },
     { name: 'RFQs', href: 'RFQList', icon: FileText },
     { name: 'Bids', href: 'Bids', icon: MessageSquare },
-    { name: 'Orders', href: 'Orders', icon: Shield },
-    { name: 'Purchase Orders', href: 'PurchaseOrderManagement', icon: FileText },
-    { name: 'Goods Receipt (GRN)', href: 'GoodsReceipt', icon: Shield },
-    { name: 'Invoices', href: 'InvoiceManagement', icon: FileText },
     { name: 'Documents', href: 'DocumentManagement', icon: FileText },
     { name: 'Workflows', href: 'WorkflowConfiguration', icon: LayoutDashboard },
     { name: 'Budget Management', href: 'BudgetManagement', icon: Wallet },
@@ -149,6 +145,16 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Payments', href: 'Wallet', icon: Wallet },
     { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
   ];
+
+  const ordersSubNav = [
+    { name: 'All Orders', href: 'Orders', icon: Shield },
+    { name: 'Purchase Orders', href: 'PurchaseOrderManagement', icon: FileText },
+    { name: 'Goods Receipt (GRN)', href: 'GoodsReceipt', icon: Shield },
+    { name: 'Invoices', href: 'InvoiceManagement', icon: FileText },
+  ];
+
+  const ordersSubPages = ordersSubNav.map(s => s.href);
+  const isOrdersSubActive = ordersSubPages.includes(currentPageName);
 
   const supplierSubNav = [
     { name: 'All Suppliers', href: 'Suppliers', icon: Users },
