@@ -241,6 +241,43 @@ export default function Layout({ children, currentPageName }) {
             </Link>
           ))}
 
+          {/* Orders group for buyers */}
+          {userRole === 'buyer' && (
+            <div>
+              <button
+                onClick={() => setOrdersExpanded(!ordersExpanded)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+                  isOrdersSubActive
+                    ? 'bg-indigo-50 text-indigo-600'
+                    : 'text-slate-600 hover:bg-slate-50'
+                }`}
+              >
+                <Shield className={`h-5 w-5 ${isOrdersSubActive ? 'text-indigo-600' : 'text-slate-400'}`} />
+                <span className="font-medium flex-1 text-left">Orders</span>
+                <ChevronDown className={`h-4 w-4 transition-transform ${ordersExpanded || isOrdersSubActive ? 'rotate-180' : ''}`} />
+              </button>
+              {(ordersExpanded || isOrdersSubActive) && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-slate-100 pl-2">
+                  {ordersSubNav.map((sub) => (
+                    <Link
+                      key={sub.name}
+                      to={createPageUrl(sub.href)}
+                      onClick={() => setSidebarOpen(false)}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-sm ${
+                        isActive(sub.href)
+                          ? 'bg-indigo-50 text-indigo-600 font-medium'
+                          : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'
+                      }`}
+                    >
+                      <sub.icon className={`h-4 w-4 ${isActive(sub.href) ? 'text-indigo-600' : 'text-slate-400'}`} />
+                      {sub.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Suppliers group for buyers */}
           {userRole === 'buyer' && (
             <div>
