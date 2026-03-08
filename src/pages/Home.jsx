@@ -283,7 +283,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-4 gap-8">
             {[
               {
                 icon: ClipboardList, title: 'Core Sourcing', color: 'bg-indigo-500', lightColor: 'bg-indigo-50',
