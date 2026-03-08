@@ -356,6 +356,32 @@ export default function Layout({ children, currentPageName }) {
             </div>
 
             <div className="flex items-center gap-4">
+              {/* Buyer / Supplier role tabs */}
+              {!hidesidebar && userRole !== 'admin' && (
+                <div className="hidden sm:flex items-center bg-slate-100 rounded-lg p-1 gap-1">
+                  <button
+                    onClick={() => handleRoleSwitch('buyer')}
+                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                      userRole === 'buyer'
+                        ? 'bg-white text-indigo-600 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    Buyer
+                  </button>
+                  <button
+                    onClick={() => handleRoleSwitch('supplier')}
+                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                      userRole === 'supplier'
+                        ? 'bg-white text-teal-600 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    Supplier
+                  </button>
+                </div>
+              )}
+
               <Popover open={notificationsOpen} onOpenChange={setNotificationsOpen}>
                 <PopoverTrigger asChild>
                   <button className="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg">
