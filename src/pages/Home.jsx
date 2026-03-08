@@ -309,6 +309,15 @@ export default function Home() {
                   { name: 'Expense Accounts', desc: 'Actionable insights into spending patterns and savings opportunities.' },
                 ]
               },
+              {
+                icon: FileText, title: 'Contract Management', color: 'bg-indigo-700', lightColor: 'bg-indigo-50',
+                features: [
+                  { name: 'Digital Contract Upload', desc: 'Upload, store and manage all contracts in one secure repository.' },
+                  { name: 'E-Signatures', desc: 'Buyer and supplier digital signing with timestamped records.' },
+                  { name: 'Expiry Alerts', desc: 'Automated reminders before contracts expire to prevent disruptions.' },
+                  { name: 'Renewal Workflows', desc: 'One-click contract renewal with auto-generated new versions.' },
+                ]
+              },
             ].map((module, mi) => (
               <motion.div key={mi} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: mi * 0.15 }}>
                 <Card className="h-full border-0 shadow-xl hover:shadow-2xl transition-shadow">
