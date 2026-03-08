@@ -145,15 +145,21 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Documents', href: 'DocumentManagement', icon: FileText },
     { name: 'Workflows', href: 'WorkflowConfiguration', icon: LayoutDashboard },
     { name: 'Budget Management', href: 'BudgetManagement', icon: Wallet },
-    { name: 'Supplier Metrics', href: 'SupplierMetricsDashboard', icon: LayoutDashboard },
-    { name: 'Supplier Comparison', href: 'SupplierComparison', icon: Users },
     { name: 'Escrow', href: 'Escrow', icon: Shield },
     { name: 'Payments', href: 'Wallet', icon: Wallet },
-    { name: 'Suppliers', href: 'Suppliers', icon: Users },
-    { name: 'Favorites', href: 'FavoriteSuppliers', icon: Heart },
-    { name: 'Blacklist', href: 'BlacklistSuppliers', icon: Ban },
     { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
   ];
+
+  const supplierSubNav = [
+    { name: 'All Suppliers', href: 'Suppliers', icon: Users },
+    { name: 'Favorites', href: 'FavoriteSuppliers', icon: Heart },
+    { name: 'Blacklist', href: 'BlacklistSuppliers', icon: Ban },
+    { name: 'Supplier Metrics', href: 'SupplierMetricsDashboard', icon: LayoutDashboard },
+    { name: 'Supplier Comparison', href: 'SupplierComparison', icon: Users },
+  ];
+
+  const supplierSubPages = supplierSubNav.map(s => s.href);
+  const isSupplierSubActive = supplierSubPages.includes(currentPageName);
 
   const supplierNavigation = [
     { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
