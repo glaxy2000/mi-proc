@@ -109,6 +109,7 @@ import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
 import WorkflowConfiguration from './pages/WorkflowConfiguration';
+import ContractManagement from './pages/ContractManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -175,6 +176,7 @@ export const PAGES = {
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
     "WorkflowConfiguration": WorkflowConfiguration,
+    "ContractManagement": ContractManagement,
 }
 
 export const pagesConfig = {
