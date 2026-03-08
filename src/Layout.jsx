@@ -169,7 +169,7 @@ export default function Layout({ children, currentPageName }) {
   const isSupplierSubActive = supplierSubPages.includes(currentPageName);
 
   const supplierNavigation = [
-    { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
+    { name: 'Supplier Dashboard', href: 'Dashboard', icon: LayoutDashboard },
     { name: 'RFQs', href: 'RFQList', icon: FileText },
     { name: 'Bids', href: 'Bids', icon: MessageSquare },
     { name: 'Orders', href: 'Orders', icon: Shield },
