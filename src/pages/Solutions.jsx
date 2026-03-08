@@ -104,6 +104,14 @@ const solutions = [
         features: ['Digital supplier onboarding (KYB)', 'Performance scorecards', 'Favorite & blacklist management', 'NDA workflow management', 'Bid win rate analytics'],
         industries: ['Procurement teams', 'Category managers', 'Vendor managers']
       },
+      {
+        icon: Lock, name: 'Contract Management', color: 'bg-indigo-700',
+        headline: 'Centralize, sign, and track every contract in one place',
+        description: 'Eliminate contract chaos with a digital repository that stores, organizes, and tracks all supplier agreements. Get expiry alerts, collect e-signatures, and automate renewals.',
+        savings: '100%', metric: 'Contract Visibility',
+        features: ['Digital contract repository', 'Buyer & supplier e-signatures', 'Automated expiry reminders', 'One-click contract renewal', 'PO-linked contract tracking', 'Termination & status workflows'],
+        industries: ['Legal teams', 'Procurement managers', 'Finance departments']
+      },
     ]
   }
 ];
