@@ -218,7 +218,7 @@ export default function Layout({ children, currentPageName }) {
           </button>
         </div>
 
-        <nav className="p-4 space-y-1">
+        <nav className="p-4 space-y-1 overflow-y-auto max-h-[calc(100vh-8rem)]">
           {navigation.map((item) => (
             <Link
               key={item.name}
@@ -232,11 +232,45 @@ export default function Layout({ children, currentPageName }) {
             >
               <item.icon className={`h-5 w-5 ${isActive(item.href) ? 'text-indigo-600' : 'text-slate-400'}`} />
               <span className="font-medium">{item.name}</span>
-              {item.name === 'Negotiations' && (
-                <Badge className="ml-auto bg-indigo-100 text-indigo-600 text-xs">2</Badge>
-              )}
             </Link>
           ))}
+
+          {/* Suppliers group for buyers */}
+          {userRole === 'buyer' && (
+            <div>
+              <button
+                onClick={() => setSuppliersExpanded(!suppliersExpanded)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+                  isSupplierSubActive
+                    ? 'bg-indigo-50 text-indigo-600'
+                    : 'text-slate-600 hover:bg-slate-50'
+                }`}
+              >
+                <Users className={`h-5 w-5 ${isSupplierSubActive ? 'text-indigo-600' : 'text-slate-400'}`} />
+                <span className="font-medium flex-1 text-left">Suppliers</span>
+                <ChevronDown className={`h-4 w-4 transition-transform ${suppliersExpanded || isSupplierSubActive ? 'rotate-180' : ''}`} />
+              </button>
+              {(suppliersExpanded || isSupplierSubActive) && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-slate-100 pl-2">
+                  {supplierSubNav.map((sub) => (
+                    <Link
+                      key={sub.name}
+                      to={createPageUrl(sub.href)}
+                      onClick={() => setSidebarOpen(false)}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-sm ${
+                        isActive(sub.href)
+                          ? 'bg-indigo-50 text-indigo-600 font-medium'
+                          : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'
+                      }`}
+                    >
+                      <sub.icon className={`h-4 w-4 ${isActive(sub.href) ? 'text-indigo-600' : 'text-slate-400'}`} />
+                      {sub.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </nav>
 
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t">
