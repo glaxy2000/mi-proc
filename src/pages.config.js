@@ -70,6 +70,7 @@ import CostOptimisation from './pages/CostOptimisation';
 import CreateRFQ from './pages/CreateRFQ';
 import Dashboard from './pages/Dashboard';
 import DigitalTransformation from './pages/DigitalTransformation';
+import DocumentManagement from './pages/DocumentManagement';
 import Escrow from './pages/Escrow';
 import FavoriteSuppliers from './pages/FavoriteSuppliers';
 import GoodsReceipt from './pages/GoodsReceipt';
@@ -84,6 +85,7 @@ import PayWallet from './pages/PayWallet';
 import ProcurementServices from './pages/ProcurementServices';
 import Products from './pages/Products';
 import Profile from './pages/Profile';
+import PurchaseOrderManagement from './pages/PurchaseOrderManagement';
 import PurchaseRequests from './pages/PurchaseRequests';
 import RFQList from './pages/RFQList';
 import ReceiveWallet from './pages/ReceiveWallet';
@@ -93,7 +95,9 @@ import SendWallet from './pages/SendWallet';
 import Settings from './pages/Settings';
 import Signin from './pages/Signin';
 import Solutions from './pages/Solutions';
+import SupplierComparison from './pages/SupplierComparison';
 import SupplierDashboard from './pages/SupplierDashboard';
+import SupplierMetricsDashboard from './pages/SupplierMetricsDashboard';
 import SupplierOnboarding from './pages/SupplierOnboarding';
 import SupplierSignin from './pages/SupplierSignin';
 import SupplierSignup from './pages/SupplierSignup';
@@ -104,11 +108,7 @@ import TrackShipment from './pages/TrackShipment';
 import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
-import SupplierComparison from './pages/SupplierComparison';
 import WorkflowConfiguration from './pages/WorkflowConfiguration';
-import SupplierMetricsDashboard from './pages/SupplierMetricsDashboard';
-import PurchaseOrderManagement from './pages/PurchaseOrderManagement';
-import DocumentManagement from './pages/DocumentManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -136,6 +136,7 @@ export const PAGES = {
     "CreateRFQ": CreateRFQ,
     "Dashboard": Dashboard,
     "DigitalTransformation": DigitalTransformation,
+    "DocumentManagement": DocumentManagement,
     "Escrow": Escrow,
     "FavoriteSuppliers": FavoriteSuppliers,
     "GoodsReceipt": GoodsReceipt,
@@ -150,6 +151,7 @@ export const PAGES = {
     "ProcurementServices": ProcurementServices,
     "Products": Products,
     "Profile": Profile,
+    "PurchaseOrderManagement": PurchaseOrderManagement,
     "PurchaseRequests": PurchaseRequests,
     "RFQList": RFQList,
     "ReceiveWallet": ReceiveWallet,
@@ -159,7 +161,9 @@ export const PAGES = {
     "Settings": Settings,
     "Signin": Signin,
     "Solutions": Solutions,
+    "SupplierComparison": SupplierComparison,
     "SupplierDashboard": SupplierDashboard,
+    "SupplierMetricsDashboard": SupplierMetricsDashboard,
     "SupplierOnboarding": SupplierOnboarding,
     "SupplierSignin": SupplierSignin,
     "SupplierSignup": SupplierSignup,
@@ -170,11 +174,7 @@ export const PAGES = {
     "UserJourney": UserJourney,
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
-    "SupplierComparison": SupplierComparison,
     "WorkflowConfiguration": WorkflowConfiguration,
-    "SupplierMetricsDashboard": SupplierMetricsDashboard,
-    "PurchaseOrderManagement": PurchaseOrderManagement,
-    "DocumentManagement": DocumentManagement,
 }
 
 export const pagesConfig = {

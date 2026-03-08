@@ -31,6 +31,7 @@ import ChatWidget from '@/components/chat/ChatWidget';
 
 export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const [suppliersExpanded, setSuppliersExpanded] = React.useState(false);
 
   React.useEffect(() => {
     const removeBadge = () => {
