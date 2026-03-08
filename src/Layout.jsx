@@ -317,22 +317,7 @@ export default function Layout({ children, currentPageName }) {
           )}
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t">
-          <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl">
-            <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-              <span className="text-indigo-600 font-semibold">SM</span>
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-medium text-slate-900">{user?.full_name || 'User'}</p>
-              <p className="text-xs text-slate-500">
-                {userRole === 'admin' ? 'Administrator' : 
-                 userRole === 'buyer' ? 'Buyer' : 
-                 'Supplier'}
-              </p>
-            </div>
-            <ChevronDown className="h-4 w-4 text-slate-400" />
-          </div>
-        </div>
+
         </aside>
       )}
 
