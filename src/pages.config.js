@@ -66,6 +66,7 @@ import BuyerSignin from './pages/BuyerSignin';
 import BuyerSignup from './pages/BuyerSignup';
 import Careers from './pages/Careers';
 import Contact from './pages/Contact';
+import ContractManagement from './pages/ContractManagement';
 import CostOptimisation from './pages/CostOptimisation';
 import CreateRFQ from './pages/CreateRFQ';
 import Dashboard from './pages/Dashboard';
@@ -109,7 +110,6 @@ import UserJourney from './pages/UserJourney';
 import Wallet from './pages/Wallet';
 import WithdrawWallet from './pages/WithdrawWallet';
 import WorkflowConfiguration from './pages/WorkflowConfiguration';
-import ContractManagement from './pages/ContractManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -133,6 +133,7 @@ export const PAGES = {
     "BuyerSignup": BuyerSignup,
     "Careers": Careers,
     "Contact": Contact,
+    "ContractManagement": ContractManagement,
     "CostOptimisation": CostOptimisation,
     "CreateRFQ": CreateRFQ,
     "Dashboard": Dashboard,
@@ -176,7 +177,6 @@ export const PAGES = {
     "Wallet": Wallet,
     "WithdrawWallet": WithdrawWallet,
     "WorkflowConfiguration": WorkflowConfiguration,
-    "ContractManagement": ContractManagement,
 }
 
 export const pagesConfig = {
