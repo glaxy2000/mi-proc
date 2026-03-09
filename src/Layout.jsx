@@ -144,7 +144,6 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Workflows', href: 'WorkflowConfiguration', icon: LayoutDashboard },
     { name: 'Contracts', href: 'ContractManagement', icon: FileText },
     { name: 'Escrow', href: 'Escrow', icon: Shield },
-    { name: 'Payments', href: 'Wallet', icon: Wallet },
   ];
 
   const ordersSubNav = [
