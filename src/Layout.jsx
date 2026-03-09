@@ -168,6 +168,13 @@ export default function Layout({ children, currentPageName }) {
   const supplierSubPages = supplierSubNav.map(s => s.href);
   const isSupplierSubActive = supplierSubPages.includes(currentPageName);
 
+  const financeSubNav = [
+    { name: 'Budget Management', href: 'BudgetManagement', icon: Wallet },
+    { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
+  ];
+  const financeSubPages = financeSubNav.map(s => s.href);
+  const isFinanceSubActive = financeSubPages.includes(currentPageName);
+
   const supplierNavigation = [
     { name: 'Supplier Dashboard', href: 'Dashboard', icon: LayoutDashboard },
     { name: 'RFQs', href: 'RFQList', icon: FileText },
