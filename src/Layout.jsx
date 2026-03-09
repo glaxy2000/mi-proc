@@ -142,11 +142,9 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Bids', href: 'Bids', icon: MessageSquare },
     { name: 'Documents', href: 'DocumentManagement', icon: FileText },
     { name: 'Workflows', href: 'WorkflowConfiguration', icon: LayoutDashboard },
-    { name: 'Budget Management', href: 'BudgetManagement', icon: Wallet },
     { name: 'Contracts', href: 'ContractManagement', icon: FileText },
     { name: 'Escrow', href: 'Escrow', icon: Shield },
     { name: 'Payments', href: 'Wallet', icon: Wallet },
-    { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
   ];
 
   const ordersSubNav = [
