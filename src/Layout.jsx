@@ -323,6 +323,43 @@ export default function Layout({ children, currentPageName }) {
               )}
             </div>
           )}
+
+          {/* Finance group for buyers */}
+          {userRole === 'buyer' && (
+            <div>
+              <button
+                onClick={() => setFinanceExpanded(!financeExpanded)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+                  isFinanceSubActive
+                    ? 'bg-indigo-50 text-indigo-600'
+                    : 'text-slate-600 hover:bg-slate-50'
+                }`}
+              >
+                <Wallet className={`h-5 w-5 ${isFinanceSubActive ? 'text-indigo-600' : 'text-slate-400'}`} />
+                <span className="font-medium flex-1 text-left">Finance</span>
+                <ChevronDown className={`h-4 w-4 transition-transform ${financeExpanded || isFinanceSubActive ? 'rotate-180' : ''}`} />
+              </button>
+              {(financeExpanded || isFinanceSubActive) && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-slate-100 pl-2">
+                  {financeSubNav.map((sub) => (
+                    <Link
+                      key={sub.name}
+                      to={createPageUrl(sub.href)}
+                      onClick={() => setSidebarOpen(false)}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-sm ${
+                        isActive(sub.href)
+                          ? 'bg-indigo-50 text-indigo-600 font-medium'
+                          : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'
+                      }`}
+                    >
+                      <sub.icon className={`h-4 w-4 ${isActive(sub.href) ? 'text-indigo-600' : 'text-slate-400'}`} />
+                      {sub.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </nav>
 
 
