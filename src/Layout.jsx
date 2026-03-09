@@ -169,6 +169,7 @@ export default function Layout({ children, currentPageName }) {
 
   const financeSubNav = [
     { name: 'Budget Management', href: 'BudgetManagement', icon: Wallet },
+    { name: 'Payments', href: 'Wallet', icon: Wallet },
     { name: 'Analytics', href: 'Analytics', icon: LayoutDashboard },
   ];
   const financeSubPages = financeSubNav.map(s => s.href);
