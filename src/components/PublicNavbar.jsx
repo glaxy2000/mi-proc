@@ -16,7 +16,7 @@ export default function PublicNavbar({ activePage }) {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link to={createPageUrl('Home')} className="flex items-center gap-2">
           <img
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png"
+            src="https://media.base44.com/images/public/698475e8a83c0e60c7a78100/051f2ae64_milogo-mo.png"
             alt="MI Technologies"
             className="h-10"
           />
