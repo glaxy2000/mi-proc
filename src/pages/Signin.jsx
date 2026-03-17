@@ -148,7 +148,7 @@ export default function Signin() {
                 {/* Google */}
                 <button
                   type="button"
-                  onClick={() => window.location.href = 'https://accounts.google.com/signin'}
+                  onClick={() => base44.auth.loginWithProvider('google', createPageUrl('Dashboard'))}
                   className="flex items-center justify-center gap-2 border border-slate-200 rounded-lg px-3 py-2.5 hover:bg-slate-50 transition-colors"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -163,7 +163,7 @@ export default function Signin() {
                 {/* Microsoft */}
                 <button
                   type="button"
-                  onClick={() => window.location.href = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'}
+                  onClick={() => base44.auth.loginWithProvider('microsoft', createPageUrl('Dashboard'))}
                   className="flex items-center justify-center gap-2 border border-slate-200 rounded-lg px-3 py-2.5 hover:bg-slate-50 transition-colors"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -178,7 +178,7 @@ export default function Signin() {
                 {/* Apple */}
                 <button
                   type="button"
-                  onClick={() => window.location.href = 'https://appleid.apple.com/sign-in'}
+                  onClick={() => base44.auth.loginWithProvider('apple', createPageUrl('Dashboard'))}
                   className="flex items-center justify-center gap-2 border border-slate-200 rounded-lg px-3 py-2.5 hover:bg-slate-50 transition-colors"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
