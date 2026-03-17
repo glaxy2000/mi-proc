@@ -542,14 +542,14 @@ export default function Home() {
 
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-5">
                 <img 
                   src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/f81a0c650_MITechLogoblack.png" 
                   alt="MI Technologies" 
-                  className="h-8 brightness-0 invert"
+                  className="h-14 brightness-0 invert"
                 />
               </div>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-slate-400 leading-relaxed">
                 Revolutionizing B2B procurement and payments in Saudi Arabia
               </p>
             </div>
