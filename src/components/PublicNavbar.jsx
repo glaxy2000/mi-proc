@@ -18,7 +18,7 @@ export default function PublicNavbar({ activePage }) {
           <img
             src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/def2d3f5f_MI-logo-color.png"
             alt="MI Technologies"
-            className="h-8"
+            className="h-10"
           />
           <span className="font-bold text-slate-900">Mi-Proc</span>
         </Link>

@@ -546,7 +546,7 @@ export default function Home() {
                 <img 
                   src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698475e8a83c0e60c7a78100/f81a0c650_MITechLogoblack.png" 
                   alt="MI Technologies" 
-                  className="h-14 brightness-0 invert"
+                  className="h-10 brightness-0 invert"
                 />
               </div>
               <p className="text-sm text-slate-400 leading-relaxed">
