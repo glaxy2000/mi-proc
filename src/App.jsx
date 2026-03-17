@@ -59,6 +59,7 @@ const AuthenticatedApp = () => {
           }
         />
       ))}
+      <Route path="/Leap2026" element={<LayoutWrapper currentPageName="Leap2026"><Leap2026 /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
