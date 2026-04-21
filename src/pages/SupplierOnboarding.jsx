@@ -526,75 +526,131 @@ export default function SupplierOnboarding() {
                     </div>
                   )}
 
-                  {[
-                    { key: 'cr', label: 'Commercial Registration (CR) Certificate', autoName: `CR_Certificate_${formData.crNumber}.pdf`, autoSize: '245 KB' },
-                    { key: 'vat', label: 'Tax Registration Certificate (VAT)', autoName: `VAT_Certificate_${formData.crNumber}.pdf`, autoSize: '189 KB' },
-                  ].map((doc) => {
+                  {(() => {
                     const isAutoAttached = /^\d{10}$/.test(formData.crNumber);
-                    return (
-                      <div key={doc.key} className="border rounded-xl p-6 space-y-4">
-                        <div className="flex items-start justify-between">
-                          <div>
+                    const crSeed = isAutoAttached ? parseInt(formData.crNumber.slice(-2)) : 0;
+                    const crExpYear = 2027 + (crSeed % 3);
+                    const crExpMonth = String((crSeed % 12) + 1).padStart(2, '0');
+                    const vatExpYear = 2026 + (crSeed % 4);
+                    const vatExpMonth = String(((crSeed + 3) % 12) + 1).padStart(2, '0');
+                    const issueYear = 2023 - (crSeed % 2);
+                    const docs = [
+                      {
+                        key: 'cr',
+                        label: 'Commercial Registration (CR) Certificate',
+                        autoName: `CR_Certificate_${formData.crNumber}.pdf`,
+                        autoSize: `${210 + crSeed} KB`,
+                        docNumber: `CR-${formData.crNumber}-SA`,
+                        issuedBy: 'Ministry of Commerce (MoC)',
+                        issueDate: `${issueYear}-${crExpMonth}-15`,
+                        expiryDate: `${crExpYear}-${crExpMonth}-14`,
+                        company: formData.businessNameEnglish,
+                        companyAr: formData.businessNameArabic,
+                        status: 'Active',
+                      },
+                      {
+                        key: 'vat',
+                        label: 'Tax Registration Certificate (VAT)',
+                        autoName: `VAT_Certificate_${formData.crNumber}.pdf`,
+                        autoSize: `${175 + crSeed} KB`,
+                        docNumber: `VAT-${formData.crNumber.slice(0,6)}-ZATCA`,
+                        issuedBy: 'Zakat, Tax and Customs Authority (ZATCA)',
+                        issueDate: `${issueYear}-${vatExpMonth}-01`,
+                        expiryDate: `${vatExpYear}-${vatExpMonth}-31`,
+                        company: formData.businessNameEnglish,
+                        companyAr: formData.businessNameArabic,
+                        status: 'Active',
+                      },
+                    ];
+                    return docs.map((doc) => (
+                      <div key={doc.key} className="border rounded-xl overflow-hidden">
+                        <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b">
+                          <div className="flex items-center gap-3">
+                            <FileText className="h-5 w-5 text-slate-500" />
                             <h4 className="font-semibold text-slate-900">{doc.label}</h4>
-                            <p className="text-sm text-slate-500 mt-1">
-                              Accepted formats: PDF, JPG, PNG • Max size: 10MB
-                            </p>
                           </div>
                           {isAutoAttached ? (
-                            <Badge className="bg-indigo-100 text-indigo-700 border-indigo-200">Auto-Attached</Badge>
+                            <Badge className="bg-green-100 text-green-700">✓ Verified</Badge>
                           ) : (
                             <Badge variant="outline" className="text-red-600 border-red-200">Required</Badge>
                           )}
                         </div>
 
                         {isAutoAttached ? (
-                          <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <CheckCircle2 className="h-5 w-5 text-green-600" />
+                          <div className="p-6 space-y-4">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                               <div>
-                                <p className="font-medium text-green-900">{doc.autoName}</p>
-                                <p className="text-sm text-green-700">{doc.autoSize} — Retrieved from MoC Registry</p>
+                                <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">Document No.</p>
+                                <p className="font-mono font-semibold text-slate-800">{doc.docNumber}</p>
+                              </div>
+                              <div>
+                                <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">Issued By</p>
+                                <p className="font-medium text-slate-800">{doc.issuedBy}</p>
+                              </div>
+                              <div>
+                                <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">Status</p>
+                                <span className="inline-flex items-center gap-1 text-green-700 font-semibold">
+                                  <CheckCircle2 className="h-3.5 w-3.5" /> {doc.status}
+                                </span>
+                              </div>
+                              <div>
+                                <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">Company (EN)</p>
+                                <p className="font-medium text-slate-800">{doc.company}</p>
+                              </div>
+                              <div>
+                                <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">Company (AR)</p>
+                                <p className="font-medium text-slate-800 text-right" dir="rtl">{doc.companyAr}</p>
+                              </div>
+                              <div>
+                                <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">File</p>
+                                <p className="text-slate-700">{doc.autoName} <span className="text-slate-400">({doc.autoSize})</span></p>
+                              </div>
+                              <div>
+                                <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">Issue Date</p>
+                                <p className="font-medium text-slate-800">{doc.issueDate}</p>
+                              </div>
+                              <div>
+                                <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">Expiry Date</p>
+                                <p className="font-semibold text-amber-700">{doc.expiryDate}</p>
+                              </div>
+                              <div>
+                                <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">Source</p>
+                                <p className="text-indigo-700 font-medium">MoC Live Registry</p>
                               </div>
                             </div>
-                            <Badge className="bg-green-100 text-green-700">Verified</Badge>
                           </div>
                         ) : !formData.documents[doc.key] ? (
-                          <div className="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center hover:border-indigo-400 transition-colors">
-                            <Upload className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                            <p className="text-sm text-slate-600 mb-4">
-                              Drag and drop your file here, or click to browse
-                            </p>
-                            <Input
-                              type="file"
-                              accept=".pdf,.jpg,.jpeg,.png"
-                              onChange={(e) => handleFileUpload(doc.key, e.target.files[0])}
-                              className="max-w-xs mx-auto"
-                            />
+                          <div className="p-6">
+                            <div className="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center hover:border-indigo-400 transition-colors">
+                              <Upload className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+                              <p className="text-sm text-slate-600 mb-4">Drag and drop your file here, or click to browse</p>
+                              <Input
+                                type="file"
+                                accept=".pdf,.jpg,.jpeg,.png"
+                                onChange={(e) => handleFileUpload(doc.key, e.target.files[0])}
+                                className="max-w-xs mx-auto"
+                              />
+                            </div>
                           </div>
                         ) : (
-                          <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <CheckCircle2 className="h-5 w-5 text-green-600" />
-                              <div>
-                                <p className="font-medium text-green-900">{formData.documents[doc.key].name}</p>
-                                <p className="text-sm text-green-700">
-                                  {(formData.documents[doc.key].size / 1024 / 1024).toFixed(2)} MB
-                                </p>
+                          <div className="p-6">
+                            <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <CheckCircle2 className="h-5 w-5 text-green-600" />
+                                <div>
+                                  <p className="font-medium text-green-900">{formData.documents[doc.key].name}</p>
+                                  <p className="text-sm text-green-700">{(formData.documents[doc.key].size / 1024 / 1024).toFixed(2)} MB</p>
+                                </div>
                               </div>
+                              <Button variant="ghost" size="sm" onClick={() => removeFile(doc.key)} className="text-red-600 hover:text-red-700 hover:bg-red-50">
+                                <X className="h-4 w-4" />
+                              </Button>
                             </div>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => removeFile(doc.key)}
-                              className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
                           </div>
                         )}
                       </div>
-                    );
-                  })}
+                    ));
+                  })()}
 
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <div className="flex items-start gap-3">
