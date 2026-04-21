@@ -413,16 +413,6 @@ export default function Layout({ children, currentPageName }) {
                 </div>
               )}
 
-              {/* LEAP 2026 Button */}
-              <Link
-                to="/Leap2026"
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold text-white transition-all duration-200 hover:shadow-[0_0_15px_rgba(124,58,237,0.5)]"
-                style={{ background: 'linear-gradient(135deg, #7c3aed, #06b6d4)' }}
-              >
-                <Rocket className="h-3.5 w-3.5" />
-                LEAP 2026
-              </Link>
-
               <Popover open={notificationsOpen} onOpenChange={setNotificationsOpen}>
                 <PopoverTrigger asChild>
                   <button className="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg">
