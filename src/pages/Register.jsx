@@ -24,7 +24,6 @@ export default function Register() {
     email: '',
     password: '',
     confirmPassword: '',
-    organizationType: '',
     registerAsBuyer: true,
     registerAsSupplier: false,
     agreeToTerms: false,
@@ -58,7 +57,6 @@ export default function Register() {
     if (!formData.email) newErrors.email = 'Email is required';
     if (!passwordValidation.isValid) newErrors.password = 'Password does not meet requirements';
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-    if (!formData.organizationType) newErrors.organizationType = 'Organisation type is required';
     if (!formData.registerAsBuyer && !formData.registerAsSupplier) newErrors.roles = 'Select at least one role';
     if (!formData.agreeToTerms) newErrors.agreeToTerms = 'You must agree to Terms of Service';
     if (!formData.agreeToPrivacy) newErrors.agreeToPrivacy = 'You must agree to Privacy Policy';
@@ -234,33 +232,6 @@ export default function Register() {
                   <p className="text-sm text-red-600 flex items-center gap-1">
                     <AlertCircle className="h-3 w-3" />
                     {errors.confirmPassword}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="organizationType">Organisation Type *</Label>
-                <Select
-                  value={formData.organizationType}
-                  onValueChange={(value) => setFormData({ ...formData, organizationType: value })}
-                >
-                  <SelectTrigger className={errors.organizationType ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select organisation type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="sole_proprietor">Sole Proprietor</SelectItem>
-                    <SelectItem value="partnership">Partnership</SelectItem>
-                    <SelectItem value="llc">Limited Liability Company (LLC)</SelectItem>
-                    <SelectItem value="jsc">Joint Stock Company (JSC)</SelectItem>
-                    <SelectItem value="government">Government Entity</SelectItem>
-                    <SelectItem value="nonprofit">Non-Profit</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.organizationType && (
-                  <p className="text-sm text-red-600 flex items-center gap-1">
-                    <AlertCircle className="h-3 w-3" />
-                    {errors.organizationType}
                   </p>
                 )}
               </div>

@@ -117,6 +117,24 @@ export default function Settings() {
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
+                    <Label>Organisation Type</Label>
+                    <Select
+                      value={user.organizationType || ''}
+                      onValueChange={(v) => setUser({ ...user, organizationType: v })}
+                    >
+                      <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select organisation type" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="sole_proprietor">Sole Proprietor</SelectItem>
+                        <SelectItem value="partnership">Partnership</SelectItem>
+                        <SelectItem value="llc">Limited Liability Company (LLC)</SelectItem>
+                        <SelectItem value="jsc">Joint Stock Company (JSC)</SelectItem>
+                        <SelectItem value="government">Government Entity</SelectItem>
+                        <SelectItem value="nonprofit">Non-Profit</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
                     <Label>Full Name</Label>
                     <Input 
                       value={user.full_name} 
