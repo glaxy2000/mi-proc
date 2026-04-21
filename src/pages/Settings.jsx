@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,6 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
 import { 
   Settings as SettingsIcon,
   Bell,
@@ -15,13 +17,35 @@ import {
   Shield,
   User,
   Mail,
-  Smartphone
+  Smartphone,
+  ShoppingCart
 } from 'lucide-react';
 
-export default function Settings() {
-  const [user, setUser] = React.useState(null);
+const procurementCategoryOptions = [
+  'Raw Materials', 'Equipment', 'Services', 'Supplies', 'IT & Software',
+  'Construction Materials', 'Office Supplies', 'Marketing & Advertising'
+];
 
-  React.useEffect(() => {
+export default function Settings() {
+  const [user, setUser] = useState(null);
+  const [procPrefs, setProcPrefs] = useState({
+    monthlyBudget: '',
+    preferredCategories: [],
+    preferredSuppliers: '',
+    specialRequirements: '',
+    paymentTerms: '',
+    deliveryTimeline: '',
+  });
+  const [bankInfo, setBankInfo] = useState({
+    accountHolderName: '',
+    bankName: '',
+    accountType: '',
+    iban: '',
+    currency: 'SAR',
+    fundingMethod: '',
+  });
+
+  useEffect(() => {
     // In production: const userData = await base44.auth.me(); setUser(userData);
     const path = window.location.pathname;
     if (path.includes('Supplier')) {
@@ -58,7 +82,7 @@ export default function Settings() {
         </div>
 
         <Tabs defaultValue="general" className="space-y-6">
-          <TabsList className="bg-white p-1 shadow-sm">
+          <TabsList className="bg-white p-1 shadow-sm flex-wrap h-auto gap-1">
             <TabsTrigger value="general" className="gap-2">
               <User className="h-4 w-4" />
               General
@@ -73,8 +97,14 @@ export default function Settings() {
             </TabsTrigger>
             <TabsTrigger value="payments" className="gap-2">
               <CreditCard className="h-4 w-4" />
-              Payments
+              Payments & Bank
             </TabsTrigger>
+            {userRole === 'buyer' && (
+              <TabsTrigger value="procurement" className="gap-2">
+                <ShoppingCart className="h-4 w-4" />
+                Procurement Preferences
+              </TabsTrigger>
+            )}
           </TabsList>
 
           {/* General Settings */}
@@ -333,24 +363,89 @@ export default function Settings() {
             </Card>
           </TabsContent>
 
-          {/* Payments */}
+          {/* Payments & Bank */}
           <TabsContent value="payments" className="space-y-6">
             <Card className="border-0 shadow-lg">
               <CardHeader>
-                <CardTitle>Bank Accounts</CardTitle>
-                <CardDescription>Manage your linked bank accounts</CardDescription>
+                <CardTitle>Bank Account Linking</CardTitle>
+                <CardDescription>Link your bank account for payments and disbursements</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
-                  <div>
-                    <p className="font-medium text-slate-900">Al Rajhi Bank</p>
-                    <p className="text-sm text-slate-500">Account ending in ****4567</p>
-                  </div>
-                  <Button variant="outline" size="sm">Remove</Button>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>Account Holder Name</Label>
+                  <Input
+                    value={bankInfo.accountHolderName}
+                    onChange={(e) => setBankInfo({ ...bankInfo, accountHolderName: e.target.value })}
+                    placeholder="Name as it appears on bank account"
+                    className="mt-1.5"
+                  />
                 </div>
-                <Button variant="outline" className="w-full">
-                  + Add Bank Account
-                </Button>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Bank Name</Label>
+                    <Select value={bankInfo.bankName} onValueChange={(v) => setBankInfo({ ...bankInfo, bankName: v })}>
+                      <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select bank" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="alrajhi">Al Rajhi Bank</SelectItem>
+                        <SelectItem value="ncb">National Commercial Bank</SelectItem>
+                        <SelectItem value="samba">Samba Financial Group</SelectItem>
+                        <SelectItem value="riyadbank">Riyad Bank</SelectItem>
+                        <SelectItem value="alinma">Alinma Bank</SelectItem>
+                        <SelectItem value="sab">Saudi British Bank</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Account Type</Label>
+                    <Select value={bankInfo.accountType} onValueChange={(v) => setBankInfo({ ...bankInfo, accountType: v })}>
+                      <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select type" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="checking">Checking</SelectItem>
+                        <SelectItem value="savings">Savings</SelectItem>
+                        <SelectItem value="business">Business</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div>
+                  <Label>IBAN</Label>
+                  <Input
+                    value={bankInfo.iban}
+                    onChange={(e) => setBankInfo({ ...bankInfo, iban: e.target.value })}
+                    placeholder="SA00 0000 0000 0000 0000 0000"
+                    maxLength={34}
+                    className="mt-1.5"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">Enter your full IBAN including country code</p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Account Currency</Label>
+                    <Select value={bankInfo.currency} onValueChange={(v) => setBankInfo({ ...bankInfo, currency: v })}>
+                      <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="SAR">SAR (Saudi Riyal)</SelectItem>
+                        <SelectItem value="USD">USD (US Dollar)</SelectItem>
+                        <SelectItem value="EUR">EUR (Euro)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Preferred Funding Method</Label>
+                    <Select value={bankInfo.fundingMethod} onValueChange={(v) => setBankInfo({ ...bankInfo, fundingMethod: v })}>
+                      <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select method" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="bank_transfer">Bank Transfer</SelectItem>
+                        <SelectItem value="credit_card">Credit Card</SelectItem>
+                        <SelectItem value="debit_card">Debit Card</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="flex justify-end pt-2">
+                  <Button className="bg-indigo-600 hover:bg-indigo-700">Save Bank Details</Button>
+                </div>
               </CardContent>
             </Card>
 
@@ -364,9 +459,7 @@ export default function Settings() {
                   <div>
                     <Label>Default withdrawal method</Label>
                     <Select defaultValue="bank">
-                      <SelectTrigger className="mt-1.5">
-                        <SelectValue />
-                      </SelectTrigger>
+                      <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
                       <SelectContent>
                         <SelectItem value="bank">Bank Transfer</SelectItem>
                         <SelectItem value="wallet">Keep in Mi-Wallet</SelectItem>
@@ -398,12 +491,112 @@ export default function Settings() {
                   <span className="text-slate-600">Monthly limit</span>
                   <span className="font-semibold text-slate-900">SAR 5,000,000</span>
                 </div>
-                <Button variant="outline" className="w-full">
-                  Request Limit Increase
-                </Button>
+                <Button variant="outline" className="w-full">Request Limit Increase</Button>
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Procurement Preferences (Buyer only) */}
+          {userRole === 'buyer' && (
+            <TabsContent value="procurement" className="space-y-6">
+              <Card className="border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle>Procurement Preferences</CardTitle>
+                  <CardDescription>Configure your procurement defaults and preferences</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div>
+                    <Label>Average Monthly Procurement Budget (SAR)</Label>
+                    <Input
+                      type="number"
+                      value={procPrefs.monthlyBudget}
+                      onChange={(e) => setProcPrefs({ ...procPrefs, monthlyBudget: e.target.value })}
+                      placeholder="0"
+                      className="mt-1.5"
+                    />
+                  </div>
+
+                  <div>
+                    <Label className="mb-2 block">Preferred Procurement Categories</Label>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 border rounded-lg p-4">
+                      {procurementCategoryOptions.map((category) => (
+                        <div key={category} className="flex items-center gap-2">
+                          <Checkbox
+                            id={`set-${category}`}
+                            checked={procPrefs.preferredCategories.includes(category)}
+                            onCheckedChange={(checked) => {
+                              setProcPrefs({
+                                ...procPrefs,
+                                preferredCategories: checked
+                                  ? [...procPrefs.preferredCategories, category]
+                                  : procPrefs.preferredCategories.filter(c => c !== category)
+                              });
+                            }}
+                          />
+                          <Label htmlFor={`set-${category}`} className="text-sm font-normal cursor-pointer">{category}</Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label>Preferred Suppliers (Optional)</Label>
+                    <Textarea
+                      value={procPrefs.preferredSuppliers}
+                      onChange={(e) => setProcPrefs({ ...procPrefs, preferredSuppliers: e.target.value })}
+                      rows={3}
+                      placeholder="List any preferred suppliers or supplier types"
+                      className="mt-1.5"
+                    />
+                  </div>
+
+                  <div>
+                    <Label>Special Requirements (Optional)</Label>
+                    <Textarea
+                      value={procPrefs.specialRequirements}
+                      onChange={(e) => setProcPrefs({ ...procPrefs, specialRequirements: e.target.value })}
+                      rows={3}
+                      placeholder="Any special requirements (e.g., local suppliers, specific certifications)"
+                      className="mt-1.5"
+                    />
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <Label>Payment Terms Preference</Label>
+                      <Select value={procPrefs.paymentTerms} onValueChange={(v) => setProcPrefs({ ...procPrefs, paymentTerms: v })}>
+                        <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select payment terms" /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="immediate">Immediate (Escrow)</SelectItem>
+                          <SelectItem value="7days">7 Days</SelectItem>
+                          <SelectItem value="14days">14 Days</SelectItem>
+                          <SelectItem value="30days">30 Days</SelectItem>
+                          <SelectItem value="custom">Custom</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label>Preferred Delivery Timeline</Label>
+                      <Select value={procPrefs.deliveryTimeline} onValueChange={(v) => setProcPrefs({ ...procPrefs, deliveryTimeline: v })}>
+                        <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select timeline" /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="asap">ASAP</SelectItem>
+                          <SelectItem value="1-7days">1-7 Days</SelectItem>
+                          <SelectItem value="1-2weeks">1-2 Weeks</SelectItem>
+                          <SelectItem value="2-4weeks">2-4 Weeks</SelectItem>
+                          <SelectItem value="custom">Custom</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end pt-2">
+                    <Button className="bg-indigo-600 hover:bg-indigo-700">Save Preferences</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          )}
         </Tabs>
       </div>
     </div>

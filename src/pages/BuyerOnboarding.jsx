@@ -633,217 +633,23 @@ export default function BuyerOnboarding() {
             >
               <Card className="border-0 shadow-xl">
                 <CardHeader className="bg-gradient-to-r from-teal-50 to-indigo-50 border-b">
-                  <CardTitle>Step 4: Procurement Preferences & Bank Account</CardTitle>
-                  <p className="text-sm text-slate-600 mt-1">Set your preferences and link your bank account</p>
+                  <CardTitle>Step 4: Review & Complete</CardTitle>
+                  <p className="text-sm text-slate-600 mt-1">Review your details and complete registration</p>
                 </CardHeader>
                 <CardContent className="p-6 space-y-8">
-                  {/* Section A: Procurement Preferences */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-slate-900 mb-4">Procurement Preferences</h3>
-                    <div className="space-y-6">
-                      <div className="space-y-2">
-                        <Label>Average Monthly Procurement Budget (SAR) *</Label>
-                        <Input
-                          type="number"
-                          value={formData.monthlyBudget}
-                          onChange={(e) => setFormData({ ...formData, monthlyBudget: e.target.value })}
-                          placeholder="0"
-                        />
-                      </div>
 
-                      <div className="space-y-2">
-                        <Label>Preferred Procurement Categories * (Select all that apply)</Label>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 border rounded-lg p-4">
-                          {procurementCategoryOptions.map((category) => (
-                            <div key={category} className="flex items-center gap-2">
-                              <Checkbox
-                                id={`pref-${category}`}
-                                checked={formData.preferredCategories.includes(category)}
-                                onCheckedChange={(checked) => {
-                                  if (checked) {
-                                    setFormData({
-                                      ...formData,
-                                      preferredCategories: [...formData.preferredCategories, category]
-                                    });
-                                  } else {
-                                    setFormData({
-                                      ...formData,
-                                      preferredCategories: formData.preferredCategories.filter(c => c !== category)
-                                    });
-                                  }
-                                }}
-                              />
-                              <Label htmlFor={`pref-${category}`} className="text-sm font-normal cursor-pointer">
-                                {category}
-                              </Label>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label>Preferred Suppliers (Optional)</Label>
-                        <Textarea
-                          value={formData.preferredSuppliers}
-                          onChange={(e) => setFormData({ ...formData, preferredSuppliers: e.target.value })}
-                          rows={3}
-                          placeholder="List any preferred suppliers or supplier types"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label>Special Requirements (Optional)</Label>
-                        <Textarea
-                          value={formData.specialRequirements}
-                          onChange={(e) => setFormData({ ...formData, specialRequirements: e.target.value })}
-                          rows={3}
-                          placeholder="Any special requirements (e.g., local suppliers, specific certifications)"
-                        />
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <Label>Payment Terms Preference *</Label>
-                          <Select
-                            value={formData.paymentTerms}
-                            onValueChange={(value) => setFormData({ ...formData, paymentTerms: value })}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select payment terms" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="immediate">Immediate (Escrow)</SelectItem>
-                              <SelectItem value="7days">7 Days</SelectItem>
-                              <SelectItem value="14days">14 Days</SelectItem>
-                              <SelectItem value="30days">30 Days</SelectItem>
-                              <SelectItem value="custom">Custom</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Preferred Delivery Timeline *</Label>
-                          <Select
-                            value={formData.deliveryTimeline}
-                            onValueChange={(value) => setFormData({ ...formData, deliveryTimeline: value })}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select timeline" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="asap">ASAP</SelectItem>
-                              <SelectItem value="1-7days">1-7 Days</SelectItem>
-                              <SelectItem value="1-2weeks">1-2 Weeks</SelectItem>
-                              <SelectItem value="2-4weeks">2-4 Weeks</SelectItem>
-                              <SelectItem value="custom">Custom</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Section B: Bank Account */}
-                  <div className="border-t pt-6">
-                    <h3 className="text-lg font-semibold text-slate-900 mb-4">Bank Account Linking</h3>
-                    <div className="space-y-6">
-                      <div className="space-y-2">
-                        <Label>Account Holder Name *</Label>
-                        <Input
-                          value={formData.accountHolderName}
-                          onChange={(e) => setFormData({ ...formData, accountHolderName: e.target.value })}
-                          placeholder="Name as it appears on bank account"
-                        />
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <Label>Bank Name *</Label>
-                          <Select
-                            value={formData.bankName}
-                            onValueChange={(value) => setFormData({ ...formData, bankName: value })}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select bank" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="alrajhi">Al Rajhi Bank</SelectItem>
-                              <SelectItem value="ncb">National Commercial Bank</SelectItem>
-                              <SelectItem value="samba">Samba Financial Group</SelectItem>
-                              <SelectItem value="riyadbank">Riyad Bank</SelectItem>
-                              <SelectItem value="alinma">Alinma Bank</SelectItem>
-                              <SelectItem value="sab">Saudi British Bank</SelectItem>
-                              <SelectItem value="other">Other</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Account Type *</Label>
-                          <Select
-                            value={formData.accountType}
-                            onValueChange={(value) => setFormData({ ...formData, accountType: value })}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="checking">Checking</SelectItem>
-                              <SelectItem value="savings">Savings</SelectItem>
-                              <SelectItem value="business">Business</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label>IBAN (International Bank Account Number) *</Label>
-                        <Input
-                          value={formData.iban}
-                          onChange={(e) => setFormData({ ...formData, iban: e.target.value })}
-                          placeholder="SA00 0000 0000 0000 0000 0000"
-                          maxLength={34}
-                        />
-                        <p className="text-xs text-slate-500">Enter your full IBAN including country code</p>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <Label>Account Currency *</Label>
-                          <Select
-                            value={formData.currency}
-                            onValueChange={(value) => setFormData({ ...formData, currency: value })}
-                          >
-                            <SelectTrigger>
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="SAR">SAR (Saudi Riyal)</SelectItem>
-                              <SelectItem value="USD">USD (US Dollar)</SelectItem>
-                              <SelectItem value="EUR">EUR (Euro)</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Preferred Funding Method *</Label>
-                          <Select
-                            value={formData.fundingMethod}
-                            onValueChange={(value) => setFormData({ ...formData, fundingMethod: value })}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select method" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="bank_transfer">Bank Transfer</SelectItem>
-                              <SelectItem value="credit_card">Credit Card</SelectItem>
-                              <SelectItem value="debit_card">Debit Card</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
+                  <div className="bg-teal-50 border border-teal-200 rounded-lg p-4 flex items-start gap-3">
+                    <AlertCircle className="h-5 w-5 text-teal-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-teal-800">Procurement Preferences & Bank Account</p>
+                      <p className="text-sm text-teal-700 mt-1">
+                        You can set up your procurement preferences and link your bank account later in <strong>Account Settings</strong>. These can be updated at any time.
+                      </p>
                     </div>
                   </div>
 
                   {/* Review & Confirm */}
-                  <div className="border-t pt-6">
+                  <div>
                     <h3 className="font-semibold text-slate-900 mb-4">Review & Confirm</h3>
                     <div className="bg-slate-50 rounded-lg p-6 space-y-4">
                       <div className="grid md:grid-cols-2 gap-4">
