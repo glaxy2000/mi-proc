@@ -465,9 +465,6 @@ export default function BuyerOnboarding() {
                   {[
                     { key: 'cr', label: 'Commercial Registration (CR) Certificate', required: true },
                     { key: 'vat', label: 'Tax Registration Certificate (VAT)', required: true },
-                    { key: 'bank', label: 'Bank Account Verification', required: true },
-                    { key: 'ownership', label: 'Ownership/Authorization Document', required: true },
-                    { key: 'id', label: 'Identification Document (Owner/Authorized Person)', required: true }
                   ].map((doc) => (
                     <div key={doc.key} className="border rounded-xl p-6 space-y-4">
                       <div className="flex items-start justify-between">
