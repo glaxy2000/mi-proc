@@ -1,0 +1,105 @@
+{
+  "name": "GoodsRFQ",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "RFQ title for goods procurement"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of goods needed"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Construction Materials",
+        "Medical Supplies",
+        "IT & Hardware",
+        "Manufacturing",
+        "Packaging",
+        "Office Supplies",
+        "Electronics",
+        "Furniture",
+        "Raw Materials",
+        "Industrial Equipment"
+      ],
+      "description": "Category of goods"
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "specifications": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "List of goods items requested"
+    },
+    "budget": {
+      "type": "number",
+      "description": "Budget in SAR"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Submission deadline"
+    },
+    "delivery_location": {
+      "type": "string",
+      "description": "Delivery address"
+    },
+    "delivery_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Expected delivery date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "negotiating",
+        "completed",
+        "cancelled"
+      ],
+      "default": "draft"
+    },
+    "buyer_email": {
+      "type": "string",
+      "description": "Buyer's email"
+    },
+    "payment_terms": {
+      "type": "string",
+      "description": "Payment terms"
+    },
+    "shipping_terms": {
+      "type": "string",
+      "description": "Incoterms or shipping terms"
+    },
+    "quality_standards": {
+      "type": "string",
+      "description": "Required quality standards/certifications"
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "buyer_email",
+    "deadline"
+  ]
+}

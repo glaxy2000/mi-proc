@@ -1,0 +1,37 @@
+{
+  "name": "ContactPerson",
+  "type": "object",
+  "properties": {
+    "company_email": {
+      "type": "string",
+      "description": "Email of the company this contact belongs to"
+    },
+    "full_name": {
+      "type": "string",
+      "description": "Full name of the contact person"
+    },
+    "designation": {
+      "type": "string",
+      "description": "Job title/designation (e.g., Procurement Manager)"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address of the contact person"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number of the contact person"
+    },
+    "is_primary": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is the primary contact"
+    }
+  },
+  "required": [
+    "company_email",
+    "full_name",
+    "designation",
+    "email"
+  ]
+}

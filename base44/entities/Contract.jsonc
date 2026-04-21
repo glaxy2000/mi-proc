@@ -1,0 +1,115 @@
+{
+  "name": "Contract",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Contract title"
+    },
+    "contract_number": {
+      "type": "string",
+      "description": "Unique contract reference number"
+    },
+    "purchase_order_id": {
+      "type": "string",
+      "description": "Associated purchase order ID"
+    },
+    "purchase_order_number": {
+      "type": "string",
+      "description": "Associated PO number for display"
+    },
+    "buyer_email": {
+      "type": "string",
+      "description": "Buyer's email"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Supplier's email"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "Supplier's name"
+    },
+    "contract_value": {
+      "type": "number",
+      "description": "Total contract value in SAR"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "URL of the uploaded contract document"
+    },
+    "file_name": {
+      "type": "string",
+      "description": "Original file name"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_signature",
+        "active",
+        "expired",
+        "terminated",
+        "renewed"
+      ],
+      "default": "draft",
+      "description": "Current contract status"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Contract start date"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Contract expiry date"
+    },
+    "renewal_reminder_days": {
+      "type": "number",
+      "default": 30,
+      "description": "Days before expiry to send renewal reminder"
+    },
+    "buyer_signed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether buyer has signed"
+    },
+    "buyer_signed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When buyer signed"
+    },
+    "supplier_signed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether supplier has signed"
+    },
+    "supplier_signed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When supplier signed"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes or terms"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags for categorization"
+    },
+    "renewal_contract_id": {
+      "type": "string",
+      "description": "ID of the renewed contract (if renewed)"
+    }
+  },
+  "required": [
+    "title",
+    "buyer_email",
+    "supplier_email",
+    "expiry_date"
+  ]
+}

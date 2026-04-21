@@ -1,0 +1,84 @@
+{
+  "name": "CompanyUser",
+  "type": "object",
+  "properties": {
+    "company_email": {
+      "type": "string",
+      "description": "Email of the company"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Email of the user"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "manager",
+        "viewer",
+        "contributor"
+      ],
+      "default": "viewer",
+      "description": "Role within the company"
+    },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "can_create_rfq": {
+          "type": "boolean",
+          "default": false
+        },
+        "can_edit_rfq": {
+          "type": "boolean",
+          "default": false
+        },
+        "can_delete_rfq": {
+          "type": "boolean",
+          "default": false
+        },
+        "can_view_bids": {
+          "type": "boolean",
+          "default": true
+        },
+        "can_accept_bids": {
+          "type": "boolean",
+          "default": false
+        },
+        "can_manage_users": {
+          "type": "boolean",
+          "default": false
+        },
+        "can_view_analytics": {
+          "type": "boolean",
+          "default": true
+        },
+        "can_manage_payments": {
+          "type": "boolean",
+          "default": false
+        },
+        "can_sign_nda": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "invited_by": {
+      "type": "string",
+      "description": "Email of user who invited this person"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "suspended"
+      ],
+      "default": "pending"
+    }
+  },
+  "required": [
+    "company_email",
+    "user_email",
+    "role"
+  ]
+}

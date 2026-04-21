@@ -1,0 +1,27 @@
+{
+  "name": "Blacklist",
+  "type": "object",
+  "properties": {
+    "buyer_email": {
+      "type": "string",
+      "description": "Email of the buyer who blacklisted the supplier"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Email of the blacklisted supplier"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for blacklisting"
+    },
+    "blacklisted_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the supplier was blacklisted"
+    }
+  },
+  "required": [
+    "buyer_email",
+    "supplier_email"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "RFQEdit",
+  "type": "object",
+  "properties": {
+    "rfq_id": {
+      "type": "string",
+      "description": "RFQ that was edited"
+    },
+    "edited_by": {
+      "type": "string",
+      "description": "Email of user who made the edit"
+    },
+    "edit_summary": {
+      "type": "string",
+      "description": "Summary of changes made"
+    },
+    "fields_changed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of fields that were changed"
+    },
+    "notified_suppliers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of supplier emails who were notified"
+    }
+  },
+  "required": [
+    "rfq_id",
+    "edited_by"
+  ]
+}

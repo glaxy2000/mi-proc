@@ -1,0 +1,48 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "business_type": {
+      "type": "string",
+      "enum": [
+        "goods",
+        "services",
+        "both"
+      ],
+      "default": "both",
+      "description": "Type of business - determines enabled features"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry sector"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Contact phone"
+    },
+    "address": {
+      "type": "string",
+      "description": "Company address"
+    },
+    "commercial_registration": {
+      "type": "string",
+      "description": "CR number"
+    },
+    "vat_number": {
+      "type": "string",
+      "description": "VAT registration number"
+    }
+  },
+  "required": [
+    "company_name",
+    "industry",
+    "phone",
+    "address",
+    "commercial_registration",
+    "vat_number"
+  ]
+}

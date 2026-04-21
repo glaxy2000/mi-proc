@@ -1,0 +1,63 @@
+{
+  "name": "LeapLead",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string",
+      "description": "Full name of the interested customer"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "company": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "job_title": {
+      "type": "string",
+      "description": "Job title / designation"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country"
+    },
+    "interest_type": {
+      "type": "string",
+      "enum": [
+        "Exhibitor",
+        "Investor",
+        "Buyer",
+        "Supplier",
+        "Tech Enthusiast",
+        "Other"
+      ],
+      "description": "Type of interest at LEAP 2026"
+    },
+    "message": {
+      "type": "string",
+      "description": "Additional message or notes"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "qualified",
+        "converted"
+      ],
+      "default": "new",
+      "description": "Lead status"
+    }
+  },
+  "required": [
+    "full_name",
+    "email",
+    "company",
+    "interest_type"
+  ]
+}

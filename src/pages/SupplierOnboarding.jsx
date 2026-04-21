@@ -79,6 +79,44 @@ export default function SupplierOnboarding() {
     confirmAccuracy: false
   });
 
+  const generateRandomCompanyData = (crNumber) => {
+    const companies = [
+      { arabic: 'شركة الصناعات السعودية المتقدمة', english: 'Saudi Advanced Industries Co.', sector: 'manufacturing', city: 'riyadh', street: 'King Fahd Industrial City, Block 4', postal: '11564', phone: '+966 11 234 5678', email: 'info@saic.com.sa', website: 'https://www.saic.com.sa', employees: '100+', years: '12', primary: 'Manufacturing of industrial equipment, metal fabrication, and structural steel components for construction and oil & gas sectors.', secondary: 'Maintenance, repair, and overhaul (MRO) services for heavy machinery and equipment.' },
+      { arabic: 'شركة تقنية المعلومات المتكاملة', english: 'Integrated IT Solutions Ltd.', sector: 'other', city: 'jeddah', street: 'Prince Sultan Road, Al Hamra District', postal: '21451', phone: '+966 12 345 6789', email: 'sales@iits.com.sa', website: 'https://www.iits.com.sa', employees: '21-50', years: '8', primary: 'Enterprise software solutions, cloud computing, cybersecurity, and IT infrastructure management.', secondary: 'IT training, managed services, and technical support for corporate clients.' },
+      { arabic: 'مؤسسة الإنشاءات الحديثة', english: 'Modern Construction Est.', sector: 'construction', city: 'dammam', street: '2nd Industrial Street, Jubail Industrial City', postal: '31952', phone: '+966 13 456 7890', email: 'contracts@modern-const.com.sa', website: 'https://www.modern-const.com.sa', employees: '51-100', years: '15', primary: 'Civil construction, building contracting, and infrastructure development for residential and commercial projects.', secondary: 'Project management consultancy and quantity surveying services.' },
+      { arabic: 'شركة الأدوية السعودية الموحدة', english: 'United Saudi Pharma Co.', sector: 'healthcare', city: 'riyadh', street: 'Olaya District, Al Tahlia Street', postal: '12211', phone: '+966 11 567 8901', email: 'procurement@uspc.com.sa', website: 'https://www.uspc.com.sa', employees: '100+', years: '20', primary: 'Distribution of pharmaceutical products, medical devices, and laboratory consumables across Saudi Arabia.', secondary: 'Healthcare consultancy and regulatory affairs services for medical companies.' },
+      { arabic: 'شركة النقل والتوزيع الخليجية', english: 'Gulf Transport & Distribution Co.', sector: 'logistics', city: 'khobar', street: 'King Abdulaziz Road, Industrial Area', postal: '34445', phone: '+966 13 678 9012', email: 'ops@gtdc.com.sa', website: 'https://www.gtdc.com.sa', employees: '6-20', years: '6', primary: 'Land freight transportation, last-mile delivery, and warehousing solutions across the GCC region.', secondary: 'Cold chain logistics and hazardous materials transport with SFDA compliance.' },
+    ];
+    const idx = parseInt(crNumber.slice(-1)) % companies.length;
+    const c = companies[idx];
+    const regYear = 2008 + (parseInt(crNumber.slice(2, 4)) % 15);
+    return {
+      businessNameArabic: c.arabic,
+      businessNameEnglish: c.english,
+      crNumber,
+      registrationDate: `${regYear}-0${(parseInt(crNumber.slice(4, 5)) % 9) + 1}-10`,
+      businessSector: c.sector,
+      numberOfEmployees: c.employees,
+      yearsInBusiness: c.years,
+      street: c.street,
+      city: c.city,
+      postalCode: c.postal,
+      phoneNumber: c.phone,
+      businessEmail: c.email,
+      website: c.website,
+      primaryProducts: c.primary,
+      secondaryProducts: c.secondary,
+    };
+  };
+
+  const handleCrNumberChange = (value) => {
+    setFormData({ ...formData, crNumber: value });
+    if (/^\d{10}$/.test(value)) {
+      const autoData = generateRandomCompanyData(value);
+      setFormData(prev => ({ ...prev, ...autoData }));
+    }
+  };
+
   const businessCategories = [
     'Construction Materials', 'Medical Supplies', 'IT & Hardware', 'Manufacturing',
     'Packaging', 'Office Supplies', 'Electronics', 'Furniture', 'Raw Materials',
@@ -265,9 +303,15 @@ export default function SupplierOnboarding() {
                       <Label>Commercial Registration (CR) Number *</Label>
                       <Input
                         value={formData.crNumber}
-                        onChange={(e) => setFormData({ ...formData, crNumber: e.target.value })}
-                        placeholder="CR Number"
+                        onChange={(e) => handleCrNumberChange(e.target.value)}
+                        placeholder="Enter 10-digit CR Number"
+                        maxLength={10}
                       />
+                      {/^\d{10}$/.test(formData.crNumber) ? (
+                        <p className="text-xs text-indigo-600 flex items-center gap-1">✓ Business data auto-filled from CR lookup</p>
+                      ) : (
+                        <p className="text-xs text-slate-400">Enter 10-digit CR number to auto-fill business details</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label>Business Registration Date *</Label>

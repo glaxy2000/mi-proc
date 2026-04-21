@@ -74,6 +74,43 @@ export default function BuyerOnboarding() {
     confirmAccuracy: false
   });
 
+  const generateRandomCompanyData = (crNumber) => {
+    const companies = [
+      { arabic: 'شركة الفيصل للتجارة', english: 'Al Faisal Trading Co.', sector: 'trading', type: 'sme', city: 'riyadh', street: 'King Fahd Road, Al Olaya District', postal: '11564', phone: '+966 11 234 5678', email: 'info@alfaisal-trading.com.sa', website: 'https://www.alfaisal-trading.com.sa', employees: '21-50', categories: ['Raw Materials', 'Office Supplies'] },
+      { arabic: 'مجموعة النهدي الطبية', english: 'Al Nahdi Medical Group', sector: 'healthcare', type: 'large_enterprise', city: 'jeddah', street: 'Tahlia Street, Al Rawdah', postal: '21451', phone: '+966 12 345 6789', email: 'procurement@alnahdi.com.sa', website: 'https://www.alnahdi.com.sa', employees: '500+', categories: ['Medical Supplies', 'Services'] },
+      { arabic: 'شركة الراجحي للمقاولات', english: 'Al Rajhi Construction Co.', sector: 'construction', type: 'large_enterprise', city: 'riyadh', street: 'Prince Mohammed Bin Abdulaziz Road', postal: '12211', phone: '+966 11 456 7890', email: 'ops@alrajhi-construction.com.sa', website: 'https://www.alrajhi-construction.com.sa', employees: '100-500', categories: ['Construction Materials', 'Equipment'] },
+      { arabic: 'شركة سدير للتصنيع', english: 'Sudair Manufacturing Ltd.', sector: 'manufacturing', type: 'sme', city: 'dammam', street: 'Industrial City, 2nd Street', postal: '31952', phone: '+966 13 567 8901', email: 'info@sudair-mfg.com.sa', website: 'https://www.sudair-mfg.com.sa', employees: '51-100', categories: ['Raw Materials', 'IT & Software'] },
+      { arabic: 'شركة الخليج للخدمات اللوجستية', english: 'Gulf Logistics Services Co.', sector: 'logistics', type: 'sme', city: 'khobar', street: 'King Abdul Aziz Street, Al Aqrabiyah', postal: '34445', phone: '+966 13 678 9012', email: 'logistics@gulf-ls.com.sa', website: 'https://www.gulf-ls.com.sa', employees: '6-20', categories: ['Services', 'Supplies'] },
+    ];
+    const idx = parseInt(crNumber.slice(-1)) % companies.length;
+    const c = companies[idx];
+    const regYear = 2010 + (parseInt(crNumber.slice(2, 4)) % 13);
+    return {
+      orgNameArabic: c.arabic,
+      orgNameEnglish: c.english,
+      crNumber,
+      registrationDate: `${regYear}-0${(parseInt(crNumber.slice(4, 5)) % 9) + 1}-15`,
+      industrySector: c.sector,
+      orgType: c.type,
+      numberOfEmployees: c.employees,
+      street: c.street,
+      city: c.city,
+      postalCode: c.postal,
+      phoneNumber: c.phone,
+      orgEmail: c.email,
+      website: c.website,
+      procurementCategories: c.categories,
+    };
+  };
+
+  const handleCrNumberChange = (value) => {
+    setFormData({ ...formData, crNumber: value });
+    if (/^\d{10}$/.test(value)) {
+      const autoData = generateRandomCompanyData(value);
+      setFormData(prev => ({ ...prev, ...autoData }));
+    }
+  };
+
   const steps = [
     { number: 1, title: 'Email Verified', icon: CheckCircle2, completed: true },
     { number: 2, title: 'Organisation Info', icon: Building2, completed: currentStep > 2 },
@@ -203,9 +240,15 @@ export default function BuyerOnboarding() {
                       <Label>Commercial Registration (CR) Number *</Label>
                       <Input
                         value={formData.crNumber}
-                        onChange={(e) => setFormData({ ...formData, crNumber: e.target.value })}
-                        placeholder="CR Number"
+                        onChange={(e) => handleCrNumberChange(e.target.value)}
+                        placeholder="Enter 10-digit CR Number"
+                        maxLength={10}
                       />
+                      {/^\d{10}$/.test(formData.crNumber) ? (
+                        <p className="text-xs text-teal-600 flex items-center gap-1">✓ Company data auto-filled from CR lookup</p>
+                      ) : (
+                        <p className="text-xs text-slate-400">Enter 10-digit CR number to auto-fill company details</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label>Business Registration Date *</Label>

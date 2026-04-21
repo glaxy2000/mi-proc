@@ -1,0 +1,66 @@
+{
+  "name": "HistoricPricing",
+  "type": "object",
+  "properties": {
+    "buyer_email": {
+      "type": "string",
+      "description": "Buyer's email"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Supplier's email"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "Supplier's name"
+    },
+    "rfq_id": {
+      "type": "string",
+      "description": "Associated RFQ ID"
+    },
+    "item_name": {
+      "type": "string",
+      "description": "Product/item name"
+    },
+    "item_description": {
+      "type": "string",
+      "description": "Item description"
+    },
+    "unit_price": {
+      "type": "number",
+      "description": "Unit price"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Quantity ordered"
+    },
+    "total_price": {
+      "type": "number",
+      "description": "Total price"
+    },
+    "currency": {
+      "type": "string",
+      "default": "SAR"
+    },
+    "order_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the order was placed"
+    },
+    "payment_terms": {
+      "type": "string",
+      "description": "Payment terms used"
+    },
+    "delivery_time": {
+      "type": "string",
+      "description": "Delivery time"
+    }
+  },
+  "required": [
+    "buyer_email",
+    "supplier_email",
+    "item_name",
+    "unit_price",
+    "quantity"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "name": "NDA",
+  "type": "object",
+  "properties": {
+    "rfq_id": {
+      "type": "string",
+      "description": "Associated RFQ ID"
+    },
+    "buyer_email": {
+      "type": "string",
+      "description": "Buyer's email"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Supplier's email"
+    },
+    "document_url": {
+      "type": "string",
+      "description": "URL of the uploaded NDA document"
+    },
+    "buyer_signed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether buyer has signed"
+    },
+    "supplier_signed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether supplier has signed"
+    },
+    "buyer_signed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When buyer signed"
+    },
+    "supplier_signed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When supplier signed"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "partially_signed",
+        "fully_signed",
+        "expired"
+      ],
+      "default": "pending"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "NDA expiration date"
+    }
+  },
+  "required": [
+    "rfq_id",
+    "buyer_email",
+    "supplier_email"
+  ]
+}

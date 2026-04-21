@@ -1,0 +1,124 @@
+{
+  "name": "UnifiedOrder",
+  "type": "object",
+  "properties": {
+    "order_type": {
+      "type": "string",
+      "enum": [
+        "goods",
+        "services"
+      ],
+      "description": "Type of order - goods or services"
+    },
+    "rfq_id": {
+      "type": "string",
+      "description": "Associated RFQ ID"
+    },
+    "order_number": {
+      "type": "string",
+      "description": "Unique order number"
+    },
+    "buyer_email": {
+      "type": "string",
+      "description": "Buyer's email"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Supplier/Service provider's email"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "Supplier/Service provider's name"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "unit_price": {
+            "type": "number"
+          },
+          "total_price": {
+            "type": "number"
+          }
+        }
+      },
+      "description": "Order items (for goods) or service breakdown"
+    },
+    "total_amount": {
+      "type": "number",
+      "description": "Total order amount"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "confirmed",
+        "in_progress",
+        "shipped",
+        "delivered",
+        "completed",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "delivery_address": {
+      "type": "string",
+      "description": "Delivery/Service location"
+    },
+    "expected_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Expected delivery/completion date"
+    },
+    "actual_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Actual delivery/completion date"
+    },
+    "tracking_number": {
+      "type": "string",
+      "description": "Tracking number (for goods)"
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Milestones (for services)"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "partial",
+        "paid",
+        "refunded"
+      ],
+      "default": "pending"
+    },
+    "payment_terms": {
+      "type": "string",
+      "description": "Payment terms"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    }
+  },
+  "required": [
+    "order_type",
+    "buyer_email",
+    "supplier_email",
+    "total_amount"
+  ]
+}

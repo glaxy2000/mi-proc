@@ -1,0 +1,90 @@
+{
+  "name": "ApprovalWorkflow",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the approval workflow"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of when and how this workflow applies"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this workflow is active and in use"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "spend_amount",
+              "spend_category",
+              "region",
+              "department",
+              "supplier"
+            ],
+            "description": "Type of condition"
+          },
+          "operator": {
+            "type": "string",
+            "description": "Comparison operator (gte, lte, eq, between, equals, includes)"
+          },
+          "value": {
+            "type": "string",
+            "description": "Condition value"
+          }
+        },
+        "required": [
+          "type",
+          "operator",
+          "value"
+        ]
+      },
+      "description": "Conditions that trigger this workflow"
+    },
+    "approvalLevels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "integer",
+            "description": "Sequential level number (1, 2, 3...)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of this approval level"
+          },
+          "approvers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Email addresses of approvers at this level"
+          },
+          "requireAllApprovals": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether all approvers must approve or just one"
+          }
+        },
+        "required": [
+          "level",
+          "name",
+          "approvers"
+        ]
+      },
+      "description": "Sequential approval levels with approvers"
+    }
+  },
+  "required": [
+    "name",
+    "approvalLevels"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "FavoriteSupplier",
+  "type": "object",
+  "properties": {
+    "buyer_email": {
+      "type": "string",
+      "description": "Email of the buyer"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Email of the supplier"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "Name of the supplier"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Private notes about this supplier"
+    },
+    "added_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When supplier was added to favorites"
+    }
+  },
+  "required": [
+    "buyer_email",
+    "supplier_email"
+  ]
+}

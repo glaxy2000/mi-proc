@@ -1,0 +1,74 @@
+{
+  "name": "Document",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Document title/name"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "contract",
+        "invoice",
+        "certificate",
+        "other"
+      ],
+      "description": "Type of document"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "URL of the uploaded document file"
+    },
+    "file_size": {
+      "type": "number",
+      "description": "File size in bytes"
+    },
+    "file_type": {
+      "type": "string",
+      "description": "MIME type of the file (e.g., application/pdf)"
+    },
+    "purchase_order_id": {
+      "type": "string",
+      "description": "ID of linked purchase order (if applicable)"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Email of linked supplier"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "Name of linked supplier"
+    },
+    "description": {
+      "type": "string",
+      "description": "Additional notes about the document"
+    },
+    "uploaded_by": {
+      "type": "string",
+      "description": "Email of user who uploaded the document"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Expiry date (for certificates)"
+    },
+    "is_verified": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether document has been verified"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags for categorization and search"
+    }
+  },
+  "required": [
+    "title",
+    "document_type",
+    "file_url"
+  ]
+}

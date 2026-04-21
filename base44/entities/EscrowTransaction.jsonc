@@ -1,0 +1,102 @@
+{
+  "name": "EscrowTransaction",
+  "type": "object",
+  "properties": {
+    "transaction_id": {
+      "type": "string",
+      "description": "Unique escrow transaction ID"
+    },
+    "order_id": {
+      "type": "string",
+      "description": "Associated order ID"
+    },
+    "buyer_email": {
+      "type": "string",
+      "description": "Email of the buyer"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Email of the supplier"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "Name of the supplier"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Total amount held in escrow (SAR)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "awaiting_funding",
+        "funded",
+        "awaiting_delivery",
+        "delivery_confirmed",
+        "completed",
+        "dispute",
+        "cancelled"
+      ],
+      "default": "awaiting_funding",
+      "description": "Current status of the escrow transaction"
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "pending",
+              "locked",
+              "dispute"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Escrow milestones and progress"
+    },
+    "progress_percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Progress percentage of the transaction"
+    },
+    "fraud_risk_score": {
+      "type": "string",
+      "description": "AI-calculated fraud risk assessment"
+    },
+    "dispute_reason": {
+      "type": "string",
+      "description": "Reason for dispute if any"
+    },
+    "dispute_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date when dispute was raised"
+    },
+    "resolution_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date when transaction was resolved/completed"
+    }
+  },
+  "required": [
+    "transaction_id",
+    "buyer_email",
+    "supplier_email",
+    "amount",
+    "status"
+  ]
+}

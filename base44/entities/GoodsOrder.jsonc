@@ -1,0 +1,105 @@
+{
+  "name": "GoodsOrder",
+  "type": "object",
+  "properties": {
+    "rfq_id": {
+      "type": "string",
+      "description": "Associated GoodsRFQ ID"
+    },
+    "order_number": {
+      "type": "string",
+      "description": "Unique order number"
+    },
+    "buyer_email": {
+      "type": "string",
+      "description": "Buyer's email"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Supplier's email"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "Supplier's name"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "unit_price": {
+            "type": "number"
+          },
+          "total_price": {
+            "type": "number"
+          }
+        }
+      },
+      "description": "Ordered goods items"
+    },
+    "total_amount": {
+      "type": "number",
+      "description": "Total order amount"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "confirmed",
+        "in_production",
+        "ready_to_ship",
+        "shipped",
+        "delivered",
+        "completed",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "delivery_address": {
+      "type": "string",
+      "description": "Delivery address"
+    },
+    "expected_delivery_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "actual_delivery_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "tracking_number": {
+      "type": "string",
+      "description": "Shipping tracking number"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "partial",
+        "paid",
+        "refunded"
+      ],
+      "default": "pending"
+    },
+    "quality_inspection_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "passed",
+        "failed"
+      ],
+      "description": "Quality inspection result"
+    }
+  },
+  "required": [
+    "buyer_email",
+    "supplier_email",
+    "total_amount"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "Budget",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Budget name"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "department",
+        "project"
+      ],
+      "description": "Budget type - department or project"
+    },
+    "department_or_project": {
+      "type": "string",
+      "description": "Department name or project name"
+    },
+    "fiscal_year": {
+      "type": "string",
+      "description": "Fiscal year (e.g., 2026)"
+    },
+    "allocated_amount": {
+      "type": "number",
+      "description": "Total allocated budget in SAR"
+    },
+    "spent_amount": {
+      "type": "number",
+      "default": 0,
+      "description": "Amount spent so far in SAR"
+    },
+    "pending_amount": {
+      "type": "number",
+      "default": 0,
+      "description": "Amount pending approval in SAR"
+    },
+    "threshold_percentage": {
+      "type": "number",
+      "default": 80,
+      "description": "Percentage of budget at which alert is triggered"
+    },
+    "responsible_person_email": {
+      "type": "string",
+      "description": "Email of person responsible for this budget"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this budget is active"
+    }
+  },
+  "required": [
+    "name",
+    "type",
+    "department_or_project",
+    "fiscal_year",
+    "allocated_amount"
+  ]
+}

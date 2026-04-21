@@ -1,0 +1,119 @@
+{
+  "name": "ServicesRFQ",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "RFQ title for service procurement"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of services needed"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Consulting",
+        "IT Services",
+        "Marketing",
+        "Legal Services",
+        "Accounting",
+        "HR Services",
+        "Maintenance",
+        "Cleaning Services",
+        "Security Services",
+        "Training",
+        "Logistics",
+        "Construction Services"
+      ],
+      "description": "Category of services"
+    },
+    "scope_of_work": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "deliverables": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "required_expertise": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Scope of work breakdown"
+    },
+    "budget": {
+      "type": "number",
+      "description": "Budget in SAR"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Submission deadline"
+    },
+    "service_location": {
+      "type": "string",
+      "description": "Where service will be performed"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Expected start date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Expected completion date"
+    },
+    "contract_duration": {
+      "type": "string",
+      "description": "Contract duration (e.g., 6 months, 1 year)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "negotiating",
+        "completed",
+        "cancelled"
+      ],
+      "default": "draft"
+    },
+    "buyer_email": {
+      "type": "string",
+      "description": "Buyer's email"
+    },
+    "payment_terms": {
+      "type": "string",
+      "description": "Payment terms"
+    },
+    "required_certifications": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Required certifications or licenses"
+    },
+    "service_level_agreement": {
+      "type": "string",
+      "description": "SLA requirements"
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "buyer_email",
+    "deadline"
+  ]
+}

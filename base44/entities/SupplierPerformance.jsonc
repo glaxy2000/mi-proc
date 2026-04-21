@@ -1,0 +1,86 @@
+{
+  "name": "SupplierPerformance",
+  "type": "object",
+  "properties": {
+    "supplier_email": {
+      "type": "string",
+      "description": "Email of the supplier"
+    },
+    "overall_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Overall performance score (0-100)"
+    },
+    "average_rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Average of all ratings"
+    },
+    "total_ratings": {
+      "type": "integer",
+      "default": 0,
+      "description": "Total number of ratings received"
+    },
+    "delivery_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Average delivery rating"
+    },
+    "quality_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Average quality rating"
+    },
+    "communication_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Average communication rating"
+    },
+    "on_time_delivery_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percentage of on-time deliveries"
+    },
+    "total_orders": {
+      "type": "integer",
+      "default": 0,
+      "description": "Total number of orders"
+    },
+    "completed_orders": {
+      "type": "integer",
+      "default": 0,
+      "description": "Number of completed orders"
+    },
+    "bid_win_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percentage of bids won"
+    },
+    "total_bids": {
+      "type": "integer",
+      "default": 0,
+      "description": "Total number of bids submitted"
+    },
+    "won_bids": {
+      "type": "integer",
+      "default": 0,
+      "description": "Number of bids won"
+    },
+    "recommendation_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percentage of buyers who would recommend"
+    }
+  },
+  "required": [
+    "supplier_email"
+  ]
+}

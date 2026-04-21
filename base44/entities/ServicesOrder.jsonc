@@ -1,0 +1,113 @@
+{
+  "name": "ServicesOrder",
+  "type": "object",
+  "properties": {
+    "rfq_id": {
+      "type": "string",
+      "description": "Associated ServicesRFQ ID"
+    },
+    "order_number": {
+      "type": "string",
+      "description": "Unique order number"
+    },
+    "buyer_email": {
+      "type": "string",
+      "description": "Buyer's email"
+    },
+    "supplier_email": {
+      "type": "string",
+      "description": "Service provider's email"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "Service provider's name"
+    },
+    "service_description": {
+      "type": "string",
+      "description": "Description of services"
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "milestone_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "due_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "payment_percentage": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_progress",
+              "completed"
+            ]
+          }
+        }
+      },
+      "description": "Service milestones"
+    },
+    "total_amount": {
+      "type": "number",
+      "description": "Total contract amount"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "confirmed",
+        "in_progress",
+        "under_review",
+        "completed",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "actual_completion_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "partial",
+        "paid",
+        "refunded"
+      ],
+      "default": "pending"
+    },
+    "performance_rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Service performance rating"
+    },
+    "sla_compliance": {
+      "type": "boolean",
+      "description": "Whether SLA was met"
+    }
+  },
+  "required": [
+    "buyer_email",
+    "supplier_email",
+    "total_amount"
+  ]
+}
