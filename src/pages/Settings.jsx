@@ -191,21 +191,6 @@ export default function Settings() {
                   {userRole === 'buyer' && (
                     <>
                       <div>
-                        <Label>Organisation Type</Label>
-                        <Select defaultValue="">
-                          <SelectTrigger className="mt-1.5">
-                            <SelectValue placeholder="Select type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="sole_proprietor">Sole Proprietor</SelectItem>
-                            <SelectItem value="sme">SME</SelectItem>
-                            <SelectItem value="large_enterprise">Large Enterprise</SelectItem>
-                            <SelectItem value="government">Government</SelectItem>
-                            <SelectItem value="nonprofit">Non-Profit</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
                         <Label>Default Budget Currency</Label>
                         <Select defaultValue="sar">
                           <SelectTrigger className="mt-1.5">
