@@ -261,46 +261,26 @@ export default function BuyerOnboarding() {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label>Industry/Sector *</Label>
-                      <Select
-                        value={formData.industrySector}
-                        onValueChange={(value) => setFormData({ ...formData, industrySector: value })}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select sector" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="construction">Construction</SelectItem>
-                          <SelectItem value="manufacturing">Manufacturing</SelectItem>
-                          <SelectItem value="healthcare">Healthcare</SelectItem>
-                          <SelectItem value="trading">Trading</SelectItem>
-                          <SelectItem value="logistics">Logistics</SelectItem>
-                          <SelectItem value="retail">Retail</SelectItem>
-                          <SelectItem value="hospitality">Hospitality</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Organisation Type *</Label>
-                      <Select
-                        value={formData.orgType}
-                        onValueChange={(value) => setFormData({ ...formData, orgType: value })}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="sole_proprietor">Sole Proprietor</SelectItem>
-                          <SelectItem value="sme">SME</SelectItem>
-                          <SelectItem value="large_enterprise">Large Enterprise</SelectItem>
-                          <SelectItem value="government">Government</SelectItem>
-                          <SelectItem value="nonprofit">Non-Profit</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
+                  <div className="space-y-2">
+                    <Label>Industry/Sector *</Label>
+                    <Select
+                      value={formData.industrySector}
+                      onValueChange={(value) => setFormData({ ...formData, industrySector: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select sector" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="construction">Construction</SelectItem>
+                        <SelectItem value="manufacturing">Manufacturing</SelectItem>
+                        <SelectItem value="healthcare">Healthcare</SelectItem>
+                        <SelectItem value="trading">Trading</SelectItem>
+                        <SelectItem value="logistics">Logistics</SelectItem>
+                        <SelectItem value="retail">Retail</SelectItem>
+                        <SelectItem value="hospitality">Hospitality</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-2">
