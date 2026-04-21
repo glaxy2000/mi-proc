@@ -76,11 +76,11 @@ export default function BuyerOnboarding() {
 
   const generateRandomCompanyData = (crNumber) => {
     const companies = [
-      { arabic: 'شركة الفيصل للتجارة', english: 'Al Faisal Trading Co.', sector: 'trading', type: 'sme', city: 'riyadh', street: 'King Fahd Road, Al Olaya District', postal: '11564', phone: '+966 11 234 5678', email: 'info@alfaisal-trading.com.sa', website: 'https://www.alfaisal-trading.com.sa', employees: '21-50', categories: ['Raw Materials', 'Office Supplies'] },
-      { arabic: 'مجموعة النهدي الطبية', english: 'Al Nahdi Medical Group', sector: 'healthcare', type: 'large_enterprise', city: 'jeddah', street: 'Tahlia Street, Al Rawdah', postal: '21451', phone: '+966 12 345 6789', email: 'procurement@alnahdi.com.sa', website: 'https://www.alnahdi.com.sa', employees: '500+', categories: ['Medical Supplies', 'Services'] },
-      { arabic: 'شركة الراجحي للمقاولات', english: 'Al Rajhi Construction Co.', sector: 'construction', type: 'large_enterprise', city: 'riyadh', street: 'Prince Mohammed Bin Abdulaziz Road', postal: '12211', phone: '+966 11 456 7890', email: 'ops@alrajhi-construction.com.sa', website: 'https://www.alrajhi-construction.com.sa', employees: '100-500', categories: ['Construction Materials', 'Equipment'] },
-      { arabic: 'شركة سدير للتصنيع', english: 'Sudair Manufacturing Ltd.', sector: 'manufacturing', type: 'sme', city: 'dammam', street: 'Industrial City, 2nd Street', postal: '31952', phone: '+966 13 567 8901', email: 'info@sudair-mfg.com.sa', website: 'https://www.sudair-mfg.com.sa', employees: '51-100', categories: ['Raw Materials', 'IT & Software'] },
-      { arabic: 'شركة الخليج للخدمات اللوجستية', english: 'Gulf Logistics Services Co.', sector: 'logistics', type: 'sme', city: 'khobar', street: 'King Abdul Aziz Street, Al Aqrabiyah', postal: '34445', phone: '+966 13 678 9012', email: 'logistics@gulf-ls.com.sa', website: 'https://www.gulf-ls.com.sa', employees: '6-20', categories: ['Services', 'Supplies'] },
+      { arabic: 'شركة الفيصل للتجارة', english: 'Al Faisal Trading Co.', sector: 'trading', type: 'sme', city: 'riyadh', street: 'King Fahd Road, Al Olaya District', postal: '11564', nationalAddress: 'OLYA2342', phone: '+966 11 234 5678', email: 'info@alfaisal-trading.com.sa', website: 'https://www.alfaisal-trading.com.sa', employees: '21-50', categories: ['Raw Materials', 'Office Supplies'] },
+      { arabic: 'مجموعة النهدي الطبية', english: 'Al Nahdi Medical Group', sector: 'healthcare', type: 'large_enterprise', city: 'jeddah', street: 'Tahlia Street, Al Rawdah', postal: '21451', nationalAddress: 'RAWH5817', phone: '+966 12 345 6789', email: 'procurement@alnahdi.com.sa', website: 'https://www.alnahdi.com.sa', employees: '500+', categories: ['Medical Supplies', 'Services'] },
+      { arabic: 'شركة الراجحي للمقاولات', english: 'Al Rajhi Construction Co.', sector: 'construction', type: 'large_enterprise', city: 'riyadh', street: 'Prince Mohammed Bin Abdulaziz Road', postal: '12211', nationalAddress: 'PMAB1193', phone: '+966 11 456 7890', email: 'ops@alrajhi-construction.com.sa', website: 'https://www.alrajhi-construction.com.sa', employees: '100-500', categories: ['Construction Materials', 'Equipment'] },
+      { arabic: 'شركة سدير للتصنيع', english: 'Sudair Manufacturing Ltd.', sector: 'manufacturing', type: 'sme', city: 'dammam', street: 'Industrial City, 2nd Street', postal: '31952', nationalAddress: 'DMAG3000', phone: '+966 13 567 8901', email: 'info@sudair-mfg.com.sa', website: 'https://www.sudair-mfg.com.sa', employees: '51-100', categories: ['Raw Materials', 'IT & Software'] },
+      { arabic: 'شركة الخليج للخدمات اللوجستية', english: 'Gulf Logistics Services Co.', sector: 'logistics', type: 'sme', city: 'khobar', street: 'King Abdul Aziz Street, Al Aqrabiyah', postal: '34445', nationalAddress: 'KBRA4421', phone: '+966 13 678 9012', email: 'logistics@gulf-ls.com.sa', website: 'https://www.gulf-ls.com.sa', employees: '6-20', categories: ['Services', 'Supplies'] },
     ];
     const idx = parseInt(crNumber.slice(-1)) % companies.length;
     const c = companies[idx];
@@ -96,6 +96,7 @@ export default function BuyerOnboarding() {
       street: c.street,
       city: c.city,
       postalCode: c.postal,
+      nationalAddress: c.nationalAddress,
       phoneNumber: c.phone,
       orgEmail: c.email,
       website: c.website,
