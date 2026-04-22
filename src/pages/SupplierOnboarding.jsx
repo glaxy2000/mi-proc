@@ -282,25 +282,6 @@ export default function SupplierOnboarding() {
                 <CardContent className="p-6 space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label>Business Name (Arabic) *</Label>
-                      <Input
-                        value={formData.businessNameArabic}
-                        onChange={(e) => setFormData({ ...formData, businessNameArabic: e.target.value })}
-                        placeholder="اسم الشركة"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Business Name (English) *</Label>
-                      <Input
-                        value={formData.businessNameEnglish}
-                        onChange={(e) => setFormData({ ...formData, businessNameEnglish: e.target.value })}
-                        placeholder="Business Name"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
                       <Label>Commercial Registration (CR) Number *</Label>
                       <Input
                         value={formData.crNumber}
@@ -320,6 +301,25 @@ export default function SupplierOnboarding() {
                         type="date"
                         value={formData.registrationDate}
                         onChange={(e) => setFormData({ ...formData, registrationDate: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label>Business Name (Arabic) *</Label>
+                      <Input
+                        value={formData.businessNameArabic}
+                        onChange={(e) => setFormData({ ...formData, businessNameArabic: e.target.value })}
+                        placeholder="اسم الشركة"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Business Name (English) *</Label>
+                      <Input
+                        value={formData.businessNameEnglish}
+                        onChange={(e) => setFormData({ ...formData, businessNameEnglish: e.target.value })}
+                        placeholder="Business Name"
                       />
                     </div>
                   </div>

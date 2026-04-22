@@ -219,25 +219,6 @@ export default function BuyerOnboarding() {
                 <CardContent className="p-6 space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label>Organisation Name (Arabic) *</Label>
-                      <Input
-                        value={formData.orgNameArabic}
-                        onChange={(e) => setFormData({ ...formData, orgNameArabic: e.target.value })}
-                        placeholder="اسم المنظمة"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Organisation Name (English) *</Label>
-                      <Input
-                        value={formData.orgNameEnglish}
-                        onChange={(e) => setFormData({ ...formData, orgNameEnglish: e.target.value })}
-                        placeholder="Organisation Name"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
                       <Label>Commercial Registration (CR) Number *</Label>
                       <Input
                         value={formData.crNumber}
@@ -257,6 +238,25 @@ export default function BuyerOnboarding() {
                         type="date"
                         value={formData.registrationDate}
                         onChange={(e) => setFormData({ ...formData, registrationDate: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label>Organisation Name (Arabic) *</Label>
+                      <Input
+                        value={formData.orgNameArabic}
+                        onChange={(e) => setFormData({ ...formData, orgNameArabic: e.target.value })}
+                        placeholder="اسم المنظمة"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Organisation Name (English) *</Label>
+                      <Input
+                        value={formData.orgNameEnglish}
+                        onChange={(e) => setFormData({ ...formData, orgNameEnglish: e.target.value })}
+                        placeholder="Organisation Name"
                       />
                     </div>
                   </div>
