@@ -1,0 +1,71 @@
+{
+  "name": "Notification",
+  "type": "object",
+  "properties": {
+    "recipient_email": {
+      "type": "string",
+      "description": "Email of the user who should receive this notification"
+    },
+    "recipient_role": {
+      "type": "string",
+      "enum": [
+        "buyer",
+        "supplier",
+        "all"
+      ],
+      "description": "Role of the intended recipient"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "new_rfq",
+        "bid_received",
+        "bid_accepted",
+        "bid_rejected",
+        "negotiation",
+        "order_update",
+        "system"
+      ],
+      "description": "Notification type"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short notification title"
+    },
+    "message": {
+      "type": "string",
+      "description": "Full notification message"
+    },
+    "rfq_id": {
+      "type": "string",
+      "description": "Related RFQ entity ID"
+    },
+    "rfq_type": {
+      "type": "string",
+      "enum": [
+        "goods",
+        "services"
+      ],
+      "description": "Whether it relates to a GoodsRFQ or ServicesRFQ"
+    },
+    "rfq_title": {
+      "type": "string",
+      "description": "Title of the related RFQ for quick display"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the notification has been read"
+    },
+    "link": {
+      "type": "string",
+      "description": "Navigation link for the notification"
+    }
+  },
+  "required": [
+    "recipient_role",
+    "type",
+    "title",
+    "message"
+  ]
+}

@@ -29,12 +29,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import ChatWidget from '@/components/chat/ChatWidget';
+import { base44 } from '@/api/base44Client';
 
 export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   const [suppliersExpanded, setSuppliersExpanded] = React.useState(false);
   const [ordersExpanded, setOrdersExpanded] = React.useState(false);
   const [financeExpanded, setFinanceExpanded] = React.useState(false);
+  const [liveNotifications, setLiveNotifications] = React.useState([]);
 
   React.useEffect(() => {
     const removeBadge = () => {
@@ -58,6 +60,15 @@ export default function Layout({ children, currentPageName }) {
   const [user, setUser] = React.useState(null);
   const [selectedRole, setSelectedRole] = React.useState(localStorage.getItem('selectedRole') || 'buyer');
   const location = useLocation();
+
+  React.useEffect(() => {
+    const fetchNotifications = async () => {
+      const role = localStorage.getItem('selectedRole') || 'buyer';
+      const notifs = await base44.entities.Notification.filter({ is_read: false }, '-created_date', 10);
+      setLiveNotifications(notifs.filter(n => n.recipient_role === role || n.recipient_role === 'all'));
+    };
+    fetchNotifications();
+  }, [location.pathname]);
   
   React.useEffect(() => {
     // In production, fetch user from base44.auth.me()
@@ -79,50 +90,8 @@ export default function Layout({ children, currentPageName }) {
 
   const userRole = selectedRole || user?.role || 'buyer';
 
-  const notifications = [
-    {
-      id: 1,
-      type: 'bid',
-      title: 'New Bid Received',
-      message: 'You received 3 new bids for "Office Supplies RFQ"',
-      time: '5 min ago',
-      unread: true
-    },
-    {
-      id: 2,
-      type: 'escrow',
-      title: 'Escrow Funded',
-      message: 'SAR 45,000 has been deposited in escrow for RFQ-2024-156',
-      time: '1 hour ago',
-      unread: true
-    },
-    {
-      id: 3,
-      type: 'document',
-      title: 'KYB Verification Complete',
-      message: 'Your business documents have been verified and approved',
-      time: '2 hours ago',
-      unread: false
-    },
-    {
-      id: 4,
-      type: 'negotiation',
-      title: 'Negotiation Update',
-      message: 'Supplier updated their quote in ongoing negotiation',
-      time: '3 hours ago',
-      unread: false
-    },
-    {
-      id: 5,
-      type: 'delivery',
-      title: 'Delivery Confirmed',
-      message: 'RFQ-2024-142 delivery has been confirmed by buyer',
-      time: '1 day ago',
-      unread: false
-    }
-  ];
-
-  const unreadCount = notifications.filter(n => n.unread).length;
+  const notifications = liveNotifications;
+  const unreadCount = liveNotifications.length;
 
   const adminNavigation = [
     { name: 'Dashboard', href: 'Dashboard', icon: LayoutDashboard },
@@ -432,15 +401,19 @@ export default function Layout({ children, currentPageName }) {
                     )}
                   </div>
                   <div className="max-h-96 overflow-y-auto">
-                    {notifications.map((notification, index) => (
+                    {notifications.length === 0 ? (
+                      <div className="px-4 py-8 text-center text-slate-500 text-sm">No new notifications</div>
+                    ) : notifications.map((notification, index) => (
                       <div key={notification.id}>
-                        <div className={`px-4 py-3 hover:bg-slate-50 cursor-pointer transition-colors ${
-                          notification.unread ? 'bg-indigo-50/50' : ''
-                        }`}>
+                        <div
+                          className="px-4 py-3 hover:bg-slate-50 cursor-pointer transition-colors bg-indigo-50/50"
+                          onClick={() => {
+                            base44.entities.Notification.update(notification.id, { is_read: true });
+                            setLiveNotifications(prev => prev.filter(n => n.id !== notification.id));
+                          }}
+                        >
                           <div className="flex items-start gap-3">
-                            <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                              notification.unread ? 'bg-indigo-600' : 'bg-transparent'
-                            }`} />
+                            <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0 bg-indigo-600" />
                             <div className="flex-1 min-w-0">
                               <p className="font-medium text-slate-900 text-sm mb-1">
                                 {notification.title}
@@ -449,7 +422,7 @@ export default function Layout({ children, currentPageName }) {
                                 {notification.message}
                               </p>
                               <p className="text-xs text-slate-400 mt-1">
-                                {notification.time}
+                                {notification.created_date ? new Date(notification.created_date).toLocaleString() : ''}
                               </p>
                             </div>
                           </div>
