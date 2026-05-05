@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState as useStateAlias } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
+import { format } from 'date-fns';
 import {
   TrendingUp,
   Users,
@@ -23,41 +25,59 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 
 export default function Dashboard() {
-  // Determine user role and info - in production this should come from base44.auth.me()
   const [user, setUser] = React.useState({
     full_name: 'Ahmed Al-Sayed',
     company: 'SME Corporation Ltd.',
     role: 'buyer',
-    business_type: 'both' // goods, services, both
+    business_type: 'both'
   });
+  const [liveRFQs, setLiveRFQs] = React.useState([]);
 
   const selectedRole = localStorage.getItem('selectedRole') || 'buyer';
 
   React.useEffect(() => {
-    // In production: const userData = await base44.auth.me(); setUser(userData);
     if (selectedRole === 'supplier') {
       setUser({
         full_name: 'Khalid Mohammed',
         company: 'ABC Steel Industries',
         role: 'supplier',
-        business_type: 'goods' // Supplier deals with goods only
+        business_type: 'goods'
       });
     } else {
       setUser({
         full_name: 'Ahmed Al-Sayed',
         company: 'SME Corporation Ltd.',
         role: 'buyer',
-        business_type: 'both' // Buyer deals with both goods and services
+        business_type: 'both'
       });
     }
   }, [selectedRole]);
 
+  React.useEffect(() => {
+    const fetchRFQs = async () => {
+      const [goodsRFQs, servicesRFQs] = await Promise.all([
+        base44.entities.GoodsRFQ.list('-created_date', 5),
+        base44.entities.ServicesRFQ.list('-created_date', 5),
+      ]);
+      const combined = [
+        ...goodsRFQs.map(r => ({ ...r, rfqType: 'goods' })),
+        ...servicesRFQs.map(r => ({ ...r, rfqType: 'services' })),
+      ]
+        .sort((a, b) => new Date(b.created_date) - new Date(a.created_date))
+        .slice(0, 5);
+      setLiveRFQs(combined);
+    };
+    fetchRFQs();
+  }, []);
+
   const userRole = selectedRole;
+
+  const activeRFQCount = liveRFQs.filter(r => r.status === 'active').length;
 
   const buyerStats = [
     {
       title: 'Active RFQs',
-      value: '24',
+      value: String(activeRFQCount || liveRFQs.length),
       change: '+3',
       trend: 'up',
       icon: FileText,
@@ -260,7 +280,18 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {userRole === 'buyer' ? (
-                    buyerRecentRFQs.map((rfq, index) => (
+                    liveRFQs.length === 0 ? (
+                      <div className="text-center py-8">
+                        <FileText className="h-10 w-10 text-slate-300 mx-auto mb-3" />
+                        <p className="text-slate-500 text-sm">No RFQs yet</p>
+                        <Link to={createPageUrl('CreateRFQ')}>
+                          <Button size="sm" className="mt-3 bg-indigo-600 hover:bg-indigo-700">
+                            <Plus className="h-4 w-4 mr-1" />
+                            Create First RFQ
+                          </Button>
+                        </Link>
+                      </div>
+                    ) : liveRFQs.map((rfq, index) => (
                       <motion.div
                         key={rfq.id}
                         initial={{ opacity: 0, x: -20 }}
@@ -274,16 +305,17 @@ export default function Dashboard() {
                           </div>
                           <div>
                             <p className="font-medium text-slate-900">{rfq.title}</p>
-                            <p className="text-sm text-slate-500">{rfq.id} • {rfq.quotes} quotes</p>
+                            <p className="text-sm text-slate-500 capitalize">{rfq.rfqType} RFQ • {rfq.category}</p>
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="font-semibold text-slate-900">{rfq.value}</p>
+                          <p className="font-semibold text-slate-900">
+                            {rfq.budget ? `SAR ${rfq.budget.toLocaleString()}` : '-'}
+                          </p>
                           <div className="flex items-center gap-2 justify-end mt-1">
-                            <Badge className={statusColors[rfq.status]}>
+                            <Badge className={statusColors[rfq.status] || statusColors.pending}>
                               {rfq.status}
                             </Badge>
-                            <span className="text-xs text-slate-500">{rfq.deadline}</span>
                           </div>
                         </div>
                       </motion.div>

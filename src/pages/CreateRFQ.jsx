@@ -44,10 +44,19 @@ export default function CreateRFQ() {
   ]);
   const [uploadedDocuments, setUploadedDocuments] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [externalLinks, setExternalLinks] = useState([]);
   const [selectedSuppliers, setSelectedSuppliers] = useState([]);
   const [supplierFilter, setSupplierFilter] = useState('all');
   const [supplierSearch, setSupplierSearch] = useState('');
+  const [formData, setFormData] = useState({
+    title: '',
+    category: '',
+    budget: '',
+    description: '',
+    deadline: '',
+    delivery_location: '',
+  });
 
   const categories = [
     'Construction Materials',
@@ -268,7 +277,9 @@ export default function CreateRFQ() {
                   <div className="space-y-2">
                     <Label htmlFor="title">RFQ Title *</Label>
                     <Input 
-                      id="title" 
+                      id="title"
+                      value={formData.title}
+                      onChange={(e) => setFormData({...formData, title: e.target.value})}
                       placeholder={
                         rfqType === 'goods' ? 'e.g., Construction Materials - Q1 2026 Project' :
                         rfqType === 'services' ? 'e.g., IT Consulting Services - System Integration' :
@@ -280,13 +291,13 @@ export default function CreateRFQ() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label>Category *</Label>
-                      <Select>
+                      <Select value={formData.category} onValueChange={(v) => setFormData({...formData, category: v})}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                         <SelectContent>
                           {categories.map(cat => (
-                            <SelectItem key={cat} value={cat.toLowerCase().replace(/ /g, '_')}>
+                            <SelectItem key={cat} value={cat}>
                               {cat}
                             </SelectItem>
                           ))}
@@ -294,25 +305,22 @@ export default function CreateRFQ() {
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <Label>Budget Range</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select range" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="under_50k">Under SAR 50,000</SelectItem>
-                          <SelectItem value="50k_100k">SAR 50,000 - 100,000</SelectItem>
-                          <SelectItem value="100k_500k">SAR 100,000 - 500,000</SelectItem>
-                          <SelectItem value="over_500k">Over SAR 500,000</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Label>Budget (SAR)</Label>
+                      <Input
+                        type="number"
+                        value={formData.budget}
+                        onChange={(e) => setFormData({...formData, budget: e.target.value})}
+                        placeholder="e.g., 150000"
+                      />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="description">Description</Label>
                     <Textarea 
-                      id="description" 
+                      id="description"
+                      value={formData.description}
+                      onChange={(e) => setFormData({...formData, description: e.target.value})}
                       placeholder="Provide detailed requirements, specifications, and any additional information..."
                       rows={4}
                     />
@@ -323,12 +331,17 @@ export default function CreateRFQ() {
                       <Label>Response Deadline *</Label>
                       <div className="relative">
                         <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                        <Input type="date" className="pl-10" />
+                        <Input
+                          type="date"
+                          className="pl-10"
+                          value={formData.deadline}
+                          onChange={(e) => setFormData({...formData, deadline: e.target.value})}
+                        />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label>Delivery Location</Label>
-                      <Select>
+                      <Select value={formData.delivery_location} onValueChange={(v) => setFormData({...formData, delivery_location: v})}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select city" />
                         </SelectTrigger>
@@ -816,12 +829,40 @@ export default function CreateRFQ() {
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           ) : (
-            <Link to={createPageUrl('RFQList')}>
-              <Button className="bg-teal-500 hover:bg-teal-600">
-                <CheckCircle2 className="h-4 w-4 mr-2" />
-                Submit RFQ
-              </Button>
-            </Link>
+            <Button
+              disabled={submitting}
+              onClick={async () => {
+                setSubmitting(true);
+                const user = await base44.auth.me();
+                const payload = {
+                  title: formData.title || 'Untitled RFQ',
+                  category: formData.category,
+                  description: formData.description,
+                  budget: formData.budget ? Number(formData.budget) : undefined,
+                  deadline: formData.deadline ? new Date(formData.deadline).toISOString() : undefined,
+                  delivery_location: formData.delivery_location,
+                  status: 'active',
+                  buyer_email: user?.email,
+                  line_items: items.map(i => ({
+                    item_name: i.description,
+                    quantity: Number(i.quantity) || 0,
+                    unit: i.unit,
+                    specifications: i.specifications,
+                  })),
+                };
+                if (rfqType === 'services') {
+                  await base44.entities.ServicesRFQ.create(payload);
+                } else {
+                  await base44.entities.GoodsRFQ.create(payload);
+                }
+                setSubmitting(false);
+                window.location.href = createPageUrl('RFQList');
+              }}
+              className="bg-teal-500 hover:bg-teal-600"
+            >
+              <CheckCircle2 className="h-4 w-4 mr-2" />
+              {submitting ? 'Submitting...' : 'Submit RFQ'}
+            </Button>
           )}
         </div>
       </div>
